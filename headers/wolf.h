@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/19 22:17:33 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/19 22:40:06 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 # define SIZE_X 1024
 # define SIZE_Y 768
 # include "draw.h"
+# ifdef __APPLE__
+#  include "keycodes_mac.h"
+# else
+#  include "keycodes_linux.h"
+# endif
 
 typedef struct	s_context
 {
 	t_mlx		*x;
 }				t_context;
+
+int				closer(t_context *c);
+int				keydown(int keycode, t_context *c);
 
 #endif

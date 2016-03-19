@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   closer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/19 22:43:01 by snicolet         ###   ########.fr       */
+/*   Created: 2016/03/19 22:25:49 by snicolet          #+#    #+#             */
+/*   Updated: 2016/03/19 22:28:14 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "draw.h"
-#include "libft.h"
+#include <stdlib.h>
 
-static void		set_hooks(t_context *c)
+int		closer(t_context *c)
 {
-	draw_sethook_ng(c->x, &closer, c, CLOSE);
-	draw_sethook_ng(c->x, &keydown, c, KEYDOWN);
-}
-
-int		main(void)
-{
-	t_context	c;
-
-	if (!(c.x = draw_init("Wolf 3d", SIZE_X, SIZE_Y)))
-		ft_putendl("error: unable to initialise mlx window");
-	else
-	{
-		draw_reset_image(c.x, 0x009900cc);
-		set_hooks(&c);
-		draw_loop(c.x);
-	}
-	return (0);
+	draw_clear(c->x);
+	exit(0);
 }
