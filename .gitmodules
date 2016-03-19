@@ -1,0 +1,6 @@
+[submodule "libs/libft"]
+	path = libs/libft
+	url = https://github.com/Chr0nos/libft
+[submodule "libs/draw"]
+	path = libs/draw
+	url = https://github.com/Chr0nos/draw
