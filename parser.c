@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 23:05:12 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/20 12:32:53 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:00:36 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int		load_map(t_context *c, t_list *lst, unsigned int lines_count)
 		c->map.b[p].size = (int)lst->content_size;
 		lst = lst->next;
 	}
-	return (0);
+	c->map.lines = lines_count;
+	return (1);
 }
 
 int				parser(const char *mpath, t_context *c)
@@ -46,7 +47,6 @@ int				parser(const char *mpath, t_context *c)
 	lc = 0;
 	while ((ret = ft_get_next_line(fd, &line) > 0))
 	{
-		ft_printf("line: %s\n", line);
 		ft_lstadd(&lst, ft_lstnewlink(line, ft_strlen(line)));
 		lc++;
 	}
