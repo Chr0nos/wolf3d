@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/20 13:03:00 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:45:56 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_context
 	t_player		player;
 }					t_context;
 
+void				display(t_context *c);
 void				display_map(t_context *c);
 int					closer(t_context *c);
 int					keydown(int keycode, t_context *c);
