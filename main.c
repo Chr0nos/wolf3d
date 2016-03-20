@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/19 23:25:07 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/20 11:52:40 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int				main(void)
 		ft_putendl("error: unable to load the file for some reason.");
 	else
 	{
-		ft_printf("map:\n%s\n", c.map);
 		draw_reset_image(c.x, 0x009900cc);
 		draw_flush_image(c.x, c.x->img);
 		set_hooks(&c);

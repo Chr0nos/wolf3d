@@ -6,33 +6,52 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 23:05:12 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/19 23:24:31 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/20 12:32:53 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "libft.h"
 #include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-static int		check_invalid(char *map, int size)
+static int		load_map(t_context *c, t_list *lst, unsigned int lines_count)
 {
-	while (size--)
-		if (!(ft_isalnum(map[size])))
-			return (0);
-	return (1);
+	unsigned int	p;
+
+	if (!(c->map.b = malloc(sizeof(t_map) * lines_count)))
+		return (-1);
+	p = lines_count;
+	while (p--)
+	{
+		c->map.b[p].data = (char*)lst->content;
+		c->map.b[p].size = (int)lst->content_size;
+		lst = lst->next;
+	}
+	return (0);
 }
 
 int				parser(const char *mpath, t_context *c)
 {
-	int		fd;
-	int		ret;
+	int				fd;
+	int				ret;
+	char			*line;
+	t_list			*lst;
+	unsigned int	lc;
 
 	if (!(fd = open(mpath, O_RDONLY)))
 		return (-1);
-	ret = (int)read(fd, c->map, MAP_MAX_SIZE);
-	if (ret <= 0)
-		return (-2);
-	c->map[ret] = '\0';
-	return (check_invalid(c->map, ret));
+	lst = 0;
+	lc = 0;
+	while ((ret = ft_get_next_line(fd, &line) > 0))
+	{
+		ft_printf("line: %s\n", line);
+		ft_lstadd(&lst, ft_lstnewlink(line, ft_strlen(line)));
+		lc++;
+	}
+	close(fd);
+	fd = load_map(c, lst, lc);
+	ft_lstdel(&lst, NULL);
+	return (fd);
 }
