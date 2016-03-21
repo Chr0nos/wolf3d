@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 13:16:57 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/21 15:10:51 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # else
 #  include "keycodes_linux.h"
 # endif
+# include <pthread.h>
 
 typedef struct		s_buffer
 {
@@ -33,13 +34,18 @@ typedef struct		s_player
 {
 	int				x;
 	int				y;
+	int				fov;
+	t_vector		dir;
 }					t_player;
 
 typedef struct		s_map
 {
 	t_buffer		*b;
 	unsigned int	lines;
-	int				padding;
+	int				flags;
+	double			xtime;
+	double			ltime;
+	pthread_t		thread;
 }					t_map;
 
 typedef struct		s_context
@@ -49,8 +55,9 @@ typedef struct		s_context
 	t_player		player;
 }					t_context;
 
-void				display(t_context *c);
 void				display_map(t_context *c);
+void				display_loop_start(t_context *c);
+int					display(t_context *c);
 int					closer(t_context *c);
 int					keydown(int keycode, t_context *c);
 int					mouse_move(int x, int y, t_context *c);

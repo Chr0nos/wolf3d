@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 13:53:33 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/21 15:40:38 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static void		set_defaults(t_context *c)
 {
 	c->player.x = 0;
 	c->player.y = 0;
+	c->player.fov = 60;
+	c->map.xtime = 0;
+	c->map.ltime = 0;
 }
 
 int				main(void)
@@ -40,6 +43,7 @@ int				main(void)
 		set_defaults(&c);
 		display_map(&c);
 		display(&c);
+		//display_loop_start(&c);
 		set_hooks(&c);
 		draw_loop(c.x);
 	}

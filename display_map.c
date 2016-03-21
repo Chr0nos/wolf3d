@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 12:50:52 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/20 12:57:44 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/21 15:07:26 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	display_map(t_context *c)
 {
-	int		p;
+	unsigned int		p;
 
 	ft_putendl("map:");
 	p = 0;
