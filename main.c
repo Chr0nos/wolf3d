@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/20 13:46:19 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:53:33 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void		set_hooks(t_context *c)
 {
 	draw_sethook_ng(c->x, &closer, c, CLOSE);
 	draw_sethook_ng(c->x, &keydown, c, KEYDOWN);
+	draw_sethook_ng(c->x, &mouse_move, c, MOUSEMOVE);
 }
 
 static void		set_defaults(t_context *c)
@@ -38,9 +39,7 @@ int				main(void)
 	{
 		set_defaults(&c);
 		display_map(&c);
-		draw_reset_image(c.x, 0x009900cc);
 		display(&c);
-		draw_flush_image(c.x, c.x->img);
 		set_hooks(&c);
 		draw_loop(c.x);
 	}
