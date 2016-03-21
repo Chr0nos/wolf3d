@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 15:10:51 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:27:25 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct		s_buffer
 
 typedef struct		s_player
 {
-	int				x;
-	int				y;
+	double			posx;
+	double			posy;
 	int				fov;
 	t_vector		dir;
 }					t_player;

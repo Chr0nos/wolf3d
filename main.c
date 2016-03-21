@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 15:40:38 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:42:24 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ static void		set_hooks(t_context *c)
 
 static void		set_defaults(t_context *c)
 {
-	c->player.x = 0;
-	c->player.y = 0;
+	c->player.posx = 5.0f;
+	c->player.posy = 3.0f;
 	c->player.fov = 60;
+	c->player.dir.x = -1.0f;
+	c->player.dir.y = 0.0f;
+	c->player.dir.z = 0.0f;
 	c->map.xtime = 0;
 	c->map.ltime = 0;
 }
-
+#include "mlx.h"
 int				main(void)
 {
 	t_context	c;
@@ -42,10 +45,12 @@ int				main(void)
 	{
 		set_defaults(&c);
 		display_map(&c);
-		display(&c);
 		//display_loop_start(&c);
 		set_hooks(&c);
-		draw_loop(c.x);
+		//display(&c);
+		//draw_loop(c.x);
+		draw_loop_hook(c.x, &display, &c);
+		//mlx_loop_hook(c.x->mlxptr, &display, &c);
 	}
 	return (0);
 }
