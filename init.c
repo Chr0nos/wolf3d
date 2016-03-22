@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 17:41:46 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 20:34:12 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ static void		init_deltas(t_context *c)
 
 	d = &c->player.d;
 	rd = &d->raydir;
-	d->map.x = (int)d->raypos.x;
-	d->map.y = (int)d->raypos.y;
 	d->deltadis.x = sqrt(1 + (rd->y * rd->y) / (rd->x * rd->x));
 	d->deltadis.y = sqrt(1 + (rd->x * rd->x) / (rd->y * rd->y));
 	init_deltas_stepdist(c, d);
 }
 
-static void		init_ray(t_context *c, t_display *d)
+static void		init_ray(t_context *c, t_display *d, int x, int y)
 {
 	int			hit;
 	int			side;
@@ -64,18 +62,18 @@ static void		init_ray(t_context *c, t_display *d)
 		if (d->sidedist.x < d->sidedist.y)
 		{
 			d->sidedist.x += d->deltadis.x;
-			d->map.x += d->step.x;
+			x += d->step.x;
 			side = 0;
 		}
 		else
 		{
 			d->sidedist.y += d->deltadis.y;
-			d->map.y += d->step.y;
+			y += d->step.y;
 			side = 1;
 		}
-		if (check_obstacle(c, d->map.x, d->map.y))
+		if (check_obstacle(c, x, y))
 		{
-			ft_printf("obstacle found on %d %d\n", d->map.x, d->map.y);
+			ft_printf("obstacle found on %d %d\n", x, y);
 			hit = 1;
 		}
 	}
@@ -99,5 +97,5 @@ void			init_display(t_context *c)
 	d->raypos.x = c->player.pos.x;
 	d->raypos.y = c->player.pos.y;
 	init_deltas(c);
-	init_ray(c, &c->player.d);
+	init_ray(c, &c->player.d, (int)d->raypos.x, (int)d->raypos.y);
 }

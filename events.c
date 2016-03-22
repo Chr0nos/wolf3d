@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 13:19:45 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 20:08:57 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		mouse_move(int x, int y, t_context *c)
 	if ((x < 0) || (y < 0) || (x >= c->x->width) || (y >= c->x->height))
 		return (0);
 	p = draw_make_px(x, y);
-	draw_px(c->x, &p, COLOR_GREEN);
+	draw_px(c->x, &p, COLOR_PURPLE);
 	draw_flush_image(c->x, c->x->img);
 	return (0);
 }

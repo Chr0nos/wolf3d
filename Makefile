@@ -6,12 +6,12 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/03/22 19:15:01 by snicolet         ###   ########.fr        #
+#    Updated: 2016/03/22 20:08:33 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=wolf3d
-FLAGS=-Wall -Wextra -Werror -Weverything -fsanitize=address
+FLAGS=-Wall -Wextra -Werror -Weverything -fsanitize=address -g3
 DRAW=./libs/draw
 MLX=./libs/minilibx_macos
 LIBFT=./libs/libft
@@ -21,7 +21,6 @@ LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -L $(MLX) -lmlx -lm -framewor
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o
 
 all: $(NAME)
-
 
 $(NAME): $(LIBFT)/libft.a $(DRAW)/libdraw.a $(OBJ)
 	$(CC) $(OBJ) $(LINKER) -o $(NAME)

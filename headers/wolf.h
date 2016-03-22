@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 17:57:38 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 20:30:00 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@
 # define SIZE_Y 768
 # define MAP_MAX_SIZE 10000
 # include "draw.h"
-# ifdef __APPLE__
-#  include "keycodes_mac.h"
-# else
-#  include "keycodes_linux.h"
-# endif
+# include "keycodes.h"
 # include <pthread.h>
 
 typedef struct		s_posxy
@@ -37,8 +33,8 @@ typedef struct		s_display
 	t_posxy			deltadis;
 	t_posxy			sidedist;
 	t_point			step;
-	t_point			map;
 	double			w;
+	double			perpwalldist;
 }					t_display;
 
 typedef struct		s_buffer
