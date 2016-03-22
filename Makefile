@@ -6,7 +6,7 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/03/22 13:41:09 by snicolet         ###   ########.fr        #
+#    Updated: 2016/03/22 16:38:50 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAGS=-Wall -Wextra -Werror -Weverything -fsanitize=address
 DRAW=./libs/draw
 MLX=./libs/minilibx_macos
 LIBFT=./libs/libft
-INC=-I./headers -I $(DRAW) -I $(LIBFT)
+INC=-I./headers -I $(DRAW) -I $(LIBFT) -I $(MLX)
 CC=clang
 LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -L $(MLX) -lmlx -lm -framework AppKit -framework OpenGL
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o

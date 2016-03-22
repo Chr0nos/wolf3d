@@ -6,12 +6,13 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 14:32:00 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:41:25 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "draw.h"
+#include "libft.h"
 #include <math.h>
 
 static void		init_deltas_stepdist(t_context *c, t_display *d)
@@ -42,22 +43,48 @@ static void		init_deltas(t_context *c)
 {
 	t_display	*d;
 	t_posxy		*rd;
-	t_point		map;
 
 	d = &c->player.d;
 	rd = &d->raydir;
-	map.x = (int)d->raypos.x;
-	map.y = (int)d->raypos.y;
+	d->map.x = (int)d->raypos.x;
+	d->map.y = (int)d->raypos.y;
 	d->deltadis.x = sqrt(1 + (rd->y * rd->y) / (rd->x * rd->x));
 	d->deltadis.y = sqrt(1 + (rd->x * rd->x) / (rd->y * rd->y));
 	init_deltas_stepdist(c, d);
+}
+
+static void		init_ray(t_context *c, t_display *d)
+{
+	int			hit;
+	int			side;
+
+	hit = 0;
+	while (!hit)
+	{
+		if (d->sidedist.x < d->sidedist.y)
+		{
+			d->sidedist.x += d->deltadis.x;
+			d->map.x += d->step.x;
+			side = 0;
+		}
+		else
+		{
+			d->sidedist.y += d->deltadis.y;
+			d->map.y += d->step.y;
+			side = 1;
+		}
+		if (check_obstacle(c, d->map.x, d->map.y))
+		{
+			ft_printf("obstacle found on %d %d\n", d->map.x, d->map.y);
+			hit = 1;
+		}
+	}
 }
 
 void			init_display(t_context *c)
 {
 	t_display	*d;
 	t_point		px;
-	int			hit;
 
 	d = &c->player.d;
 	d->w = (double)c->x->width;
@@ -72,11 +99,5 @@ void			init_display(t_context *c)
 	d->raypos.x = c->player.pos.x;
 	d->raypos.y = c->player.pos.y;
 	init_deltas(c);
-	hit = 0;
-	/*
-	while (!hit)
-	{
-
-	}
-	*/
+	init_ray(c, &c->player.d);
 }

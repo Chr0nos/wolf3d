@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 14:23:51 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:31:47 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_display
 	t_posxy			deltadis;
 	t_posxy			sidedist;
 	t_point			step;
+	t_point			map;
 	double			w;
 }					t_display;
 
