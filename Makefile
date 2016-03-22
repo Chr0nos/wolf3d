@@ -6,7 +6,7 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/03/21 15:20:04 by snicolet         ###   ########.fr        #
+#    Updated: 2016/03/22 13:41:09 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT=./libs/libft
 INC=-I./headers -I $(DRAW) -I $(LIBFT)
 CC=clang
 LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -L $(MLX) -lmlx -lm -framework AppKit -framework OpenGL
-OBJ=main.o closer.o events.o parser.o display_map.o display.o
+OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o
 
 all: $(NAME)
 	$(CC) $(OBJ) $(LINKER) -o $(NAME)

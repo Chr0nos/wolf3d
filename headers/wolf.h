@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 16:27:25 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:23:51 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,23 @@
 # endif
 # include <pthread.h>
 
+typedef struct		s_posxy
+{
+	double			x;
+	double			y;
+}					t_posxy;
+
+typedef struct		s_display
+{
+	double			camera_x;
+	t_posxy			raypos;
+	t_posxy			raydir;
+	t_posxy			deltadis;
+	t_posxy			sidedist;
+	t_point			step;
+	double			w;
+}					t_display;
+
 typedef struct		s_buffer
 {
 	char			*data;
@@ -32,10 +49,11 @@ typedef struct		s_buffer
 
 typedef struct		s_player
 {
-	double			posx;
-	double			posy;
+	t_posxy			pos;
+	t_posxy			plane;
 	int				fov;
 	t_vector		dir;
+	t_display		d;
 }					t_player;
 
 typedef struct		s_map
@@ -55,6 +73,7 @@ typedef struct		s_context
 	t_player		player;
 }					t_context;
 
+void				init_display(t_context *c);
 void				display_map(t_context *c);
 void				display_loop_start(t_context *c);
 int					display(t_context *c);
@@ -62,5 +81,6 @@ int					closer(t_context *c);
 int					keydown(int keycode, t_context *c);
 int					mouse_move(int x, int y, t_context *c);
 int					parser(const char *mpath, t_context *c);
+int					check_obstacle(t_context *c, int x, int y);
 
 #endif

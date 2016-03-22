@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 16:37:57 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 13:28:54 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		load_square(t_point *p, int size, t_point offsets)
 	}
 }
 
-int			display(t_context *c)
+static void	display_bullshit(t_context *c)
 {
 	t_point		p[4];
 	int			z;
@@ -43,6 +43,12 @@ int			display(t_context *c)
 		load_square(p, 30 * z, draw_make_px(400, 400));
 		draw_perimeter(c->x, p, 4, COLOR_GREEN);
 	}
+}
+
+int			display(t_context *c)
+{
+	init_display(c);
+	display_bullshit(c);
 	ft_putendl("flush");
 	draw_flush_image(c->x, c->x->img);
 	ft_putendl("done");

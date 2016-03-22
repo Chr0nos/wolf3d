@@ -6,13 +6,14 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/21 16:42:24 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:10:40 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "draw.h"
 #include "libft.h"
+#include "mlx.h"
 
 static void		set_hooks(t_context *c)
 {
@@ -23,8 +24,10 @@ static void		set_hooks(t_context *c)
 
 static void		set_defaults(t_context *c)
 {
-	c->player.posx = 5.0f;
-	c->player.posy = 3.0f;
+	c->player.pos.x = 5.0f;
+	c->player.pos.y = 3.0f;
+	c->player.plane.x = 0.0f;
+	c->player.plane.y = 0.66f;
 	c->player.fov = 60;
 	c->player.dir.x = -1.0f;
 	c->player.dir.y = 0.0f;
@@ -32,7 +35,7 @@ static void		set_defaults(t_context *c)
 	c->map.xtime = 0;
 	c->map.ltime = 0;
 }
-#include "mlx.h"
+
 int				main(void)
 {
 	t_context	c;
@@ -47,9 +50,9 @@ int				main(void)
 		display_map(&c);
 		//display_loop_start(&c);
 		set_hooks(&c);
-		//display(&c);
-		//draw_loop(c.x);
-		draw_loop_hook(c.x, &display, &c);
+		display(&c);
+		draw_loop(c.x);
+		//draw_loop_hook(c.x, &display, &c);
 		//mlx_loop_hook(c.x->mlxptr, &display, &c);
 	}
 	return (0);
