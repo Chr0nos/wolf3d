@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 14:10:40 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 19:06:27 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void		set_hooks(t_context *c)
 
 static void		set_defaults(t_context *c)
 {
-	c->player.pos.x = 5.0f;
-	c->player.pos.y = 3.0f;
+	c->player.pos.x = 1.0f;
+	c->player.pos.y = 1.0f;
 	c->player.plane.x = 0.0f;
 	c->player.plane.y = 0.66f;
 	c->player.fov = 60;
@@ -47,7 +47,8 @@ int				main(void)
 	else
 	{
 		set_defaults(&c);
-		display_map(&c);
+		//display_map(&c);
+		//display_map_walk(&c);
 		//display_loop_start(&c);
 		set_hooks(&c);
 		display(&c);

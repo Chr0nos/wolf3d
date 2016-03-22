@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 16:41:25 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:41:46 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		init_deltas_stepdist(t_context *c, t_display *d)
 	else
 	{
 		d->step.y = 1;
-		d->sidedist.y = (c->x->height+ 1 - d->raypos.y) * d->deltadis.y;
+		d->sidedist.y = (c->x->height + 1 - d->raypos.y) * d->deltadis.y;
 	}
 }
 

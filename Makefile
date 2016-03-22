@@ -6,7 +6,7 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/03/22 16:38:50 by snicolet         ###   ########.fr        #
+#    Updated: 2016/03/22 19:15:01 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,10 @@ LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -L $(MLX) -lmlx -lm -framewor
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o
 
 all: $(NAME)
-	$(CC) $(OBJ) $(LINKER) -o $(NAME)
+
 
 $(NAME): $(LIBFT)/libft.a $(DRAW)/libdraw.a $(OBJ)
+	$(CC) $(OBJ) $(LINKER) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $< $(INC) $(FLAGS)
