@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 21:44:14 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:01:24 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,17 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 	printf("distance: %f\n", ray->dist);
 }
 
+static void		display_vertical(t_context *c, t_line *line)
+{
+	t_line		sky;
+	t_line		sol;
+
+	sky = draw_make_line(line->start.x, 0, line->start.x, line->start.y);
+	sol = draw_make_line(line->start.x, line->end.y, line->start.x, c->x->height);
+	draw_line(c->x, &sky, COLOR_BLUE);
+	draw_line(c->x, &sol, COLOR_BROWN);
+}
+
 void			init_display(t_context *c, int x)
 {
 	const double	w = (double)c->x->width;
@@ -114,4 +125,5 @@ void			init_display(t_context *c, int x)
 	line = draw_make_line(x, (int)(-ray.h / 2.0f + (double)c->x->height / 2.0f),
 		x, (int)(ray.h / 2.0f + (double)c->x->height / 2.0f));
 	draw_line(c->x, &line, COLOR_RED);
+	display_vertical(c, &line);
 }
