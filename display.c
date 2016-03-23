@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 17:09:46 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 21:40:08 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ int			display(t_context *c)
 {
 	int		x;
 
+	draw_reset_image(c->x, 0x00000000);
 	x = 0;
 	while (x < c->x->width)
 	{
-
+		init_display(c, x);
 		x++;
 	}
-	init_display(c);
+	//init_display(c);
 	draw_flush_image(c->x, c->x->img);
 	return (0);
 }

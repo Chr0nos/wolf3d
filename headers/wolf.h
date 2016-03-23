@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 18:13:56 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 21:39:52 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_ray
 {
 	double			camera_x;
 	double			dist;
+	double			h;
 	t_posxy			pos;
 	t_posxy			dir;
 	t_posxy			deltadis;
@@ -70,7 +71,7 @@ typedef struct		s_context
 	t_player		player;
 }					t_context;
 
-void				init_display(t_context *c);
+void				init_display(t_context *c, int x);
 void				display_map(t_context *c);
 void				display_map_walk(t_context *c);
 void				display_loop_start(t_context *c);

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 18:32:40 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 21:49:22 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		set_hooks(t_context *c)
 static void		set_defaults(t_context *c)
 {
 	c->player.pos.x = 4.0f;
-	c->player.pos.y = 12.0f;
+	c->player.pos.y = 5.0f;
 	c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] = 'x';
 	c->player.plane.x = 0.66f;
 	c->player.plane.y = 0.0f;
