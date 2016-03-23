@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 23:01:24 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:29:06 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,30 +84,37 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 	init_deltas_stepdist(c, ray);
 	px = init_ray(c, ray, px);
 	if (ray->side == 0)
-		ray->dist = fabs(((double)px.x - ray->pos.x + (1.0f - ray->step.x) / 2.0f)
-		/ ray->dir.x);
+		ray->dist = fabs(((double)px.x - ray->pos.x +
+			(1.0f - ray->step.x) / 2.0f) / ray->dir.x);
 	else
-		ray->dist = fabs(((double)px.y - ray->pos.y + (1.0f - ray->step.y) / 2.0f)
-		/ ray->dir.y);
+		ray->dist = fabs(((double)px.y - ray->pos.y +
+			(1.0f - ray->step.y) / 2.0f) / ray->dir.y);
 	printf("distance: %f\n", ray->dist);
 }
 
-static void		display_vertical(t_context *c, t_line *line)
+/*
+** this function actualy draw the whole vertical line from 0 to the win size
+*/
+
+static void		display_vertical(t_context *c, t_ray *ray, int x)
 {
+	t_line		wall;
 	t_line		sky;
 	t_line		sol;
 
-	sky = draw_make_line(line->start.x, 0, line->start.x, line->start.y);
-	sol = draw_make_line(line->start.x, line->end.y, line->start.x, c->x->height);
+	wall = draw_make_line(x, (int)(-ray->h / 2.0f + (double)c->x->height / 2.0f),
+		x, (int)(ray->h / 2.0f + (double)c->x->height / 2.0f));
+	sky = draw_make_line(wall.start.x, 0, wall.start.x, wall.start.y);
+	sol = draw_make_line(wall.start.x, wall.end.y, wall.start.x, c->x->height);
 	draw_line(c->x, &sky, COLOR_BLUE);
 	draw_line(c->x, &sol, COLOR_BROWN);
+	draw_line(c->x, &wall, (ray->side == 0) ? COLOR_BROWN : COLOR_GREEN);
 }
 
 void			init_display(t_context *c, int x)
 {
 	const double	w = (double)c->x->width;
 	double			camera_x;
-	t_line			line;
 	t_point			px;
 	t_ray			ray;
 
@@ -122,8 +129,5 @@ void			init_display(t_context *c, int x)
 	}
 	init_dda(c, draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
 	ray.h = abs((int)((double)c->x->height / ray.dist));
-	line = draw_make_line(x, (int)(-ray.h / 2.0f + (double)c->x->height / 2.0f),
-		x, (int)(ray.h / 2.0f + (double)c->x->height / 2.0f));
-	draw_line(c->x, &line, COLOR_RED);
-	display_vertical(c, &line);
+	display_vertical(c, &ray, x);
 }

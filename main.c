@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 22:53:08 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:29:58 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		set_defaults(t_context *c)
 	c->player.fov = 60;
 	c->player.dir.x = 0.0f;
 	c->player.dir.y = 1.0f;
-	c->player.speed = 0.5f;
+	c->player.speed = 0.3f;
 }
 
 int				main(int ac, char **av)

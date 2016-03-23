@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 21:40:08 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:31:43 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int			display(t_context *c)
 	}
 	//init_display(c);
 	draw_flush_image(c->x, c->x->img);
+	usleep(50);
 	return (0);
 }
 

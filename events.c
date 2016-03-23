@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 23:05:42 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:23:58 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		key_move(int keycode, t_context *c)
 	return (1);
 }
 
-int		keydown(int keycode, t_context *c)
+int				keydown(int keycode, t_context *c)
 {
 	if (keycode == KEY_ESC)
 		return (closer(c));
@@ -48,7 +48,7 @@ int		keydown(int keycode, t_context *c)
 	return (0);
 }
 
-int		mouse_move(int x, int y, t_context *c)
+int				mouse_move(int x, int y, t_context *c)
 {
 
 	if ((x < 0) || (y < 0) || (x >= c->x->width) || (y >= c->x->height))
