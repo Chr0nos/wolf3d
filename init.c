@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 20:34:12 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:32:38 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,36 @@
 #include "libft.h"
 #include <math.h>
 
-static void		init_deltas_stepdist(t_context *c, t_display *d)
+/*
+** this function calculate the directional vector and the the lenght of
+** each segment
+*/
+
+static void		init_deltas_stepdist(t_context *c, t_ray *ray)
 {
-	if (d->deltadis.x < 0)
+	if (ray->deltadis.x < 0)
 	{
-		d->step.x = -1;
-		d->sidedist.x = (d->raypos.x - c->x->width) * d->deltadis.x;
+		ray->step.x = -1.0f;
+		ray->sidedist.x = (ray->pos.x - c->x->width) * ray->deltadis.x;
 	}
 	else
 	{
-		d->step.x = 1;
-		d->sidedist.x = (c->x->width + 1 - d->raypos.x) * d->deltadis.x;
+		ray->step.x = 1.0f;
+		ray->sidedist.x = (c->x->width + 1 - ray->pos.x) * ray->deltadis.x;
 	}
-	if (d->deltadis.y < 0)
+	if (ray->deltadis.y < 0)
 	{
-		d->step.y = -1;
-		d->sidedist.y = (d->raypos.y - c->x->height) * d->deltadis.y;
+		ray->step.y = -1.0f;
+		ray->sidedist.y = (ray->pos.y - c->x->height) * ray->deltadis.y;
 	}
 	else
 	{
-		d->step.y = 1;
-		d->sidedist.y = (c->x->height + 1 - d->raypos.y) * d->deltadis.y;
+		ray->step.y = 1.0f;
+		ray->sidedist.y = (c->x->height + 1 - ray->pos.y) * ray->deltadis.y;
 	}
 }
 
-static void		init_deltas(t_context *c)
-{
-	t_display	*d;
-	t_posxy		*rd;
-
-	d = &c->player.d;
-	rd = &d->raydir;
-	d->deltadis.x = sqrt(1 + (rd->y * rd->y) / (rd->x * rd->x));
-	d->deltadis.y = sqrt(1 + (rd->x * rd->x) / (rd->y * rd->y));
-	init_deltas_stepdist(c, d);
-}
-
-static void		init_ray(t_context *c, t_display *d, int x, int y)
+static t_point		init_ray(t_context *c, t_ray *ray, t_point px)
 {
 	int			hit;
 	int			side;
@@ -59,43 +52,56 @@ static void		init_ray(t_context *c, t_display *d, int x, int y)
 	hit = 0;
 	while (!hit)
 	{
-		if (d->sidedist.x < d->sidedist.y)
+		if (ray->sidedist.x < ray->sidedist.y)
 		{
-			d->sidedist.x += d->deltadis.x;
-			x += d->step.x;
+			ray->sidedist.x += ray->deltadis.x;
+			px.x += ray->step.x;
 			side = 0;
 		}
 		else
 		{
-			d->sidedist.y += d->deltadis.y;
-			y += d->step.y;
+			ray->sidedist.y += ray->deltadis.y;
+			px.y += ray->step.y;
 			side = 1;
 		}
-		if (check_obstacle(c, x, y))
+		if (check_obstacle(c, px.x, px.y))
 		{
-			ft_printf("obstacle found on %d %d\n", x, y);
+			ft_printf("obstacle found on %d %d\n", px.x, px.y);
 			hit = 1;
 		}
 	}
+	return (px);
+}
+
+static void		init_dda(t_context *c, t_point px)
+{
+	t_ray	ray;
+
+	ray.pos = c->player.pos;
+	ray.dir = c->player.raydir;
+	ray.deltadis.x = sqrt(1 + pow(ray.dir.y, 2) / pow(ray.dir.x, 2));
+	ray.deltadis.y = sqrt(1 + pow(ray.dir.x, 2) / pow(ray.dir.y, 2));
+	init_deltas_stepdist(c, &ray);
+	init_ray(c, &ray, px);
 }
 
 void			init_display(t_context *c)
 {
-	t_display	*d;
-	t_point		px;
+	const double	w = (double)c->x->width;
+	double			camera_x;
+	t_posxy			raydir;
+	t_posxy			raypos;
+	t_point			px;
 
-	d = &c->player.d;
-	d->w = (double)c->x->width;
 	px.x = 0;
 	while (px.x < c->x->width)
 	{
-		d->camera_x = 2 * px.x / d->w - 1;
-		d->raydir.x = c->player.dir.x + c->player.plane.x * d->camera_x;
-		d->raydir.y = c->player.dir.y + c->player.plane.y * d->camera_x;
+		camera_x = 2.0 * (double)px.x / w - 1.0;
+		raydir.x = c->player.dir.x + c->player.plane.x * camera_x;
+		raydir.y = c->player.dir.y + c->player.plane.y * camera_x;
+		//ft_printf("raydir: x:%d y:%d\n", (int)raydir.x, (int)raydir.y);
 		px.x++;
 	}
-	d->raypos.x = c->player.pos.x;
-	d->raypos.y = c->player.pos.y;
-	init_deltas(c);
-	init_ray(c, &c->player.d, (int)d->raypos.x, (int)d->raypos.y);
+	c->player.raydir = raydir;
+	init_dda(c, draw_make_px((int)raypos.x, (int)raypos.y));
 }

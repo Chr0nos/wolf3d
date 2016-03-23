@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 20:30:00 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:20:51 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ typedef struct		s_posxy
 	double			y;
 }					t_posxy;
 
-typedef struct		s_display
+typedef struct		s_ray
 {
 	double			camera_x;
-	t_posxy			raypos;
-	t_posxy			raydir;
+	t_posxy			pos;
+	t_posxy			dir;
 	t_posxy			deltadis;
 	t_posxy			sidedist;
-	t_point			step;
-	double			w;
-	double			perpwalldist;
-}					t_display;
+	t_posxy			step;
+}					t_ray;
 
 typedef struct		s_buffer
 {
@@ -48,9 +46,10 @@ typedef struct		s_player
 {
 	t_posxy			pos;
 	t_posxy			plane;
+	t_posxy			raydir;
+	t_posxy			dir;
 	int				fov;
-	t_vector		dir;
-	t_display		d;
+	int				padding;
 }					t_player;
 
 typedef struct		s_map
@@ -58,8 +57,6 @@ typedef struct		s_map
 	t_buffer		*b;
 	unsigned int	lines;
 	int				flags;
-	double			xtime;
-	double			ltime;
 	pthread_t		thread;
 }					t_map;
 
