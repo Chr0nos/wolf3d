@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 17:24:36 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:32:40 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static void		set_hooks(t_context *c)
 
 static void		set_defaults(t_context *c)
 {
-	c->player.pos.x = 2.0f;
-	c->player.pos.y = 2.0f;
-	c->player.plane.x = 0.0f;
-	c->player.plane.y = 1.0f;
+	c->player.pos.x = 4.0f;
+	c->player.pos.y = 12.0f;
+	c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] = 'x';
+	c->player.plane.x = 0.66f;
+	c->player.plane.y = 0.0f;
 	c->player.fov = 60;
-	c->player.dir.x = -1.0f;
-	c->player.dir.y = 0.0f;
+	c->player.dir.x = 0.0f;
+	c->player.dir.y = 1.0f;
 }
 
 int				main(int ac, char **av)
@@ -45,9 +46,11 @@ int				main(int ac, char **av)
 	else
 	{
 		set_defaults(&c);
+		display_map(&c);
 		//display_loop_start(&c);
 		set_hooks(&c);
-		draw_loop_hook(c.x, &display, &c);
+		display(&c);
+		//draw_loop_hook(c.x, &display, &c);
 		draw_loop(c.x);
 		ft_putendl("quitting");
 	}

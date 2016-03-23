@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 17:32:38 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:21:03 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "draw.h"
 #include "libft.h"
 #include <math.h>
+
+#include <stdio.h>
 
 /*
 ** this function calculate the directional vector and the the lenght of
@@ -47,7 +49,6 @@ static void		init_deltas_stepdist(t_context *c, t_ray *ray)
 static t_point		init_ray(t_context *c, t_ray *ray, t_point px)
 {
 	int			hit;
-	int			side;
 
 	hit = 0;
 	while (!hit)
@@ -56,17 +57,17 @@ static t_point		init_ray(t_context *c, t_ray *ray, t_point px)
 		{
 			ray->sidedist.x += ray->deltadis.x;
 			px.x += ray->step.x;
-			side = 0;
+			ray->side = 0;
 		}
 		else
 		{
 			ray->sidedist.y += ray->deltadis.y;
 			px.y += ray->step.y;
-			side = 1;
+			ray->side = 1;
 		}
 		if (check_obstacle(c, px.x, px.y))
 		{
-			ft_printf("obstacle found on %d %d\n", px.x, px.y);
+			ft_printf("obstacle found on x:%d y:%d\n", px.x, px.y);
 			hit = 1;
 		}
 	}
@@ -82,7 +83,14 @@ static void		init_dda(t_context *c, t_point px)
 	ray.deltadis.x = sqrt(1 + pow(ray.dir.y, 2) / pow(ray.dir.x, 2));
 	ray.deltadis.y = sqrt(1 + pow(ray.dir.x, 2) / pow(ray.dir.y, 2));
 	init_deltas_stepdist(c, &ray);
-	init_ray(c, &ray, px);
+	px = init_ray(c, &ray, px);
+	if (ray.side == 0)
+		ray.dist = fabs(((double)px.x - ray.pos.x + (1.0f - ray.step.x) / 2.0f)
+		/ ray.dir.x);
+	else
+		ray.dist = fabs(((double)px.y - ray.pos.y + (1.0f - ray.step.y) / 2.0f)
+		/ ray.dir.y);
+	printf("distance: %f\n", ray.dist);
 }
 
 void			init_display(t_context *c)
@@ -90,7 +98,6 @@ void			init_display(t_context *c)
 	const double	w = (double)c->x->width;
 	double			camera_x;
 	t_posxy			raydir;
-	t_posxy			raypos;
 	t_point			px;
 
 	px.x = 0;
@@ -103,5 +110,5 @@ void			init_display(t_context *c)
 		px.x++;
 	}
 	c->player.raydir = raydir;
-	init_dda(c, draw_make_px((int)raypos.x, (int)raypos.y));
+	init_dda(c, draw_make_px((int)c->player.pos.x, (int)c->player.pos.y));
 }
