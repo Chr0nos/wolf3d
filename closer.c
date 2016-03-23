@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:25:49 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/19 22:28:14 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/23 13:45:44 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,19 @@
 #include "draw.h"
 #include <stdlib.h>
 
-int		closer(t_context *c)
+static void		clean_map(t_context *c)
+{
+	unsigned int	p;
+
+	p = c->map.lines;
+	while (p--)
+		free(c->map.b[p].data);
+	free(c->map.b);
+}
+
+int				closer(t_context *c)
 {
 	draw_clear(c->x);
+	clean_map(c);
 	exit(0);
 }
