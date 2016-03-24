@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 23:29:06 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:34:01 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,42 +92,56 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 	printf("distance: %f\n", ray->dist);
 }
 
+static int		fix_y(int y, int maxy)
+{
+	if (y < 0)
+		return (0);
+	if (y >= maxy)
+		return (maxy - 1);
+	return (y);
+}
+
 /*
 ** this function actualy draw the whole vertical line from 0 to the win size
 */
 
-static void		display_vertical(t_context *c, t_ray *ray, int x)
+static void		display_vertical(t_context *c, t_ray *ray, const int x)
 {
-	t_line		wall;
-	t_line		sky;
-	t_line		sol;
+	const double	h = (double)c->x->height;
+	t_line			wall;
+	t_line			sky;
+	t_line			sol;
+	int				y[2];
 
-	wall = draw_make_line(x, (int)(-ray->h / 2.0f + (double)c->x->height / 2.0f),
-		x, (int)(ray->h / 2.0f + (double)c->x->height / 2.0f));
-	sky = draw_make_line(wall.start.x, 0, wall.start.x, wall.start.y);
-	sol = draw_make_line(wall.start.x, wall.end.y, wall.start.x, c->x->height);
+	y[0] = fix_y(abs((int)(-ray->h / 2.0f + h / 2.0f)), c->x->height);
+	y[1] = fix_y(abs((int)(ray->h / 2.0f + h / 2.0f)), c->x->height);
+	wall = draw_make_line(x, y[0], x, y[1]);
+	sky = draw_make_line(x, 0, x, wall.start.y);
+	sol = draw_make_line(x, wall.end.y, x, c->x->height);
 	draw_line(c->x, &sky, COLOR_BLUE);
 	draw_line(c->x, &sol, COLOR_BROWN);
 	draw_line(c->x, &wall, (ray->side == 0) ? COLOR_BROWN : COLOR_GREEN);
 }
 
-void			init_display(t_context *c, int x)
+void			init_display(t_context *c)
 {
 	const double	w = (double)c->x->width;
 	double			camera_x;
 	t_point			px;
 	t_ray			ray;
 
-	px.x = x;
+	px.x = 0;
 	while (px.x < c->x->width)
 	{
 		camera_x = 2.0 * (double)px.x / w - 1.0;
 		c->player.raydir.x = c->player.dir.x + c->player.plane.x * camera_x;
 		c->player.raydir.y = c->player.dir.y + c->player.plane.y * camera_x;
 		//ft_printf("raydir: x:%d y:%d\n", (int)raydir.x, (int)raydir.y);
+		init_dda(c, draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
+		if (ray.dist <= 0.0f)
+			return ;
+		ray.h = abs((int)((double)c->x->height / ray.dist));
+		display_vertical(c, &ray, px.x);
 		px.x++;
 	}
-	init_dda(c, draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
-	ray.h = abs((int)((double)c->x->height / ray.dist));
-	display_vertical(c, &ray, x);
 }

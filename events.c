@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 23:23:58 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:21:41 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ static int		key_move(int keycode, t_context *c)
 	if (keycode == KEY_W)
 		c->player.pos.y -= c->player.speed;
 	else if (keycode == KEY_S)
-		c->player.pos.y += c->player.speed;
+	{
+		if (!check_obstacle(c, (int)c->player.pos.x,
+			(int)(c->player.pos.y + c->player.speed)))
+			c->player.pos.y += c->player.speed;
+	}
 	else if (keycode == KEY_D)
 		c->player.pos.x += c->player.speed;
 	else if (keycode == KEY_A)
@@ -28,6 +32,7 @@ static int		key_move(int keycode, t_context *c)
 	else
 		return (0);
 	printf("new player pos: x:%f y:%f\n", c->player.pos.x, c->player.pos.y);
+	display(c);
 	return (1);
 }
 
