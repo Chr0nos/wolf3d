@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 16:24:56 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:52:16 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ static int		key_move(int keycode, t_context *c)
 		return (0);
 	display(c);
 	return (1);
+}
+
+int				keyrlz(int keycode, t_context *c)
+{
+	(void)keycode;
+	(void)c;
+	return (0);
 }
 
 int				keydown(int keycode, t_context *c)

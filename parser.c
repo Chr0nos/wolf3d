@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 23:05:12 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 15:38:01 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:00:33 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int				parser(const char *mpath, t_context *c)
 	if (fd > 0)
 	{
 		fd = popper(c);
+		if (fd < 0)
+			ft_putendl("map error: unable to find a suitable spawn point");
 	}
 	ft_lstdel(&lst, NULL);
 	return (fd);

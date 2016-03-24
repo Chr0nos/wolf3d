@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 16:27:46 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:46:40 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int		fix_y(int y, int maxy)
 
 /*
 ** this function actualy draw the whole vertical line from 0 to the win size
+** y[2] contains the color of the wall: DO NOT ask why...
 */
 
 void			display_vertical(t_context *c, t_ray *ray, const int x)
@@ -50,16 +51,17 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 	t_line			wall;
 	t_line			sky;
 	t_line			sol;
-	int				y[2];
+	int				y[3];
 
 	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
 	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
+	y[2] = (ray->side == 0) ? COLOR_CYAN : COLOR_GREEN;
 	wall = draw_make_line(x, y[0], x, y[1]);
 	sky = draw_make_line(x, 0, x, wall.start.y);
 	sol = draw_make_line(x, wall.end.y, x, c->x->height);
 	draw_line(c->x, &sky, COLOR_BLUE);
 	draw_line(c->x, &sol, COLOR_BROWN);
-	draw_line(c->x, &wall, (ray->side == 0) ? COLOR_CYAN : COLOR_GREEN);
+	draw_line(c->x, &wall, y[2]);
 }
 
 void			display_loop_start(t_context *c)

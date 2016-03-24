@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 16:24:11 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:04:43 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@ static void		set_hooks(t_context *c)
 {
 	draw_sethook_ng(c->x, &closer, c, CLOSE);
 	draw_sethook_ng(c->x, &keydown, c, KEYDOWN);
+	draw_sethook_ng(c->x, &keyrlz, c, KEYUP);
 	draw_sethook_ng(c->x, &mouse_move, c, MOUSEMOVE);
 }
 
 void			set_defaults(t_context *c)
 {
-	c->player.pos.x = 8.0;
-	c->player.pos.y = 12.0;
-	c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] = 'x';
+	c->player.pos = c->player.rootpos;
 	c->player.fov = 60;
 	c->player.dir.x = -1.0;
 	c->player.dir.y = 0.0;
 	c->player.speed = 0.3;
 	c->player.plane.x = 0.0;
 	c->player.plane.y = 1.0;
-	c->flags = FLAG_DEBUG;
+	c->flags = FLAG_NONE;
 }
 
 int				main(int ac, char **av)
@@ -42,7 +41,10 @@ int				main(int ac, char **av)
 	if ((ac != 2) || (!ft_strlen(av[1])))
 		ft_printf("usage: %s <filepath>\n", av[0]);
 	else if (parser(av[1], &c) < 0)
+	{
 		ft_putendl("error: unable to load the file for some reason.");
+		clean_map(&c);
+	}
 	else if (!(c.x = draw_init("Wolf 3d", SIZE_X, SIZE_Y)))
 		ft_putendl("error: unable to initialise mlx window");
 	else
@@ -50,9 +52,11 @@ int				main(int ac, char **av)
 		set_defaults(&c);
 		display_map(&c);
 		set_hooks(&c);
-		display(&c);
 		if (!(c.flags & FLAG_DEBUG))
 			draw_loop_hook(c.x, &display, &c);
+			//display_loop_start(&c);
+		else
+			display(&c);
 		draw_loop(c.x);
 		ft_putendl("quitting");
 	}

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:25:49 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/23 13:45:44 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:55:26 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "draw.h"
 #include <stdlib.h>
 
-static void		clean_map(t_context *c)
+void			clean_map(t_context *c)
 {
 	unsigned int	p;
 

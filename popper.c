@@ -6,11 +6,18 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 15:29:14 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 15:38:53 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:07:11 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+
+/*
+** about popper:
+** this function is here to find the point on the map where the player will be
+** spawned, the x on the map is equivalent to a 0 or a space
+** if no spawn point is found the function return -1
+*/
 
 int		popper(t_context *c)
 {
@@ -25,8 +32,9 @@ int		popper(t_context *c)
 		{
 			if (c->map.b[y].data[x] == 'x')
 			{
-				c->player.pos.x = (double)x;
-				c->player.pos.y = (double)y;
+				c->player.rootpos.x = (double)x;
+				c->player.rootpos.y = (double)y;
+				c->player.pos = c->player.rootpos;
 				return (1);
 			}
 			x++;
