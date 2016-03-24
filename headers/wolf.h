@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 13:32:08 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:37:39 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void				display_loop_start(t_context *c);
 void				display_stats(t_context *c);
 int					display(t_context *c);
 int					closer(t_context *c);
+int					popper(t_context *c);
 int					keydown(int keycode, t_context *c);
 int					mouse_move(int x, int y, t_context *c);
 int					parser(const char *mpath, t_context *c);

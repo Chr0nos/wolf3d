@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 14:29:04 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:20:45 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void		set_hooks(t_context *c)
 
 void			set_defaults(t_context *c)
 {
-	c->player.pos.x = 14.0;
-	c->player.pos.y = 13.0;
+	c->player.pos.x = 8.0;
+	c->player.pos.y = 12.0;
 	c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] = 'x';
 	c->player.fov = 60;
 	c->player.dir.x = -1.0;
@@ -40,7 +40,7 @@ int				main(int ac, char **av)
 
 	if ((ac != 2) || (!ft_strlen(av[1])))
 		ft_printf("usage: %s <filepath>\n", av[0]);
-	else if (parser("./maps/base.map", &c) < 0)
+	else if (parser(av[1], &c) < 0)
 		ft_putendl("error: unable to load the file for some reason.");
 	else if (!(c.x = draw_init("Wolf 3d", SIZE_X, SIZE_Y)))
 		ft_putendl("error: unable to initialise mlx window");

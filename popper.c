@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   popper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/22 13:36:52 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 15:28:45 by snicolet         ###   ########.fr       */
+/*   Created: 2016/03/24 15:29:14 by snicolet          #+#    #+#             */
+/*   Updated: 2016/03/24 15:38:53 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-int		check_obstacle(t_context *c, int x, int y)
+int		popper(t_context *c)
 {
-	char	p;
+	int	x;
+	int	y;
 
-	if ((y < 0) || (c->map.lines < (unsigned int)y))
-		return (1);
-	else if ((x < 0) || (c->map.b[y].size < x))
-		return (1);
-	p = c->map.b[y].data[x];
-	if ((p == ' ') || (p == 'x'))
-		return (0);
-	return (p - '0');
+	y = 0;
+	while (y < (int)c->map.lines)
+	{
+		x = 0;
+		while (x < c->map.b[y].size)
+		{
+			if (c->map.b[y].data[x] == 'x')
+			{
+				c->player.pos.x = (double)x;
+				c->player.pos.y = (double)y;
+				return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (-1);
 }

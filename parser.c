@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 23:05:12 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/20 13:00:36 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:38:01 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int				parser(const char *mpath, t_context *c)
 	}
 	close(fd);
 	fd = load_map(c, lst, lc);
+	if (fd > 0)
+	{
+		fd = popper(c);
+	}
 	ft_lstdel(&lst, NULL);
 	return (fd);
 }

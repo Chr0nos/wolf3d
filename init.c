@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 12:55:16 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:10:51 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,32 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <stdio.h>
-
 /*
 ** this function calculate the directional vector and the the lenght of
 ** each segment
 */
 
-static void		init_deltas_stepdist(t_context *c, t_ray *ray)
+static void		init_deltas_stepdist(t_ray *ray, t_point px)
 {
-	if (ray->deltadis.x < 0)
+	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1.0;
-		ray->sidedist.x = (ray->pos.x - c->x->width) * ray->deltadis.x;
+		ray->sidedist.x = (ray->pos.x - px.x) * ray->deltadis.x;
 	}
 	else
 	{
 		ray->step.x = 1.0;
-		ray->sidedist.x = (c->x->width + 1 - ray->pos.x) * ray->deltadis.x;
+		ray->sidedist.x = (px.x + 1.0 - ray->pos.x) * ray->deltadis.x;
 	}
-	if (ray->deltadis.y < 0)
+	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1.0;
-		ray->sidedist.y = (ray->pos.y - c->x->height) * ray->deltadis.y;
+		ray->sidedist.y = (ray->pos.y - px.y) * ray->deltadis.y;
 	}
 	else
 	{
 		ray->step.y = 1.0;
-		ray->sidedist.y = (c->x->height + 1 - ray->pos.y) * ray->deltadis.y;
+		ray->sidedist.y = (px.y + 1.0 - ray->pos.y) * ray->deltadis.y;
 	}
 }
 
@@ -71,10 +69,7 @@ static t_point		init_ray(t_context *c, t_ray *ray, t_point px)
 			ray->side = 1;
 		}
 		if (check_obstacle(c, px.x, px.y))
-		{
-			//ft_printf("obstacle found on x:%d y:%d\n", px.x, px.y);
 			hit = 1;
-		}
 	}
 	return (px);
 }
@@ -85,7 +80,7 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 	ray->dir = c->player.raydir;
 	ray->deltadis.x = sqrt(1 + pow(ray->dir.y, 2) / pow(ray->dir.x, 2));
 	ray->deltadis.y = sqrt(1 + pow(ray->dir.x, 2) / pow(ray->dir.y, 2));
-	init_deltas_stepdist(c, ray);
+	init_deltas_stepdist(ray, px);
 	px = init_ray(c, ray, px);
 	if (ray->side == 0)
 		ray->dist = fabs(((double)px.x - ray->pos.x +
@@ -139,7 +134,6 @@ void			init_display(t_context *c)
 		camera_x = 2.0 * (double)px.x / w - 1.0;
 		c->player.raydir.x = c->player.dir.x + c->player.plane.x * camera_x;
 		c->player.raydir.y = c->player.dir.y + c->player.plane.y * camera_x;
-		//ft_printf("raydir: x:%d y:%d\n", (int)raydir.x, (int)raydir.y);
 		init_dda(c, draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
 		if (ray.dist <= 0.0)
 			return ;
