@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 18:06:51 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 19:06:34 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int				display(t_context *c)
 {
+	move_myass(c);
 	draw_reset_image(c->x, 0x00000000);
 	init_display(c);
 	draw_flush_image(c->x, c->x->img);
@@ -55,13 +56,19 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 
 	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
 	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
-	y[2] = (ray->side == 0) ? COLOR_CYAN : COLOR_GREEN;
-	wall = draw_make_line(x, y[0], x, y[1]);
 	if ((ray->obstacle == -1) && (c->flags & FLAG_HIDE_OUTERWALLS))
 	{
 		wall = draw_make_line(x, c->x->height / 2, x, c->x->height / 2);
 		y[2] = COLOR_BROWN;
 	}
+	else
+	{
+		wall = draw_make_line(x, y[0], x, y[1]);
+		y[2] = (ray->side == 0) ? COLOR_CYAN : COLOR_GREEN;
+	}
+	if (ray->obstacle == 2)
+		y[2] = (ray->side == 0) ? COLOR_RED : 0x00a2130a;
+
 	sky = draw_make_line(x, 0, x, wall.start.y);
 	sol = draw_make_line(x, wall.end.y, x, c->x->height);
 	draw_line(c->x, &sky, COLOR_BLUE);
