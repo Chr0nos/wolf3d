@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 16:28:11 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 18:27:27 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ static t_point	init_ray(t_context *c, t_ray *ray, t_point px)
 			ray->side = 1;
 		}
 		if (check_obstacle(c, px.x, px.y))
+		{
+			ray->obstacle = check_obstacle(c, px.x, px.y);
 			hit = 1;
+		}
 	}
 	return (px);
 }
@@ -97,6 +100,7 @@ void			init_display(t_context *c)
 	t_point			px;
 	t_ray			ray;
 
+	ray.obstacle = 0;
 	px.x = 0;
 	while (px.x < c->x->width)
 	{

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 17:02:19 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 18:17:34 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_ray
 	t_posxy			sidedist;
 	t_posxy			step;
 	int				side;
-	int				padding;
+	int				obstacle;
 }					t_ray;
 
 typedef struct		s_buffer
@@ -55,8 +55,6 @@ typedef struct		s_player
 	t_posxy			plane;
 	t_posxy			raydir;
 	t_posxy			dir;
-	int				fov;
-	int				padding;
 	double			speed;
 }					t_player;
 

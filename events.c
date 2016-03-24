@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 16:52:16 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 18:24:52 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,15 @@
 static int		key_move(int keycode, t_context *c)
 {
 	if (keycode == KEY_W)
-	{
 		player_forward(c, -c->player.speed);
-	}
 	else if (keycode == KEY_S)
-	{
 		player_forward(c, c->player.speed);
-	}
 	else if (keycode == KEY_D)
 		player_crab(c, c->player.speed);
 	else if (keycode == KEY_A)
 		player_crab(c, -c->player.speed);
 	else
 		return (0);
-	display(c);
 	return (1);
 }
 
@@ -49,9 +44,11 @@ int				keydown(int keycode, t_context *c)
 	else if (keycode == KEY_R)
 		set_defaults(c);
 	else if (keycode == KEY_LEFT)
-		player_rotate(c, 0.3);
-	else if (keycode == KEY_RIGHT)
 		player_rotate(c, -0.3);
+	else if (keycode == KEY_RIGHT)
+		player_rotate(c, 0.3);
+	else if (keycode == KEY_N)
+		c->flags ^= FLAG_HIDE_OUTERWALLS;
 	else
 	{
 		ft_printf("unknow key code: %d\n", keycode);
