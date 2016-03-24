@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 13:26:38 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 14:29:04 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void			set_defaults(t_context *c)
 	c->player.pos.x = 14.0;
 	c->player.pos.y = 13.0;
 	c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] = 'x';
-	c->player.plane.x = 0.66;
-	c->player.plane.y = 0.0;
 	c->player.fov = 60;
-	c->player.dir.x = 0.0;
-	c->player.dir.y = 1.0;
+	c->player.dir.x = -1.0;
+	c->player.dir.y = 0.0;
 	c->player.speed = 0.3;
+	c->player.plane.x = 0.0;
+	c->player.plane.y = 1.0;
 }
 
 int				main(int ac, char **av)
