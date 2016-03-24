@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 09:34:01 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 11:22:58 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ static void		init_deltas_stepdist(t_context *c, t_ray *ray)
 	}
 }
 
+/*
+** return the t_point where a wall is encountred
+*/
+
 static t_point		init_ray(t_context *c, t_ray *ray, t_point px)
 {
 	int			hit;
@@ -68,7 +72,7 @@ static t_point		init_ray(t_context *c, t_ray *ray, t_point px)
 		}
 		if (check_obstacle(c, px.x, px.y))
 		{
-			ft_printf("obstacle found on x:%d y:%d\n", px.x, px.y);
+			//ft_printf("obstacle found on x:%d y:%d\n", px.x, px.y);
 			hit = 1;
 		}
 	}
@@ -89,7 +93,6 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 	else
 		ray->dist = fabs(((double)px.y - ray->pos.y +
 			(1.0f - ray->step.y) / 2.0f) / ray->dir.y);
-	printf("distance: %f\n", ray->dist);
 }
 
 static int		fix_y(int y, int maxy)
@@ -113,8 +116,8 @@ static void		display_vertical(t_context *c, t_ray *ray, const int x)
 	t_line			sol;
 	int				y[2];
 
-	y[0] = fix_y(abs((int)(-ray->h / 2.0f + h / 2.0f)), c->x->height);
-	y[1] = fix_y(abs((int)(ray->h / 2.0f + h / 2.0f)), c->x->height);
+	y[0] = fix_y((int)(-ray->h / 2.0f + h / 2.0f), c->x->height);
+	y[1] = fix_y((int)(ray->h / 2.0f + h / 2.0f), c->x->height);
 	wall = draw_make_line(x, y[0], x, y[1]);
 	sky = draw_make_line(x, 0, x, wall.start.y);
 	sol = draw_make_line(x, wall.end.y, x, c->x->height);

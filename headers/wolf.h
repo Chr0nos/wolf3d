@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 09:20:12 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 11:53:03 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define MAP_MAX_SIZE 10000
 # include "draw.h"
 # include "keycodes.h"
+# include <string.h>
 # include <pthread.h>
 
 typedef struct		s_posxy
@@ -70,8 +71,10 @@ typedef struct		s_context
 	t_mlx			*x;
 	t_map			map;
 	t_player		player;
+	size_t			keyboard;
 }					t_context;
 
+void				player_rotate(t_context *c, double rotate_speed);
 void				init_display(t_context *c);
 void				display_map(t_context *c);
 void				display_map_walk(t_context *c);
