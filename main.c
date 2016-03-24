@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 18:25:45 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 19:50:50 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			set_defaults(t_context *c)
 	c->player.pos = c->player.rootpos;
 	c->player.dir.x = 1.0;
 	c->player.dir.y = 0.0;
-	c->player.speed = 0.3;
+	c->player.speed = 0.25;
 	c->player.plane.x = 0.0;
 	c->player.plane.y = 0.66;
 	c->flags = FLAG_NONE;
@@ -51,11 +51,7 @@ int				main(int ac, char **av)
 		set_defaults(&c);
 		display_map(&c);
 		set_hooks(&c);
-		if (!(c.flags & FLAG_DEBUG))
-			draw_loop_hook(c.x, &display, &c);
-			//display_loop_start(&c);
-		else
-			display(&c);
+		draw_loop_hook(c.x, &display, &c);
 		draw_loop(c.x);
 		ft_putendl("quitting");
 	}

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 19:12:06 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 19:54:04 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,24 @@
 
 int				move_myass(t_context *c)
 {
-	if (c->keyboard & KB_FORWARD)
+	if ((c->keyboard & KB_FORWARD) && (c->keyboard & KB_BACK))
+		;
+	else if (c->keyboard & KB_FORWARD)
 		player_forward(c, -c->player.speed);
-	if (c->keyboard & KB_BACK)
+	else if (c->keyboard & KB_BACK)
 		player_forward(c, c->player.speed);
-	if (c->keyboard & KB_LEFT)
-		player_rotate(c, 0.3);
-	if (c->keyboard & KB_RIGHT)
-		player_rotate(c, -0.3);
-	if (c->keyboard & KB_CLEFT)
-		player_crab(c, -0.3);
-	if (c->keyboard & KB_RIGHT)
-		player_crab(c, 0.3);
+	if ((c->keyboard & KB_LEFT) && (c->keyboard & KB_RIGHT))
+		;
+	else if (c->keyboard & KB_LEFT)
+		player_rotate(c, -0.06);
+	else if (c->keyboard & KB_RIGHT)
+		player_rotate(c, 0.06);
+	if ((c->keyboard & KB_CLEFT) && (c->keyboard & KB_CRIGHT))
+		;
+	else if (c->keyboard & KB_CLEFT)
+		player_crab(c, -0.2);
+	else if (c->keyboard & KB_CRIGHT)
+		player_crab(c, 0.2);
 	return (0);
 }
 
@@ -37,9 +43,9 @@ static int		key_move(int keycode, t_context *c)
 	else if (keycode == KEY_S)
 		c->keyboard |= KB_BACK;
 	else if (keycode == KEY_D)
-		c->keyboard |= KB_CLEFT;
-	else if (keycode == KEY_A)
 		c->keyboard |= KB_CRIGHT;
+	else if (keycode == KEY_A)
+		c->keyboard |= KB_CLEFT;
 	else if (keycode == KEY_LEFT)
 		c->keyboard |= KB_LEFT;
 	else if (keycode == KEY_RIGHT)
@@ -52,17 +58,17 @@ static int		key_move(int keycode, t_context *c)
 int				keyrlz(int keycode, t_context *c)
 {
 	if (keycode == KEY_W)
-		c->keyboard &= KB_FORWARD;
+		c->keyboard ^= KB_FORWARD;
 	else if (keycode == KEY_S)
-		c->keyboard &= KB_BACK;
+		c->keyboard ^= KB_BACK;
 	else if (keycode == KEY_D)
-		c->keyboard &= KB_CLEFT;
+		c->keyboard ^= KB_CRIGHT;
 	else if (keycode == KEY_A)
-		c->keyboard &= KB_CRIGHT;
+		c->keyboard ^= KB_CLEFT;
 	else if (keycode == KEY_LEFT)
-		c->keyboard &= KB_LEFT;
+		c->keyboard ^= KB_LEFT;
 	else if (keycode == KEY_RIGHT)
-		c->keyboard &= KB_RIGHT;
+		c->keyboard ^= KB_RIGHT;
 	else
 		return (0);
 	return (1);
