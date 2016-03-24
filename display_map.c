@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 12:50:52 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/22 17:59:24 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:21:23 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	display_map_walk(t_context *c)
 		px.x = 0;
 		while (px.x < c->map.b[px.y].size)
 		{
-			write(1, (c->map.b[px.y].data[px.x] == '0') ? "0" : "1" , 1);
+			write(1, (c->map.b[px.y].data[px.x] == '0') ? "0" : "1", 1);
 			px.x++;
 		}
 		write(1, "\n", 1);

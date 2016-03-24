@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:43:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 14:23:38 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:19:22 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ void	player_forward(t_context *c, double speed)
 	rate.y = c->player.dir.y * speed;
 	np.x = c->player.pos.x + rate.x;
 	np.y = c->player.pos.y + rate.y;
+	if (!check_obstacle(c, (int)np.x, (int)c->player.pos.y))
+		c->player.pos.x = np.x;
+	if (!check_obstacle(c, (int)np.x, (int)np.y))
+		c->player.pos.y = np.y;
+}
+
+void	player_crab(t_context *c, double speed)
+{
+	t_posxy		np;
+
+	np.x = c->player.pos.x + c->player.plane.x * speed;
+	np.y = c->player.pos.y + c->player.plane.y * speed;
 	if (!check_obstacle(c, (int)np.x, (int)c->player.pos.y))
 		c->player.pos.x = np.x;
 	if (!check_obstacle(c, (int)np.x, (int)np.y))

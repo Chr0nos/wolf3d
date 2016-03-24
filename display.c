@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 13:32:44 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:27:46 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,37 @@ static void		*display_loop(t_context *c)
 	while (display(c) == 0)
 		usleep(100);
 	return (c);
+}
+
+static int		fix_y(int y, int maxy)
+{
+	if (y < 0)
+		return (0);
+	if (y >= maxy)
+		return (maxy - 1);
+	return (y);
+}
+
+/*
+** this function actualy draw the whole vertical line from 0 to the win size
+*/
+
+void			display_vertical(t_context *c, t_ray *ray, const int x)
+{
+	const double	h = (double)c->x->height;
+	t_line			wall;
+	t_line			sky;
+	t_line			sol;
+	int				y[2];
+
+	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
+	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
+	wall = draw_make_line(x, y[0], x, y[1]);
+	sky = draw_make_line(x, 0, x, wall.start.y);
+	sol = draw_make_line(x, wall.end.y, x, c->x->height);
+	draw_line(c->x, &sky, COLOR_BLUE);
+	draw_line(c->x, &sol, COLOR_BROWN);
+	draw_line(c->x, &wall, (ray->side == 0) ? COLOR_CYAN : COLOR_GREEN);
 }
 
 void			display_loop_start(t_context *c)

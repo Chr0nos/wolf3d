@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 15:20:45 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:24:11 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void			set_defaults(t_context *c)
 	c->player.speed = 0.3;
 	c->player.plane.x = 0.0;
 	c->player.plane.y = 1.0;
+	c->flags = FLAG_DEBUG;
 }
 
 int				main(int ac, char **av)
@@ -48,10 +49,10 @@ int				main(int ac, char **av)
 	{
 		set_defaults(&c);
 		display_map(&c);
-		//display_loop_start(&c);
 		set_hooks(&c);
 		display(&c);
-		//draw_loop_hook(c.x, &display, &c);
+		if (!(c.flags & FLAG_DEBUG))
+			draw_loop_hook(c.x, &display, &c);
 		draw_loop(c.x);
 		ft_putendl("quitting");
 	}

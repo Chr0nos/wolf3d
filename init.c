@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 15:10:51 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:28:11 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		init_deltas_stepdist(t_ray *ray, t_point px)
 ** return the t_point where a wall is encountred
 */
 
-static t_point		init_ray(t_context *c, t_ray *ray, t_point px)
+static t_point	init_ray(t_context *c, t_ray *ray, t_point px)
 {
 	int			hit;
 
@@ -90,37 +90,6 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 			(1.0 - ray->step.y) / 2.0) / ray->dir.y);
 }
 
-static int		fix_y(int y, int maxy)
-{
-	if (y < 0)
-		return (0);
-	if (y >= maxy)
-		return (maxy - 1);
-	return (y);
-}
-
-/*
-** this function actualy draw the whole vertical line from 0 to the win size
-*/
-
-static void		display_vertical(t_context *c, t_ray *ray, const int x)
-{
-	const double	h = (double)c->x->height;
-	t_line			wall;
-	t_line			sky;
-	t_line			sol;
-	int				y[2];
-
-	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
-	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
-	wall = draw_make_line(x, y[0], x, y[1]);
-	sky = draw_make_line(x, 0, x, wall.start.y);
-	sol = draw_make_line(x, wall.end.y, x, c->x->height);
-	draw_line(c->x, &sky, COLOR_BLUE);
-	draw_line(c->x, &sol, COLOR_BROWN);
-	draw_line(c->x, &wall, (ray->side == 0) ? COLOR_CYAN : COLOR_GREEN);
-}
-
 void			init_display(t_context *c)
 {
 	const double	w = (double)c->x->width;
@@ -134,7 +103,8 @@ void			init_display(t_context *c)
 		camera_x = 2.0 * (double)px.x / w - 1.0;
 		c->player.raydir.x = c->player.dir.x + c->player.plane.x * camera_x;
 		c->player.raydir.y = c->player.dir.y + c->player.plane.y * camera_x;
-		init_dda(c, draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
+		init_dda(c,
+			draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
 		if (ray.dist <= 0.0)
 			return ;
 		ray.h = abs((int)((double)c->x->height / ray.dist));

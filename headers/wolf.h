@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 15:37:39 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:26:48 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define MAP_MAX_SIZE 10000
 # include "draw.h"
 # include "keycodes.h"
+# include "flags.h"
 # include <string.h>
 # include <pthread.h>
 
@@ -72,16 +73,19 @@ typedef struct		s_context
 	t_map			map;
 	t_player		player;
 	size_t			keyboard;
+	size_t			flags;
 }					t_context;
 
 void				set_defaults(t_context *c);
 void				player_forward(t_context *c, double speed);
 void				player_rotate(t_context *c, double rotate_speed);
+void				player_crab(t_context *c, double speed);
 void				init_display(t_context *c);
 void				display_map(t_context *c);
 void				display_map_walk(t_context *c);
 void				display_loop_start(t_context *c);
 void				display_stats(t_context *c);
+void				display_vertical(t_context *c, t_ray *ray, const int x);
 int					display(t_context *c);
 int					closer(t_context *c);
 int					popper(t_context *c);
