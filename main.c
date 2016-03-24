@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 11:24:48 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 13:26:38 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ static void		set_hooks(t_context *c)
 	draw_sethook_ng(c->x, &mouse_move, c, MOUSEMOVE);
 }
 
-static void		set_defaults(t_context *c)
+void			set_defaults(t_context *c)
 {
-	c->player.pos.x = 4.0f;
-	c->player.pos.y = 3.0f;
+	c->player.pos.x = 14.0;
+	c->player.pos.y = 13.0;
 	c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] = 'x';
-	c->player.plane.x = 0.66f;
-	c->player.plane.y = 0.0f;
+	c->player.plane.x = 0.66;
+	c->player.plane.y = 0.0;
 	c->player.fov = 60;
-	c->player.dir.x = 0.0f;
-	c->player.dir.y = 1.0f;
-	c->player.speed = 0.3f;
+	c->player.dir.x = 0.0;
+	c->player.dir.y = 1.0;
+	c->player.speed = 0.3;
 }
 
 int				main(int ac, char **av)

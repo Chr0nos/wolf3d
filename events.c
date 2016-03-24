@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 11:56:42 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 13:18:32 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ static int		key_move(int keycode, t_context *c)
 	printf("next x:%d y:%d\n", nextx, nexty);
 	if (keycode == KEY_W)
 	{
-		c->player.pos.y -= c->player.speed;
+		player_forward(c, 1.0);
 	}
 	else if (keycode == KEY_S)
 	{
-		if (!check_obstacle(c, (int)c->player.pos.x,
-			(int)(c->player.pos.y + c->player.speed)))
-			c->player.pos.y += c->player.speed;
+		player_forward(c, -1.0);
 	}
 	else if (keycode == KEY_D)
 		c->player.pos.x += c->player.speed;
@@ -39,7 +37,6 @@ static int		key_move(int keycode, t_context *c)
 		c->player.pos.y -= c->player.speed;
 	else
 		return (0);
-	(void)keycode;
 	printf("new player pos: x:%f y:%f\n", c->player.pos.x, c->player.pos.y);
 	display(c);
 	return (1);
@@ -51,10 +48,12 @@ int				keydown(int keycode, t_context *c)
 		return (closer(c));
 	else if (key_move(keycode, c))
 		;
+	else if (keycode == KEY_R)
+		set_defaults(c);
 	else if (keycode == KEY_LEFT)
-		player_rotate(c, 0.8f);
+		player_rotate(c, 0.8);
 	else if (keycode == KEY_RIGHT)
-		player_rotate(c, -0.8f);
+		player_rotate(c, -0.8);
 	else
 	{
 		ft_printf("unknow key code: %d\n", keycode);

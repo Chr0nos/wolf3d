@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 11:53:03 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 13:32:08 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,14 @@ typedef struct		s_context
 	size_t			keyboard;
 }					t_context;
 
+void				set_defaults(t_context *c);
+void				player_forward(t_context *c, double speed);
 void				player_rotate(t_context *c, double rotate_speed);
 void				init_display(t_context *c);
 void				display_map(t_context *c);
 void				display_map_walk(t_context *c);
 void				display_loop_start(t_context *c);
+void				display_stats(t_context *c);
 int					display(t_context *c);
 int					closer(t_context *c);
 int					keydown(int keycode, t_context *c);

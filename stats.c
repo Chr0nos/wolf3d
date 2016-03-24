@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   stats.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 13:32:44 by snicolet         ###   ########.fr       */
+/*   Created: 2016/03/24 13:27:22 by snicolet          #+#    #+#             */
+/*   Updated: 2016/03/24 13:31:49 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
-#include "draw.h"
+#include "mlx.h"
 #include "libft.h"
-#include <unistd.h>
 
-int				display(t_context *c)
+void	display_stats(t_context *c)
 {
-	draw_reset_image(c->x, 0x00000000);
-	init_display(c);
-	draw_flush_image(c->x, c->x->img);
-	display_stats(c);
-	return (0);
-}
+	char	buffer[128];
+	char	tmp[12];
 
-static void		*display_loop(t_context *c)
-{
-	while (display(c) == 0)
-		usleep(100);
-	return (c);
-}
-
-void			display_loop_start(t_context *c)
-{
-	pthread_create(&c->map.thread, NULL, (void*(*)(void*))&display_loop, c);
+	ft_itobuff(tmp, (int)c->player.pos.x, 10, "0123456789");
+	ft_strcpy(buffer, "player: x: ");
+	ft_strcat(buffer, tmp);
+	ft_itobuff(tmp, (int)c->player.pos.y, 10, "0123456789");
+	ft_strcat(buffer, " y:");
+	ft_strcat(buffer, tmp);
+	mlx_string_put(c->x->mlxptr, c->x->winptr, 5, 5, COLOR_WHITE, buffer);
 }
