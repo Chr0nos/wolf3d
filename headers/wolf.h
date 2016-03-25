@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 22:08:41 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:38:27 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include "keycodes.h"
 # include "flags.h"
 # include <string.h>
-# include <pthread.h>
+
+typedef char		t_mode;
 
 typedef struct		s_posxy
 {
@@ -63,7 +64,8 @@ typedef struct		s_map
 	t_buffer		*b;
 	unsigned int	lines;
 	int				flags;
-	pthread_t		thread;
+	int				img_count;
+	int				padding;
 }					t_map;
 
 typedef struct		s_context
@@ -83,7 +85,6 @@ void				player_crab(t_context *c, double speed);
 void				init_display(t_context *c);
 void				display_map(t_context *c);
 void				display_map_walk(t_context *c);
-void				display_loop_start(t_context *c);
 void				display_stats(t_context *c);
 void				display_vertical(t_context *c, t_ray *ray, const int x);
 int					display(t_context *c);
@@ -93,7 +94,7 @@ int					keydown(int keycode, t_context *c);
 int					keyrlz(int keycode, t_context *c);
 int					mouse_move(int x, int y, t_context *c);
 int					parser(const char *mpath, t_context *c);
-int					check_obstacle(t_context *c, int x, int y);
+int					check_obstacle(t_context *c, int x, int y, t_mode mode);
 int					move_myass(t_context *c);
 
 #endif

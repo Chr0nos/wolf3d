@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 02:14:25 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:32:39 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int				move_myass(t_context *c)
 		player_crab(c, -c->player.speed * 0.9);
 	else if (c->keyboard & KB_CRIGHT)
 		player_crab(c, c->player.speed * 0.9);
-	return (0);
+	else
+		return (0);
+	return (1);
 }
 
 static int		key_move(int keycode, t_context *c)

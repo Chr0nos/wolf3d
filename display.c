@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 22:13:56 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:46:13 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,10 @@
 int				display(t_context *c)
 {
 	move_myass(c);
-	draw_reset_image(c->x, 0x00000000);
 	init_display(c);
 	draw_flush_image(c->x, c->x->img);
 	display_stats(c);
 	return (0);
-}
-
-static void		*display_loop(t_context *c)
-{
-	while (display(c) == 0)
-		usleep(100);
-	return (c);
 }
 
 static int		fix_y(int y, int maxy)
@@ -68,15 +60,9 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 	}
 	if (ray->obstacle == 2)
 		y[2] = (ray->side == 0) ? COLOR_RED : 0x00a2130a;
-
 	sky = draw_make_line(x, 0, x, wall.start.y);
 	sol = draw_make_line(x, wall.end.y, x, c->x->height);
 	draw_line(c->x, &sky, 0x005decff);
 	draw_line(c->x, &sol, COLOR_BROWN);
 	draw_line(c->x, &wall, y[2]);
-}
-
-void			display_loop_start(t_context *c)
-{
-	pthread_create(&c->map.thread, NULL, (void*(*)(void*))&display_loop, c);
 }

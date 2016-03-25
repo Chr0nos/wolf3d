@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 02:05:38 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:43:59 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ static void		set_hooks(t_context *c)
 
 void			set_defaults(t_context *c)
 {
+	c->map.img_count = 0;
 	c->player.pos = c->player.rootpos;
 	c->player.dir.x = 1.0;
 	c->player.dir.y = 0.0;
-	c->player.speed = 0.18;
+	c->player.speed = 0.12;
 	c->player.plane.x = 0.0;
 	c->player.plane.y = 0.66;
 	c->flags = FLAG_NONE;
@@ -48,6 +49,7 @@ int				main(int ac, char **av)
 		ft_putendl("error: unable to initialise mlx window");
 	else
 	{
+		c.keyboard = 0;
 		set_defaults(&c);
 		display_map(&c);
 		set_hooks(&c);
