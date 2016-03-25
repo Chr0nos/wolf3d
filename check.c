@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:36:52 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 13:45:50 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:52:16 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int		check_obstacle(t_context *c, int x, int y, t_mode mode)
 	if ((p == ' ') || (p == MAP_SPAWN))
 		return (0);
 	if (p == MAP_INVISIBLE_WALL)
+	{
+		if (c->flags & FLAG_SHOWINVISIBLE)
+			return (-2);
 		return ((mode == CHECK_WALK) ? 1 : 0 );
+	}
 	return (p - '0');
 }

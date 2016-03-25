@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 11:32:39 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:53:17 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int				keydown(int keycode, t_context *c)
 		set_defaults(c);
 	else if (keycode == KEY_N)
 		c->flags ^= FLAG_HIDE_OUTERWALLS;
+	else if (keycode == KEY_I)
+		c->flags ^= FLAG_SHOWINVISIBLE;
 	else
 	{
 		ft_printf("unknow key code: %d\n", keycode);

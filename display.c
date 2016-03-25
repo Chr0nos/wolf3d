@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 11:46:13 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:55:18 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 	}
 	if (ray->obstacle == 2)
 		y[2] = (ray->side == 0) ? COLOR_RED : 0x00a2130a;
+	else if (ray->obstacle == -2)
+		y[2] = (ray->side) ? 0x00233e4a : 0x00101d2f;
 	sky = draw_make_line(x, 0, x, wall.start.y);
 	sol = draw_make_line(x, wall.end.y, x, c->x->height);
 	draw_line(c->x, &sky, 0x005decff);
