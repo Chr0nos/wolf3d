@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 13:55:18 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 14:28:29 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,19 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 
 	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
 	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
-	if ((ray->obstacle == -1) && (c->flags & FLAG_HIDE_OUTERWALLS))
+
+	if ((ray->obstacle < 0) || (ray->obstacle > COLORS_COUNT))
+		y[2] = (ray->side == 0) ? c->map.colors[0].x : c->map.colors[0].y;
+	else
+		y[2] = (ray->side) ? c->map.colors[ray->obstacle].x : \
+		c->map.colors[ray->obstacle].y;
+	if ((ray->obstacle == 4) && (c->flags & FLAG_HIDE_OUTERWALLS))
 	{
 		wall = draw_make_line(x, c->x->height / 2, x, c->x->height / 2);
 		y[2] = COLOR_BROWN;
 	}
 	else
-	{
 		wall = draw_make_line(x, y[0], x, y[1]);
-		y[2] = (ray->side == 0) ? 0x000d5925 : 0x00097100;
-	}
-	if (ray->obstacle == 2)
-		y[2] = (ray->side == 0) ? COLOR_RED : 0x00a2130a;
-	else if (ray->obstacle == -2)
-		y[2] = (ray->side) ? 0x00233e4a : 0x00101d2f;
 	sky = draw_make_line(x, 0, x, wall.start.y);
 	sol = draw_make_line(x, wall.end.y, x, c->x->height);
 	draw_line(c->x, &sky, 0x005decff);

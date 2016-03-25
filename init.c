@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 13:39:37 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 14:12:47 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_point	init_ray(t_context *c, t_ray *ray, t_point px)
 			px.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (check_obstacle(c, px.x, px.y, CHECK_RAY))
+		if (check_obstacle(c, px.x, px.y, CHECK_RAY) != 0)
 		{
 			ray->obstacle = check_obstacle(c, px.x, px.y, CHECK_WALK);
 			hit = 1;

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 13:38:27 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 14:11:10 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define WOLF_H
 # define SIZE_X 1024
 # define SIZE_Y 768
-# define MAP_MAX_SIZE 10000
+# define COLORS_COUNT 5
 # include "draw.h"
 # include "keycodes.h"
 # include "flags.h"
@@ -65,6 +65,7 @@ typedef struct		s_map
 	unsigned int	lines;
 	int				flags;
 	int				img_count;
+	t_point			colors[8];
 	int				padding;
 }					t_map;
 
