@@ -6,14 +6,14 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 19:06:29 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/24 22:08:41 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
-# define SIZE_X 1920
-# define SIZE_Y 1080
+# define SIZE_X 1024
+# define SIZE_Y 768
 # define MAP_MAX_SIZE 10000
 # include "draw.h"
 # include "keycodes.h"

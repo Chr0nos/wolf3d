@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 19:10:47 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 02:11:42 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # define KB_RIGHT 1u << 3
 # define KB_CLEFT 1u << 4
 # define KB_CRIGHT 1u << 5
+# define KB_UP 1u << 6
+# define KB_DOWN 1u << 7
 
 #endif

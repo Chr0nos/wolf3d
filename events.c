@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/24 19:54:04 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 02:14:25 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int				move_myass(t_context *c)
 {
 	if ((c->keyboard & KB_FORWARD) && (c->keyboard & KB_BACK))
 		;
-	else if (c->keyboard & KB_FORWARD)
+	else if ((c->keyboard & KB_FORWARD) || (c->keyboard & KB_UP))
 		player_forward(c, -c->player.speed);
-	else if (c->keyboard & KB_BACK)
+	else if ((c->keyboard & KB_BACK) || (c->keyboard & KB_DOWN))
 		player_forward(c, c->player.speed);
 	if ((c->keyboard & KB_LEFT) && (c->keyboard & KB_RIGHT))
 		;
@@ -30,9 +30,9 @@ int				move_myass(t_context *c)
 	if ((c->keyboard & KB_CLEFT) && (c->keyboard & KB_CRIGHT))
 		;
 	else if (c->keyboard & KB_CLEFT)
-		player_crab(c, -0.2);
+		player_crab(c, -c->player.speed * 0.9);
 	else if (c->keyboard & KB_CRIGHT)
-		player_crab(c, 0.2);
+		player_crab(c, c->player.speed * 0.9);
 	return (0);
 }
 
@@ -42,6 +42,10 @@ static int		key_move(int keycode, t_context *c)
 		c->keyboard |= KB_FORWARD;
 	else if (keycode == KEY_S)
 		c->keyboard |= KB_BACK;
+	else if (keycode == KEY_UP)
+		c->keyboard |= KB_UP;
+	else if (keycode == KEY_DOWN)
+		c->keyboard |= KB_DOWN;
 	else if (keycode == KEY_D)
 		c->keyboard |= KB_CRIGHT;
 	else if (keycode == KEY_A)
@@ -61,6 +65,10 @@ int				keyrlz(int keycode, t_context *c)
 		c->keyboard ^= KB_FORWARD;
 	else if (keycode == KEY_S)
 		c->keyboard ^= KB_BACK;
+	else if (keycode == KEY_UP)
+		c->keyboard ^= KB_UP;
+	else if (keycode == KEY_DOWN)
+		c->keyboard ^= KB_DOWN;
 	else if (keycode == KEY_D)
 		c->keyboard ^= KB_CRIGHT;
 	else if (keycode == KEY_A)
