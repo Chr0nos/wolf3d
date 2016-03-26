@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 13:51:27 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/25 20:43:52 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define KB_CRIGHT 1u << 5
 # define KB_UP 1u << 6
 # define KB_DOWN 1u << 7
+# define KB_SHIFT 1u << 8
 
 # define CHECK_RAY 1
 # define CHECK_WALK 1 << 1

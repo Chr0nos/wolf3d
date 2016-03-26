@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 14:11:10 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/26 01:35:00 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ int					keyrlz(int keycode, t_context *c);
 int					mouse_move(int x, int y, t_context *c);
 int					parser(const char *mpath, t_context *c);
 int					check_obstacle(t_context *c, int x, int y, t_mode mode);
-int					move_myass(t_context *c);
+int					move_myass(t_context *c, const size_t kb);
 
 #endif

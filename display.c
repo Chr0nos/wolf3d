@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 14:28:29 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/26 01:35:03 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int				display(t_context *c)
 {
-	move_myass(c);
+	move_myass(c, c->keyboard);
 	init_display(c);
 	draw_flush_image(c->x, c->x->img);
 	display_stats(c);
