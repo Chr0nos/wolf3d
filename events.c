@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/26 01:38:23 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/26 08:56:18 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int				move_myass(t_context *c, const size_t kb)
 	if ((kb & (KB_FORWARD | KB_UP)) && (kb & (KB_BACK | KB_DOWN)))
 		;
 	else if ((kb & KB_FORWARD) || (kb & KB_UP))
-		player_forward(c, -c->player.speed * ((kb & KB_SHIFT) ? 1.5 : 1.0));
+		player_forward(c, -c->player.speed * ((kb & KB_SHIFT) ? 1.3 : 1.0));
 	else if ((kb & KB_BACK) || (kb & KB_DOWN))
-		player_forward(c, c->player.speed * ((kb & KB_SHIFT) ? 1.2 : 1.0));
+		player_forward(c, c->player.speed * ((kb & KB_SHIFT) ? 1.5 : 1.0));
 	if ((kb & KB_LEFT) && (kb & KB_RIGHT))
 		;
 	else if (kb & KB_LEFT)
