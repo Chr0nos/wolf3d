@@ -45,8 +45,11 @@ re: fclean all
 
 fcleanlibs:
 	make -C $(LIBFT) fclean
-	make -C $(DRAW) fclean
+	make -C $(DRAW) fclean MLX="../$(MLX)"
 
 relibs: fcleanlibs $(LIBFT)/libft.a $(DRAW)/libdraw.a $(OBJ)
+
+linux:
+	make FLAGS="$(FLAGS)" MLX="./libs/minilibx" LINKER="$(FLAGS) -L $(DRAW) -ldraw -L $(LIBFT) -lft -L ./libs/minilibx/ -lmlx -lm -lX11 -lXext"
 
 .PHONY: all re clean fclean
