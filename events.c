@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/26 08:56:18 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:46:07 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,61 +38,49 @@ int				move_myass(t_context *c, const size_t kb)
 	return (1);
 }
 
-static int		key_move(int keycode, t_context *c)
+/*
+** this function is used by keydown and keyrlz events
+** mode can be: EVENT_SET or EVENT_TOGGLE
+** return 1 if the key has an event, 0 otherwhise
+*/
+
+static int		key_move(int keycode, t_context *c, int mode)
 {
-	if (keycode == KEY_W)
-		c->keyboard |= KB_FORWARD;
-	else if (keycode == KEY_S)
-		c->keyboard |= KB_BACK;
-	else if (keycode == KEY_UP)
-		c->keyboard |= KB_UP;
-	else if (keycode == KEY_DOWN)
-		c->keyboard |= KB_DOWN;
-	else if (keycode == KEY_D)
-		c->keyboard |= KB_CRIGHT;
-	else if (keycode == KEY_A)
-		c->keyboard |= KB_CLEFT;
-	else if (keycode == KEY_LEFT)
-		c->keyboard |= KB_LEFT;
-	else if (keycode == KEY_RIGHT)
-		c->keyboard |= KB_RIGHT;
-	else if (keycode == KEY_SHIFT)
-		c->keyboard |= KB_SHIFT;
-	else
-		return (0);
-	return (1);
+	const int		key[] = { KEY_W, KEY_S, KEY_UP, KEY_DOWN, KEY_D, KEY_A,
+		KEY_LEFT, KEY_RIGHT, KEY_SHIFT };
+	const size_t	kb[] = { KB_FORWARD, KB_BACK, KB_UP, KB_DOWN, KB_CRIGHT,
+		KB_CLEFT, KB_LEFT, KB_RIGHT, KB_SHIFT };
+	unsigned int	p;
+
+	p = 9;
+	while (p--)
+	{
+		if (keycode == key[p])
+		{
+			if (mode == EVENT_SET)
+				c->keyboard |= kb[p];
+			else
+				c->keyboard ^= kb[p];
+			return (1);
+		}
+	}
+	return (0);
 }
+
+/*
+** key release event function
+*/
 
 int				keyrlz(int keycode, t_context *c)
 {
-	if (keycode == KEY_W)
-		c->keyboard ^= KB_FORWARD;
-	else if (keycode == KEY_S)
-		c->keyboard ^= KB_BACK;
-	else if (keycode == KEY_UP)
-		c->keyboard ^= KB_UP;
-	else if (keycode == KEY_DOWN)
-		c->keyboard ^= KB_DOWN;
-	else if (keycode == KEY_D)
-		c->keyboard ^= KB_CRIGHT;
-	else if (keycode == KEY_A)
-		c->keyboard ^= KB_CLEFT;
-	else if (keycode == KEY_LEFT)
-		c->keyboard ^= KB_LEFT;
-	else if (keycode == KEY_RIGHT)
-		c->keyboard ^= KB_RIGHT;
-	else if (keycode == KEY_SHIFT)
-		c->keyboard ^= KB_SHIFT;
-	else
-		return (0);
-	return (1);
+	return (key_move(keycode, c, EVENT_TOGGLE));
 }
 
 int				keydown(int keycode, t_context *c)
 {
 	if (keycode == KEY_ESC)
 		return (closer(c));
-	else if (key_move(keycode, c))
+	else if (key_move(keycode, c, EVENT_SET))
 		;
 	else if (keycode == KEY_R)
 		set_defaults(c);
