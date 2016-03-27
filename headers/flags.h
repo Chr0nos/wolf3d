@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/27 12:41:04 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/27 19:54:43 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 # define MAP_SPAWN 'x'
 # define MAP_INVISIBLE_WALL 'i'
+# define MAP_SECRET_WALL 's'
 
 # define EVENT_SET 0
 # define EVENT_TOGGLE 1

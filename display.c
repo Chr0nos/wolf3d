@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/26 01:35:03 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:50:31 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 
 	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
 	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
-
 	if ((ray->obstacle < 0) || (ray->obstacle > COLORS_COUNT))
 		y[2] = (ray->side == 0) ? c->map.colors[0].x : c->map.colors[0].y;
 	else
