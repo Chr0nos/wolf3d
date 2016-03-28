@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 15:29:14 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 13:43:26 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/28 11:45:32 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		popper(t_context *c)
 		{
 			if (c->map.b[y].data[x] == MAP_SPAWN)
 			{
-				c->player.rootpos.x = (double)x;
-				c->player.rootpos.y = (double)y;
+				c->player.rootpos.x = (double)x + 1;
+				c->player.rootpos.y = (double)y + 1;
 				c->player.pos = c->player.rootpos;
 				return (1);
 			}
