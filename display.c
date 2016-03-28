@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/28 20:18:14 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/28 20:52:12 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include <unistd.h>
 #include "mlx.h"
+#include <math.h>
 
 int				display(t_context *c)
 {
@@ -73,6 +74,7 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 	}
 	else
 		wall = draw_make_line(x, y[0], x, y[1]);
+	//y[2] = color_fog(y[2], fabs(ray->dist * 50));
 	sky = draw_make_line(x, 0, x, wall.start.y);
 	sol = draw_make_line(x, wall.end.y, x, c->x->height);
 	draw_line(c->x, &sky, 0x005decff);

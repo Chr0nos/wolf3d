@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 20:13:07 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/28 20:32:21 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/28 20:51:39 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ static int		rgb(int r, int g, int b)
 {
 	return ((b & 0x000000ff) | ((g << 8) & 0x0000ff00) |
 		((r << 16) & 0x00ff0000));
+}
+
+int				color_fog(int color, double fog)
+{
+	int		r;
+	int		g;
+	int		b;
+
+	r = (int)((double)(color & 0x00ff0000) / fog);
+	g = (int)((double)(color & 0x0000ff00) / fog);
+	b = (int)((double)(color & 0x000000ff) / fog);
+	return (rgb(r, g, b));
 }
 
 static void		color_loader(int *color, const int *c)
@@ -32,7 +44,7 @@ void			colors_set(t_context *c)
 	color_loader(c->map.colors[0],
 		(int[4]){ 0x000d5925, 0x009622d9, 0x00097100, COLOR_YELLOW });
 	color_loader(c->map.colors[1],
-		(int[4]){ rgb(20, 170, 20), rgb(45, 136, 45),
+		(int[4]){ rgb(0, 80, 50), rgb(45, 136, 45),
 			rgb(17, 102, 17), rgb(0, 68, 0) });
 	color_loader(c->map.colors[2],
 		(int[4]){ COLOR_RED, COLOR_RED, 0x00a2130a, 0x00a2130a });
