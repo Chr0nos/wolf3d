@@ -1,0 +1,78 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   context.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/28 16:30:15 by snicolet          #+#    #+#             */
+/*   Updated: 2016/03/28 19:47:43 by snicolet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CONTEXT_H
+# define CONTEXT_H
+# include <string.h>
+# include "draw.h"
+# include "textures.h"
+
+typedef char		t_mode;
+
+typedef struct		s_posxy
+{
+	double			x;
+	double			y;
+}					t_posxy;
+
+typedef struct		s_ray
+{
+	double			camera_x;
+	double			dist;
+	double			h;
+	t_posxy			pos;
+	t_posxy			dir;
+	t_posxy			deltadis;
+	t_posxy			sidedist;
+	t_posxy			step;
+	int				side;
+	int				obstacle;
+}					t_ray;
+
+typedef struct		s_buffer
+{
+	char			*data;
+	int				size;
+	int				padding;
+}					t_buffer;
+
+typedef struct		s_player
+{
+	t_posxy			rootpos;
+	t_posxy			pos;
+	t_posxy			plane;
+	t_posxy			raydir;
+	t_posxy			dir;
+	double			speed;
+}					t_player;
+
+typedef struct		s_map
+{
+	t_buffer		*b;
+	t_texture		*tex;
+	unsigned int	lines;
+	int				flags;
+	int				img_count;
+	int				colors[8][4];
+	int				padding;
+}					t_map;
+
+typedef struct		s_context
+{
+	t_mlx			*x;
+	t_map			map;
+	t_player		player;
+	size_t			keyboard;
+	size_t			flags;
+}					t_context;
+
+#endif

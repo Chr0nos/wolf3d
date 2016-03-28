@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   closer.c                                           :+:      :+:    :+:   */
+/*   textures.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 22:25:49 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/28 16:57:49 by snicolet         ###   ########.fr       */
+/*   Created: 2016/03/28 16:02:17 by snicolet          #+#    #+#             */
+/*   Updated: 2016/03/28 16:33:16 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf.h"
-#include "draw.h"
-#include <stdlib.h>
+#ifndef TEXTURES_H
+# define TEXTURES_H
 
-void			clean_map(t_context *c)
+typedef struct	s_texture
 {
-	unsigned int	p;
+	int			width;
+	int			height;
+	char		*img;
+}				t_texture;
 
-	p = c->map.lines;
-	while (p--)
-		free(c->map.b[p].data);
-	free(c->map.b);
-}
-
-int				closer(t_context *c)
-{
-	draw_clear(c->x);
-	textures_clean(c);
-	clean_map(c);
-	exit(0);
-}
+#endif

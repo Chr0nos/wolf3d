@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/27 19:54:43 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/28 19:22:51 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,11 @@
 
 # define EVENT_SET 0
 # define EVENT_TOGGLE 1
+
+# define PO_ERROR -1
+# define PO_N 0
+# define PO_S 1
+# define PO_E 2
+# define PO_W 3
 
 #endif

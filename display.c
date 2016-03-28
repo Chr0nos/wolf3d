@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/27 12:50:31 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/28 20:18:14 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "draw.h"
 #include "libft.h"
 #include <unistd.h>
+#include "mlx.h"
 
 int				display(t_context *c)
 {
@@ -21,6 +22,9 @@ int				display(t_context *c)
 	init_display(c);
 	draw_flush_image(c->x, c->x->img);
 	display_stats(c);
+	mlx_put_image_to_window(c->x->mlxptr, c->x->winptr,
+		c->map.tex[1].img, 150,
+		c->x->height - c->map.tex[1].height);
 	return (0);
 }
 
@@ -31,6 +35,15 @@ static int		fix_y(int y, int maxy)
 	if (y >= maxy)
 		return (maxy - 1);
 	return (y);
+}
+
+static int		get_orientation(const t_ray *ray)
+{
+	if (ray->side == 0)
+		return ((ray->step.x == 1.0) ? PO_N : PO_S);
+	else if (ray->side == 1)
+		return ((ray->step.y == 1.0) ? PO_E : PO_W);
+	return (PO_ERROR);
 }
 
 /*
@@ -44,15 +57,15 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 	t_line			wall;
 	t_line			sky;
 	t_line			sol;
-	int				y[3];
+	int				y[4];
 
 	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
 	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
+	y[3] = get_orientation(ray);
 	if ((ray->obstacle < 0) || (ray->obstacle > COLORS_COUNT))
-		y[2] = (ray->side == 0) ? c->map.colors[0].x : c->map.colors[0].y;
+		y[2] = c->map.colors[0][y[3]];
 	else
-		y[2] = (ray->side) ? c->map.colors[ray->obstacle].x : \
-		c->map.colors[ray->obstacle].y;
+		y[2] = c->map.colors[ray->obstacle][y[3]];
 	if ((ray->obstacle == 4) && (c->flags & FLAG_HIDE_OUTERWALLS))
 	{
 		wall = draw_make_line(x, c->x->height / 2, x, c->x->height / 2);

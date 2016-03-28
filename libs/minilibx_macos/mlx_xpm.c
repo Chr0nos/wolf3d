@@ -299,7 +299,7 @@ void	mlx_int_file_get_rid_comment(char *ptr, int size)
 }
 
 
-void	*mlx_xpm_file_to_image(mlx_ptr_t *xvar,char *file,int *width,int *height)
+void	*mlx_xpm_file_to_image(mlx_ptr_t *xvar,const char *file,int *width,int *height)
 {
   int	fd;
   int	size;
