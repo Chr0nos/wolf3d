@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 12:26:32 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 21:00:14 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ static void		init_deltas_stepdist(t_ray *ray, t_point px)
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1.0;
-		ray->sidedist.x = (ray->pos.x - px.x) * ray->deltadis.x;
+		ray->sidedist.x = (ray->pos.x - (double)px.x) * ray->deltadis.x;
 	}
 	else
 	{
 		ray->step.x = 1.0;
-		ray->sidedist.x = (px.x + 1.0 - ray->pos.x) * ray->deltadis.x;
+		ray->sidedist.x = ((double)px.x + 1.0 - ray->pos.x) * ray->deltadis.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1.0;
-		ray->sidedist.y = (ray->pos.y - px.y) * ray->deltadis.y;
+		ray->sidedist.y = (ray->pos.y - (double)px.y) * ray->deltadis.y;
 	}
 	else
 	{
 		ray->step.y = 1.0;
-		ray->sidedist.y = (px.y + 1.0 - ray->pos.y) * ray->deltadis.y;
+		ray->sidedist.y = ((double)px.y + 1.0 - ray->pos.y) * ray->deltadis.y;
 	}
 }
 
@@ -59,20 +59,17 @@ static t_point	init_ray(t_context *c, t_ray *ray, t_point px)
 		if (ray->sidedist.x < ray->sidedist.y)
 		{
 			ray->sidedist.x += ray->deltadis.x;
-			px.x += ray->step.x;
+			px.x += (int)ray->step.x;
 			ray->side = 0;
 		}
 		else
 		{
 			ray->sidedist.y += ray->deltadis.y;
-			px.y += ray->step.y;
+			px.y += (int)ray->step.y;
 			ray->side = 1;
 		}
-		if (check_obstacle(c, px.x, px.y, CHECK_RAY) != 0)
-		{
-			ray->obstacle = check_obstacle(c, px.x, px.y, CHECK_WALK);
+		if ((ray->obstacle = check_obstacle(c, px.x, px.y, CHECK_RAY)) != 0)
 			hit = 1;
-		}
 	}
 	return (px);
 }
@@ -91,6 +88,8 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 	else
 		ray->dist = fabs(((double)px.y - ray->pos.y +
 			(1.0 - ray->step.y) / 2.0) / ray->dir.y);
+	ray->pos.x = (double)px.x;
+	ray->pos.y = (double)px.y;
 }
 
 void			init_display(t_context *c)

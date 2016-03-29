@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 12:16:12 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 18:44:48 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include "mlx.h"
 #include "draw.h"
 #include "libft.h"
-#define TEXTURES_COUNT 2
+#define TEXTURES_COUNT 3
 
 int		textures_load(t_context *c)
 {
 	const char		*txpath[] = { "./textures/sol.xpm",
-		"./textures/gun2.xpm"};
+		"./textures/gun2.xpm", "./textures/zaz.xpm"};
 	unsigned int	p;
 	int				e;
 	t_texture		*tex;

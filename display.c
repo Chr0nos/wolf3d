@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 12:48:22 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 21:06:02 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int				display(t_context *c)
 {
 	move_myass(c, c->keyboard);
 	init_display(c);
-	texture_push(c, &c->map.tex[0], draw_make_px(42, 10), 0x10000000);
+	if (c->flags & FLAG_TEXTURES)
+		texture_push(c, &c->map.tex[0], draw_make_px(42, 10), 0x10000000);
 	draw_flush_image(c->x, c->x->img);
 	display_stats(c);
 	mlx_put_image_to_window(c->x->mlxptr, c->x->winptr,
@@ -47,34 +48,48 @@ static int		get_orientation(const t_ray *ray)
 		return ((ray->step.y == 1.0) ? PO_E : PO_W);
 	return (PO_ERROR);
 }
-
+#include <stdio.h>
+#include <math.h>
 static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 {
 	const double	h = (double)c->x->height;
 	t_point			px;
 	t_point			tpx;
 	t_texture		*tex;
-	int				wallx;
+	double			wallx;
 
-	tex = &c->map.tex[0];
+	//wallX = rayPosX + ((mapY - rayPosY + (1 - stepY) / 2) / rayDirY) * rayDirX;
+
+	tex = &c->map.tex[2];
+	//printf("tex: x: %d y: %d\n", tex->width, tex->height);
+	//printf("raypos: x: %f y: %f\n", (float)ray->pos.x, (float)ray->pos.y);
+	//printf("raystep: x: %f y: %f\n", (float)ray->step.x, (float)ray->step.y);
+	//printf("raydir: x: %f y: %f\n", (float)ray->dir.x, (float)ray->dir.y);
 	if (ray->side == 1)
-		wallx = (int)(ray->pos.x + (((double)c->player.pos.y - ray->pos.y + (1.0 - ray->step.y) / 2.0) / ray->dir.y) * ray->dir.x);
+		wallx = ray->pos.x + ((c->player.pos.y - ray->pos.y + (1.0 - ray->step.y) / 2.0) / ray->dir.y) * ray->dir.x;
 	else
-		wallx = (int)(ray->pos.y + (((double)c->player.pos.x - ray->pos.x + (1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y);
-	wallx -= wallx;
+		wallx = ray->pos.y + ((c->player.pos.x - ray->pos.x + (1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y;
+	wallx -= floor(wallx);
+	//printf("wallx raw: %f\n", (float)wallx);
 	tpx.x = (int)(wallx * (double)tex->width);
-	if (((ray->side == 0) && (ray->dir.x > 0)) ||
-	((ray->side == 1) && (ray->dir.y < 0)))
+	//printf("tpx 0 : %d\n", tpx.x);
+	if ((ray->side == 0) && (ray->dir.x > 0))
+		tpx.x = tex->width - tpx.x - 1;
+	if ((ray->side == 1) && (ray->dir.y < 0))
 		tpx.x = tex->width - tpx.x - 1;
 	px = line->start;
 	while (px.y < line->end.y)
 	{
 		tpx.y = (int)(((double)(px.y * 2) - h + ray->h) *
 			(((double)tex->height / 2.0) / ray->h));
-		tpx.y = ft_abs(tpx.y);
-		draw_px(c->x, &px, texture_px(tex, tpx));
+		//printf("tex: x:%d y:%d\n", tpx.x, tpx.y);
+		if (tpx.y >= 0)
+			draw_px(c->x, &px, texture_px(tex, tpx));
 		px.y++;
 	}
+	//static int p = 0;
+	//if (p++ == 2)
+	//	closer(c);
 }
 
 /*
