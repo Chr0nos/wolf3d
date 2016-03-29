@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 10:17:14 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 12:48:22 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				display(t_context *c)
 {
 	move_myass(c, c->keyboard);
 	init_display(c);
-	//texture_push(c, &c->map.tex[0], draw_make_px(42, 10));
+	texture_push(c, &c->map.tex[0], draw_make_px(42, 10), 0x10000000);
 	draw_flush_image(c->x, c->x->img);
 	display_stats(c);
 	mlx_put_image_to_window(c->x->mlxptr, c->x->winptr,
@@ -58,11 +58,11 @@ static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 
 	tex = &c->map.tex[0];
 	if (ray->side == 1)
-		wallx = (int)(ray->pos.x + ((double)line->start.y - ray->pos.y + (1.0 - ray->step.y) / 2.0 / ray->dir.y) * ray->dir.x);
+		wallx = (int)(ray->pos.x + (((double)c->player.pos.y - ray->pos.y + (1.0 - ray->step.y) / 2.0) / ray->dir.y) * ray->dir.x);
 	else
-		wallx = (int)(ray->pos.y + ((double)line->start.x - ray->pos.x + (1.0 - ray->step.x) / 2.0 / ray->dir.x) * ray->dir.y);
+		wallx = (int)(ray->pos.y + (((double)c->player.pos.x - ray->pos.x + (1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y);
 	wallx -= wallx;
-	tpx.x = wallx * tex->width;
+	tpx.x = (int)(wallx * (double)tex->width);
 	if (((ray->side == 0) && (ray->dir.x > 0)) ||
 	((ray->side == 1) && (ray->dir.y < 0)))
 		tpx.x = tex->width - tpx.x - 1;

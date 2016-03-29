@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 10:13:29 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 12:16:12 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int		texture_px(t_texture *tex, t_point px)
 		(unsigned int)(px.x * 4)));
 }
 
-void	texture_push(t_context *c, t_texture *tex, const t_point offset)
+void	texture_push(t_context *c, t_texture *tex, const t_point offset,
+	int alpha)
 {
 	t_point		px;
 	t_point		real;
@@ -74,7 +75,7 @@ void	texture_push(t_context *c, t_texture *tex, const t_point offset)
 		while (px.y--)
 		{
 			real.y = offset.y + px.y;
-			draw_px(c->x, &real, texture_px(tex, px));
+			draw_px(c->x, &real, ((texture_px(tex, px) & 0x00ffffff) | alpha));
 		}
 	}
 }
