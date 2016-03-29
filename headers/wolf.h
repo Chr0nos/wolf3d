@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/28 20:50:09 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 02:14:02 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		color_fog(int color, double fog);
 int		textures_load(t_context *c);
 int		texture_px(t_texture *tex, t_point px);
 void	textures_clean(t_context *c);
+void	texture_push(t_context *c, t_texture *tex, const t_point offset);
 void	colors_set(t_context *c);
 
 #endif

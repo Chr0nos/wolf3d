@@ -1,3 +1,4 @@
 -Iheaders
 -Ilibs/draw
 -Ilibs/libft
+-Ilibs/minilibx_macos

@@ -6,17 +6,20 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 20:13:07 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/28 20:51:39 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 01:17:56 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "wolf.h"
+#define MASK_BLUE 0x000000ff
+#define MASK_GREEN 0x0000ff00
+#define MASK_RED 0x00ff0000
 
 static int		rgb(int r, int g, int b)
 {
-	return ((b & 0x000000ff) | ((g << 8) & 0x0000ff00) |
-		((r << 16) & 0x00ff0000));
+	return ((b & MASK_BLUE) | ((g << 8) & MASK_GREEN) |
+		((r << 16) & MASK_RED));
 }
 
 int				color_fog(int color, double fog)
@@ -25,9 +28,9 @@ int				color_fog(int color, double fog)
 	int		g;
 	int		b;
 
-	r = (int)((double)(color & 0x00ff0000) / fog);
-	g = (int)((double)(color & 0x0000ff00) / fog);
-	b = (int)((double)(color & 0x000000ff) / fog);
+	r = (int)(((double)(color & MASK_RED)) * fog);
+	g = (int)(((double)(color & MASK_GREEN)) * fog);
+	b = (int)(((double)(color & MASK_BLUE)) * fog);
 	return (rgb(r, g, b));
 }
 
@@ -42,7 +45,7 @@ static void		color_loader(int *color, const int *c)
 void			colors_set(t_context *c)
 {
 	color_loader(c->map.colors[0],
-		(int[4]){ 0x000d5925, 0x009622d9, 0x00097100, COLOR_YELLOW });
+		(int[4]){ 0x000d5925, rgb(10, 150, 4), 0x00097100, rgb(20, 60, 20) });
 	color_loader(c->map.colors[1],
 		(int[4]){ rgb(0, 80, 50), rgb(45, 136, 45),
 			rgb(17, 102, 17), rgb(0, 68, 0) });

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/27 12:46:07 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/29 02:43:49 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int				move_myass(t_context *c, const size_t kb)
 	if ((kb & (KB_FORWARD | KB_UP)) && (kb & (KB_BACK | KB_DOWN)))
 		;
 	else if ((kb & KB_FORWARD) || (kb & KB_UP))
-		player_forward(c, -c->player.speed * ((kb & KB_SHIFT) ? 1.3 : 1.0));
+		player_forward(c, -c->player.speed * ((kb & KB_SHIFT) ? 2.0 : 1.0));
 	else if ((kb & KB_BACK) || (kb & KB_DOWN))
-		player_forward(c, c->player.speed * ((kb & KB_SHIFT) ? 1.5 : 1.0));
+		player_forward(c, c->player.speed * ((kb & KB_SHIFT) ? 2.5 : 1.0));
 	if ((kb & KB_LEFT) && (kb & KB_RIGHT))
 		;
 	else if (kb & KB_LEFT)
@@ -30,9 +30,9 @@ int				move_myass(t_context *c, const size_t kb)
 	if ((kb & KB_CLEFT) && (kb & KB_CRIGHT))
 		;
 	else if (kb & KB_CLEFT)
-		player_crab(c, -c->player.speed * 0.9);
+		player_crab(c, -c->player.speed * 1.5);
 	else if (kb & KB_CRIGHT)
-		player_crab(c, c->player.speed * 0.9);
+		player_crab(c, c->player.speed * 1.5);
 	else
 		return (0);
 	return (1);
@@ -88,6 +88,8 @@ int				keydown(int keycode, t_context *c)
 		c->flags ^= FLAG_HIDE_OUTERWALLS;
 	else if (keycode == KEY_I)
 		c->flags ^= FLAG_SHOWINVISIBLE;
+	else if (keycode == KEY_T)
+		c->flags ^= FLAG_TEXTURES;
 	else
 	{
 		ft_printf("unknow key code: %d\n", keycode);
