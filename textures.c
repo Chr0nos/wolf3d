@@ -6,53 +6,12 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 16:29:26 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 18:39:52 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
-#include <stdlib.h>
-#include "mlx.h"
 #include "draw.h"
-#include "libft.h"
-#define TEXTURES_COUNT 4
-
-int				textures_load(t_context *c)
-{
-	const char		*txpath[] = { "./textures/sol.xpm",
-		"./textures/gun2.xpm", "./textures/zaz.xpm", "./textures/walljap.xpm"};
-	unsigned int	p;
-	int				e;
-	t_texture		*tex;
-
-	if (!(c->map.tex = malloc(sizeof(t_texture) * TEXTURES_COUNT)))
-		return (-1);
-	p = 0;
-	while (p < TEXTURES_COUNT)
-	{
-		ft_printf("loading texture: %s\n", txpath[p]);
-		tex = &c->map.tex[p];
-		tex->img = mlx_xpm_file_to_image(c->x->mlxptr, txpath[p],
-			&tex->width, &tex->height);
-		tex->data = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line, &e);
-		p++;
-	}
-	ft_putendl("textures done.");
-	return (1);
-}
-
-void			textures_clean(t_context *c)
-{
-	unsigned int	p;
-
-	if (!c->map.tex)
-		return ;
-	p = TEXTURES_COUNT;
-	while (p--)
-		mlx_destroy_image(c->x->mlxptr, c->map.tex[p].img);
-	free(c->map.tex);
-	c->map.tex = 0;
-}
 
 unsigned int	texture_px(t_texture *tex, t_point px)
 {
@@ -78,4 +37,17 @@ void			texture_push(t_context *c, t_texture *tex, const t_point offset,
 			draw_px(c->x, &real, ((texture_px(tex, px) & 0x00ffffff) | alpha));
 		}
 	}
+}
+
+unsigned int	texture_id(t_context *c, const t_ray *ray)
+{
+	const int	o = ray->obstacle;
+
+	if (o == 0)
+		return (3);
+	else if (o == 2)
+		return ((ray->orientation == PO_W) ? 0 : 2);
+	else if (o == MAP_SECRET_WALL)
+		return ((c->flags & FLAG_SHOWSECRETWALLS) ? 4 : 3);
+	return (3);
 }

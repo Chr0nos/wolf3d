@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 16:29:42 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 18:40:05 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,31 @@ int				display(t_context *c)
 	draw_flush_image(c->x, c->x->img);
 	display_stats(c);
 	mlx_put_image_to_window(c->x->mlxptr, c->x->winptr,
-		c->map.tex[1].img, 150,
+		c->map.tex[1].img,
+		(c->x->width / 2) - c->map.tex[1].width / 2,
 		c->x->height - c->map.tex[1].height);
 	return (0);
 }
 
-static int		fix_y(int y, int maxy)
+static int		texture_get_x(t_context *c, const t_ray *ray,
+	const t_texture *tex)
 {
-	if (y < 0)
-		return (0);
-	if (y >= maxy)
-		return (maxy - 1);
-	return (y);
-}
+	int			tpxx;
+	double		wallx;
 
-static int		get_orientation(const t_ray *ray)
-{
-	if (ray->side == 0)
-		return ((ray->step.x == 1.0) ? PO_N : PO_S);
-	else if (ray->side == 1)
-		return ((ray->step.y == 1.0) ? PO_E : PO_W);
-	return (PO_ERROR);
+	if (ray->side == 1)
+		wallx = c->player.pos.x + (((int)ray->pos.y - c->player.pos.y + \
+		(1.0 - ray->step.y) / 2.0) / ray->dir.y) * ray->dir.x;
+	else
+		wallx = c->player.pos.y + (((int)ray->pos.x - c->player.pos.x + \
+		(1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y;
+	wallx -= floor(wallx);
+	tpxx = (int)(wallx * (double)tex->width);
+	if ((ray->side == 0) && (ray->dir.x > 0))
+		tpxx = tex->width - tpxx - 1;
+	if ((ray->side == 1) && (ray->dir.y < 0))
+		tpxx = tex->width - tpxx - 1;
+	return (tpxx);
 }
 
 static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
@@ -53,28 +57,23 @@ static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 	t_point			px;
 	t_point			tpx;
 	t_texture		*tex;
-	double			wallx;
+	unsigned int	color;
 
-	tex = &c->map.tex[(ray->obstacle == 2) ? 2 : 3];
-	if (ray->side == 1)
-		wallx = c->player.pos.x + (((int)ray->pos.y - c->player.pos.y + \
-		(1.0 - ray->step.y) / 2.0) / ray->dir.y) * ray->dir.x;
-	else
-		wallx = c->player.pos.y + (((int)ray->pos.x - c->player.pos.x + \
-		(1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y;
-	wallx -= floor(wallx);
-	tpx.x = (int)(wallx * (double)tex->width);
-	if ((ray->side == 0) && (ray->dir.x > 0))
-		tpx.x = tex->width - tpx.x - 1;
-	if ((ray->side == 1) && (ray->dir.y < 0))
-		tpx.x = tex->width - tpx.x - 1;
+	tex = &c->map.tex[texture_id(c, ray)];
+	tpx.x = texture_get_x(c, ray, tex);
 	px = line->start;
 	while (px.y < line->end.y)
 	{
 		tpx.y = (int)(((double)(px.y * 2) - h + ray->h) *
 			(((double)tex->height / 2.0) / ray->h));
 		if (tpx.y >= 0)
-			draw_px(c->x, &px, texture_px(tex, tpx));
+		{
+			color = texture_px(tex, tpx);
+			if ((ray->side == 1) &&
+				((tex->id == 3) || (tex->id == 4)))
+				color = (color >> 1) & 8355711;
+			draw_px(c->x, &px, color);
+		}
 		px.y++;
 	}
 }
@@ -90,15 +89,14 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 	t_line			wall;
 	t_line			sky;
 	t_line			sol;
-	int				y[4];
+	int				y[3];
 
 	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
 	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
-	y[3] = get_orientation(ray);
 	if ((ray->obstacle < 0) || (ray->obstacle > COLORS_COUNT))
 		y[2] = c->map.colors[0][y[3]];
 	else
-		y[2] = c->map.colors[ray->obstacle][y[3]];
+		y[2] = c->map.colors[ray->obstacle][ray->orientation];
 	if ((ray->obstacle == 4) && (c->flags & FLAG_HIDE_OUTERWALLS))
 	{
 		wall = draw_make_line(x, c->x->height / 2, x, c->x->height / 2);

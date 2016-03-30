@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.h                                         :+:      :+:    :+:   */
+/*   fix_y.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/28 16:02:17 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 17:33:50 by snicolet         ###   ########.fr       */
+/*   Created: 2016/03/30 17:27:37 by snicolet          #+#    #+#             */
+/*   Updated: 2016/03/30 17:28:01 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEXTURES_H
-# define TEXTURES_H
+#include "wolf.h"
 
-typedef struct	s_texture
+int		fix_y(int y, int maxy)
 {
-	int				width;
-	int				height;
-	int				bpp;
-	int				size_line;
-	unsigned int	id;
-	unsigned int	padding;
-	char			*img;
-	char			*data;
-}				t_texture;
-
-#endif
+	if (y < 0)
+		return (0);
+	if (y >= maxy)
+		return (maxy - 1);
+	return (y);
+}

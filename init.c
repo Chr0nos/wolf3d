@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 16:08:21 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:41:56 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,15 @@ static t_point	init_ray(t_context *c, t_ray *ray, t_point px)
 	return (px);
 }
 
+static int		get_orientation(const t_ray *ray)
+{
+	if (ray->side == 0)
+		return ((ray->step.x == 1.0) ? PO_N : PO_S);
+	else if (ray->side == 1)
+		return ((ray->step.y == 1.0) ? PO_E : PO_W);
+	return (PO_ERROR);
+}
+
 static void		init_dda(t_context *c, t_point px, t_ray *ray)
 {
 	ray->pos = c->player.pos;
@@ -90,6 +99,7 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 			(1.0 - ray->step.y) / 2.0) / ray->dir.y);
 	ray->pos.x = (double)px.x;
 	ray->pos.y = (double)px.y;
+	ray->orientation = get_orientation(ray);
 }
 
 void			init_display(t_context *c)

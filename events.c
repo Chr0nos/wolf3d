@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 02:43:49 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 18:43:35 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int				keydown(int keycode, t_context *c)
 		c->flags ^= FLAG_SHOWINVISIBLE;
 	else if (keycode == KEY_T)
 		c->flags ^= FLAG_TEXTURES;
+	else if (keycode == KEY_K)
+		c->flags ^= FLAG_SHOWSECRETWALLS;
 	else
 	{
 		ft_printf("unknow key code: %d\n", keycode);

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:36:52 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/28 19:27:36 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 18:29:09 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int		check_obstacle(t_context *c, int x, int y, t_mode mode)
 		return ((mode == CHECK_WALK) ? 1 : 0);
 	}
 	if (p == MAP_SECRET_WALL)
-		return ((mode == CHECK_WALK) ? 0 : 1);
+		return ((mode == CHECK_WALK) ? 0 : MAP_SECRET_WALL);
 	return (p - '0');
 }

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 02:43:23 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 18:42:31 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define FLAG_HIDE_OUTERWALLS 1u << 2
 # define FLAG_SHOWINVISIBLE 1u << 3
 # define FLAG_TEXTURES 1u << 4
+# define FLAG_SHOWSECRETWALLS 1u << 5
 
 # define KB_FORWARD 1u
 # define KB_BACK 1u << 1
@@ -28,6 +29,7 @@
 # define KB_UP 1u << 6
 # define KB_DOWN 1u << 7
 # define KB_SHIFT 1u << 8
+# define KB_SHOWSECRETWALLS 1u << 9
 
 # define CHECK_RAY 1
 # define CHECK_WALK 1 << 1

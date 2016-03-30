@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:30:15 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 12:26:31 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:41:45 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct		s_ray
 	t_posxy			step;
 	int				side;
 	int				obstacle;
+	int				orientation;
+	int				padding;
 }					t_ray;
 
 typedef struct		s_buffer
