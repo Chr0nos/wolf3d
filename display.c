@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 21:06:02 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 14:25:52 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 	//printf("raystep: x: %f y: %f\n", (float)ray->step.x, (float)ray->step.y);
 	//printf("raydir: x: %f y: %f\n", (float)ray->dir.x, (float)ray->dir.y);
 	if (ray->side == 1)
-		wallx = ray->pos.x + ((c->player.pos.y - ray->pos.y + (1.0 - ray->step.y) / 2.0) / ray->dir.y) * ray->dir.x;
+		wallx = c->player.pos.x + ((c->player.pos.y - ray->pos.y + (1.0 - ray->step.y) / 2.0) / ray->dir.y) * ray->dir.x;
 	else
-		wallx = ray->pos.y + ((c->player.pos.x - ray->pos.x + (1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y;
+		wallx = c->player.pos.y + ((c->player.pos.x - ray->pos.x + (1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y;
 	wallx -= floor(wallx);
 	//printf("wallx raw: %f\n", (float)wallx);
 	tpx.x = (int)(wallx * (double)tex->width);
