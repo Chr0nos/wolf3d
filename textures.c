@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/29 18:44:48 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 16:29:26 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include "mlx.h"
 #include "draw.h"
 #include "libft.h"
-#define TEXTURES_COUNT 3
+#define TEXTURES_COUNT 4
 
-int		textures_load(t_context *c)
+int				textures_load(t_context *c)
 {
 	const char		*txpath[] = { "./textures/sol.xpm",
-		"./textures/gun2.xpm", "./textures/zaz.xpm"};
+		"./textures/gun2.xpm", "./textures/zaz.xpm", "./textures/walljap.xpm"};
 	unsigned int	p;
 	int				e;
 	t_texture		*tex;
@@ -41,7 +41,7 @@ int		textures_load(t_context *c)
 	return (1);
 }
 
-void	textures_clean(t_context *c)
+void			textures_clean(t_context *c)
 {
 	unsigned int	p;
 
@@ -54,15 +54,15 @@ void	textures_clean(t_context *c)
 	c->map.tex = 0;
 }
 
-int		texture_px(t_texture *tex, t_point px)
+unsigned int	texture_px(t_texture *tex, t_point px)
 {
-	return (*(int *)((unsigned long)tex->data +
+	return (*(unsigned int *)((unsigned long)tex->data +
 		(unsigned int)(tex->size_line * px.y) +
 		(unsigned int)(px.x * 4)));
 }
 
-void	texture_push(t_context *c, t_texture *tex, const t_point offset,
-	int alpha)
+void			texture_push(t_context *c, t_texture *tex, const t_point offset,
+	unsigned int alpha)
 {
 	t_point		px;
 	t_point		real;
