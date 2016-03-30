@@ -6,12 +6,12 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/03/30 17:45:33 by snicolet         ###   ########.fr        #
+#    Updated: 2016/03/30 21:19:17 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=wolf3d
-FLAGS=-Wall -Wextra -Werror -Weverything -pipe -Ofast -g3
+FLAGS=-Wall -Wextra -Werror -Weverything -pipe -Ofast -g3 -fsanitize=address
 DRAW=./libs/draw
 MLX=./libs/minilibx_macos
 LIBFT=./libs/libft
@@ -19,7 +19,8 @@ INC=-I./headers -I $(DRAW) -I $(LIBFT) -I $(MLX)
 CC=clang
 LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -L $(MLX) -lmlx -lm -framework AppKit -framework OpenGL
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o \
-	player_actions.o stats.o popper.o textures.o colors.o fix_y.o textures_base.o
+	player_actions.o stats.o popper.o textures.o colors.o fix_y.o textures_base.o \
+	textures_floor.o
 
 all: $(NAME)
 

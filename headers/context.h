@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:30:15 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 17:41:45 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 21:42:19 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_ray
 	double			camera_x;
 	double			dist;
 	double			h;
+	double			wallx;
 	t_posxy			pos;
 	t_posxy			dir;
 	t_posxy			deltadis;
@@ -64,7 +65,7 @@ typedef struct		s_map
 	unsigned int	lines;
 	int				flags;
 	int				img_count;
-	int				colors[8][4];
+	unsigned int	colors[8][4];
 	int				padding;
 }					t_map;
 
@@ -76,5 +77,12 @@ typedef struct		s_context
 	size_t			keyboard;
 	size_t			flags;
 }					t_context;
+
+typedef struct		s_display_swf
+{
+	t_line			sky;
+	t_line			wall;
+	t_line			sol;
+}					t_swf;
 
 #endif

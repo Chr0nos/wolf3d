@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 18:25:46 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 21:04:06 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 #include "libft.h"
 #include <stdlib.h>
 
-#define TEXTURES_COUNT 5
+#define TEXTURES_COUNT 6
+
+static int		texture_error(const char *path)
+{
+	ft_printf("error while loading texture: %s : failed to open file\n", path);
+	return (-2);
+}
 
 int				textures_load(t_context *c)
 {
 	const char		*txpath[] = { "./textures/sol.xpm",
-		"./textures/gun2.xpm", "./textures/zaz.xpm", "./textures/walljap.xpm",
-	"./textures/walljapneko.xpm"};
+		"./textures/gun.xpm", "./textures/zaz.xpm", "./textures/walljap.xpm",
+	"./textures/walljapneko.xpm", "./textures/bones.xpm"};
 	unsigned int	p;
 	int				e;
 	t_texture		*tex;
@@ -33,8 +39,9 @@ int				textures_load(t_context *c)
 	{
 		ft_printf("loading texture: %s\n", txpath[p]);
 		tex = &c->map.tex[p];
-		tex->img = mlx_xpm_file_to_image(c->x->mlxptr, txpath[p],
-			&tex->width, &tex->height);
+		if (!(tex->img = mlx_xpm_file_to_image(c->x->mlxptr, txpath[p],
+			&tex->width, &tex->height)))
+			return (texture_error(txpath[p]));
 		tex->data = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line, &e);
 		tex->id = p;
 		p++;
@@ -47,10 +54,10 @@ void			textures_clean(t_context *c)
 {
 	unsigned int	p;
 
-	if (!c->map.tex)
+	if ((!c->map.tex) || (c->x->mlxptr))
 		return ;
 	p = TEXTURES_COUNT;
-	while (p--)
+	while ((p--) && (c->map.tex[p].img))
 		mlx_destroy_image(c->x->mlxptr, c->map.tex[p].img);
 	free(c->map.tex);
 	c->map.tex = 0;

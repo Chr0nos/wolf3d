@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 18:41:12 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 20:33:13 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ void			set_defaults(t_context *c)
 	colors_set(c);
 }
 
-static void		init_wolf(t_context *c)
+static int		init_wolf(t_context *c)
 {
 	c->map.tex = NULL;
+	if (textures_load(c) < 0)
+		return (-1);
 	c->keyboard = 0;
 	set_defaults(c);
 	display_map(c);
 	set_hooks(c);
-	textures_load(c);
+	return (1);
 }
 
 int				main(int ac, char **av)
@@ -58,12 +60,13 @@ int				main(int ac, char **av)
 	}
 	else if (!(c.x = draw_init("Wolf 3d", SIZE_X, SIZE_Y)))
 		ft_putendl("error: unable to initialise mlx window");
-	else
+	else if (init_wolf(&c) > 0)
 	{
-		init_wolf(&c);
 		draw_loop_hook(c.x, &display, &c);
 		draw_loop(c.x);
 		ft_putendl("quitting");
 	}
+	else
+		closer(&c);
 	return (0);
 }

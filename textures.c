@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 18:39:52 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 20:54:21 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ unsigned int	texture_id(t_context *c, const t_ray *ray)
 
 	if (o == 0)
 		return (3);
-	else if (o == 2)
+	else if (o == '2')
 		return ((ray->orientation == PO_W) ? 0 : 2);
 	else if (o == MAP_SECRET_WALL)
 		return ((c->flags & FLAG_SHOWSECRETWALLS) ? 4 : 3);
+	else if (o == 'b')
+		return (5);
 	return (3);
 }
