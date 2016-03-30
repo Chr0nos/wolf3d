@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 22:12:12 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 00:35:07 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define MAP_WALL_STD '0'
 # define MAP_ZAZ '2'
 # define MAP_QUBI 'q'
+# define MAP_GIRL 'g'
 
 # define TEX_SOL 0
 # define TEX_GUN 1
@@ -49,6 +50,7 @@
 # define TEX_WALLNEKO 4
 # define TEX_BONES 5
 # define TEX_QUBI 6
+# define TEX_GIRL 7
 
 # define EVENT_SET 0
 # define EVENT_TOGGLE 1

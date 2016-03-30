@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 21:45:49 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:22:03 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			display_map_walk(t_context *c);
 void			display_stats(t_context *c);
 void			display_vertical(t_context *c, t_ray *ray, const int x);
 void			display_tex_floor(t_context *c, const t_ray *ray,
-	const t_line *wall);
+	const t_line *wall, const t_texture *tex);
 int				display(t_context *c);
 int				closer(t_context *c);
 int				popper(t_context *c);
@@ -46,7 +46,7 @@ int				move_myass(t_context *c, const size_t kb);
 unsigned int	color_fog(unsigned int color, double fog);
 int				fix_y(int y, int maxy);
 int				textures_load(t_context *c);
-unsigned int	texture_px(t_texture *tex, t_point px);
+unsigned int	texture_px(const t_texture *tex, t_point px);
 void			textures_clean(t_context *c);
 void			texture_push(t_context *c, t_texture *tex, const t_point offset,
 	unsigned int alpha);

@@ -6,14 +6,14 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 22:12:48 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 00:35:34 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "draw.h"
 
-unsigned int	texture_px(t_texture *tex, t_point px)
+unsigned int	texture_px(const t_texture *tex, t_point px)
 {
 	return (*(unsigned int *)((unsigned long)tex->data +
 		(unsigned int)(tex->size_line * px.y) +
@@ -53,5 +53,7 @@ unsigned int	texture_id(t_context *c, const t_ray *ray)
 		return ((c->flags & FLAG_SHOWSECRETWALLS) ? 4 : 3);
 	else if (o == 'b')
 		return (5);
+	else if (o == MAP_GIRL)
+		return (TEX_GIRL);
 	return (3);
 }

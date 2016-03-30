@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 21:07:37 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 22:14:33 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 00:22:36 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,30 @@ static void		dtf_init(t_context *c, const t_ray *ray, t_posxy *fl)
 }
 
 void			display_tex_floor(t_context *c, const t_ray *ray,
-	const t_line *wall)
+	const t_line *wall, const t_texture *tex)
 {
-	t_posxy		fl;
-	t_point		px;
+	const double	h = (double)c->x->height;
+	t_posxy			fl;
+	t_posxy			cfl;
+	t_point			px;
+	double			coefw;
+	double			current_dist;
+	double			dist_player;
 
+(void)tex;
+	dist_player = 0.0;
 	dtf_init(c, ray, &fl);
 	px = wall->end;
 	while (px.y < c->x->height)
 	{
+		current_dist = h / (2 * px.y - h);
+		coefw = (current_dist - ray->dist) / (ray->dist - dist_player);
+		cfl.x = coefw * fl.x + (1.0 - coefw) * c->player.pos.x;
+		cfl.y = coefw * fl.y + (1.0 - coefw) * c->player.pos.y;
+		//draw_px(c->x, &px, texture_px(tex, draw_make_px(
+		//	((int)(cfl.x * tex->width) % tex->width),
+		//	((int)(cfl.y * tex->height) % tex->height)
+		//)));
 		draw_px(c->x, &px, COLOR_BROWN);
 		px.y++;
 	}

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 22:16:36 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:21:37 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void		display_swf(t_context *c, t_swf *z, t_ray *ray, unsigned int cw)
 	}
 	else
 	{
-		display_tex_floor(c, ray, &z->wall);
+		display_tex_floor(c, ray, &z->wall, &c->map.tex[TEX_SOL]);
 		display_vertical_tex(c, ray, &z->wall);
 	}
 }
