@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 20:33:13 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 22:21:34 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			set_defaults(t_context *c)
 	c->player.dir.y = 0.0;
 	c->player.speed = 0.06;
 	c->player.plane.x = 0.0;
-	c->player.plane.y = 0.66;
+	c->player.plane.y = 0.8;
 	c->flags = FLAG_NONE;
 	colors_set(c);
 }

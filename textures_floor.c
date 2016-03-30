@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 21:07:37 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 21:18:54 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 22:14:33 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ static void		dtf_init(t_context *c, const t_ray *ray, t_posxy *fl)
 		fl->x = map.x + ray->wallx;
 		fl->y = map.y;
 	}
-	else {
+	else
+	{
 		fl->x = map.x + ray->wallx;
 		fl->y = map.y + 1.0;
 	}
 }
 
-void	display_tex_floor(t_context *c, const t_ray *ray, const t_line *wall)
+void			display_tex_floor(t_context *c, const t_ray *ray,
+	const t_line *wall)
 {
 	t_posxy		fl;
 	t_point		px;

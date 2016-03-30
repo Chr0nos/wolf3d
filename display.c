@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 21:41:53 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/30 22:16:36 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 		colorwall = c->map.colors[0][0];
 	else
 		colorwall = c->map.colors[ray->obstacle - '0'][ray->orientation];
-	if ((ray->obstacle == '4') && (c->flags & FLAG_HIDE_OUTERWALLS))
+	if ((ray->obstacle == MAP_GENERATED) && (c->flags & FLAG_HIDE_OUTERWALLS))
 	{
 		z.wall = draw_make_line(x, c->x->height / 2, x, c->x->height / 2);
 		colorwall = COLOR_BROWN;
