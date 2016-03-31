@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 00:34:19 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 15:12:25 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-#define TEXTURES_COUNT 8
+#define TEXTURES_COUNT 9
 
 static int		texture_error(const char *path)
 {
@@ -25,10 +25,10 @@ static int		texture_error(const char *path)
 
 int				textures_load(t_context *c)
 {
-	const char		*txpath[] = { "./textures/sol.xpm",
+	const char		*txpath[] = { "./textures/box.xpm",
 		"./textures/gun.xpm", "./textures/zaz.xpm", "./textures/walljap.xpm",
 	"./textures/walljapneko.xpm", "./textures/bones.xpm",
-	"./textures/qubi.xpm", "./textures/girl.xpm"};
+	"./textures/qubi.xpm", "./textures/girl.xpm", "./textures/sol.xpm"};
 	unsigned int	p;
 	int				e;
 	t_texture		*tex;

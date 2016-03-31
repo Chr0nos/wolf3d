@@ -6,27 +6,27 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 21:07:37 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 02:45:51 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 15:52:43 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-static void		dtf_init(t_context *c, const t_ray *ray, t_posxy *fl)
+static void		dtf_init(const t_ray *ray, t_posxy *fl)
 {
-	const t_posxy	*map = &c->player.pos;
+	const t_posxy	*map = &ray->pos;
 
-	if (ray->orientation == PO_N)
+	if ((ray->side == 0) && (ray->dir.x > 0))
 	{
 		fl->x = map->x;
 		fl->y = map->y + ray->wallx;
 	}
-	else if (ray->orientation == PO_S)
+	else if ((ray->side == 0) && (ray->dir.x < 0))
 	{
 		fl->x = map->x + 1.0;
 		fl->y = map->y + ray->wallx;
 	}
-	else if (ray->orientation == PO_E)
+	else if ((ray->side == 1) && (ray->dir.y > 0))
 	{
 		fl->x = map->x + ray->wallx;
 		fl->y = map->y;
@@ -47,23 +47,20 @@ void			display_tex_floor(t_context *c, const t_ray *ray,
 	t_point			px;
 	double			coefw;
 	double			current_dist;
-	double			dist_player;
 
-(void)tex;
-	dist_player = 0.0;
-	dtf_init(c, ray, &fl);
+	dtf_init(ray, &fl);
 	px = wall->end;
 	while (px.y < c->x->height)
 	{
 		current_dist = h / (2.0 * px.y - h);
-		coefw = (current_dist - ray->dist) / (ray->dist - dist_player);
-		cfl.x = coefw * fl.x + (1.0 - coefw) * c->player.rootpos.x;
-		cfl.y = coefw * fl.y + (1.0 - coefw) * c->player.rootpos.y;
+		coefw = current_dist / ray->dist;
+		if (coefw > 1.0)
+			coefw = 1.0;
+		cfl.x = coefw * fl.x + (1.0 - coefw) * c->player.pos.x;
+		cfl.y = coefw * fl.y + (1.0 - coefw) * c->player.pos.y;
 		draw_px(c->x, &px, texture_px(tex, draw_make_px(
 			(int)(cfl.x * tex->width) % tex->width,
-			(int)(cfl.y * tex->height) % tex->height
-		)));
-		//draw_px(c->x, &px, COLOR_BROWN);
+			(int)(cfl.y * tex->height) % tex->height)));
 		px.y++;
 	}
 }

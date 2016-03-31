@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 23:21:37 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 17:15:30 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 		if (tpx.y >= 0)
 		{
 			color = texture_px(tex, tpx);
-			if ((ray->side == 1) &&
-				(tex->id >= 3))
+			if ((ray->side == 1) && (tex->id >= 2))
 				color = (color >> 1) & 8355711;
 			draw_px(c->x, &px, color);
 		}
@@ -88,14 +87,13 @@ static void		display_swf(t_context *c, t_swf *z, t_ray *ray, unsigned int cw)
 	}
 	else
 	{
-		display_tex_floor(c, ray, &z->wall, &c->map.tex[TEX_SOL]);
+		display_tex_floor(c, ray, &z->wall, &c->map.tex[TEX_BOX]);
 		display_vertical_tex(c, ray, &z->wall);
 	}
 }
 
 /*
 ** this function actualy draw the whole vertical line from 0 to the win size
-** y[2] contains the color of the wall: DO NOT ask why...
 */
 
 void			display_vertical(t_context *c, t_ray *ray, const int x)
@@ -109,7 +107,7 @@ void			display_vertical(t_context *c, t_ray *ray, const int x)
 	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->x->height);
 	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->x->height);
 	if ((idx < 0) || (idx >= COLORS_COUNT))
-		colorwall = c->map.colors[0][0];
+		colorwall = c->map.colors[0][ray->orientation];
 	else
 		colorwall = c->map.colors[ray->obstacle - '0'][ray->orientation];
 	if ((ray->obstacle == MAP_GENERATED) && (c->flags & FLAG_HIDE_OUTERWALLS))

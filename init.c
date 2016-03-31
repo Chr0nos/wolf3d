@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 23:44:37 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 14:50:34 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 	ray->pos.x = (double)px.x;
 	ray->pos.y = (double)px.y;
 	ray->orientation = get_orientation(ray);
+	if (ray->orientation == PO_ERROR)
+	{
+		ft_putendl("error: failed to get a valid orientation");
+		closer(c);
+	}
 }
 
 void			init_display(t_context *c)
