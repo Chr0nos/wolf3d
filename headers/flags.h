@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 17:00:55 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/01 01:40:21 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 # define MAP_QUBI 'q'
 # define MAP_GIRL 'g'
 # define MAP_BONES 'b'
+# define MAP_TELEPORT 'g'
+# define MAP_COMMENT '#'
 
 # define TEX_BOX 0
 # define TEX_GUN 1

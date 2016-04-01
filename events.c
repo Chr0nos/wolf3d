@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 18:43:35 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/03/31 23:17:26 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int				move_myass(t_context *c, const size_t kb)
 {
+	if (c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] == MAP_TELEPORT)
+		c->player.pos = c->player.rootpos;
 	if ((kb & (KB_FORWARD | KB_UP)) && (kb & (KB_BACK | KB_DOWN)))
 		;
 	else if ((kb & KB_FORWARD) || (kb & KB_UP))
