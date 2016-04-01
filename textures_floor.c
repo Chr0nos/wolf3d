@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 21:07:37 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 15:52:43 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/01 14:31:49 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ void			display_tex_floor(t_context *c, const t_ray *ray,
 			coefw = 1.0;
 		cfl.x = coefw * fl.x + (1.0 - coefw) * c->player.pos.x;
 		cfl.y = coefw * fl.y + (1.0 - coefw) * c->player.pos.y;
-		draw_px(c->x, &px, texture_px(tex, draw_make_px(
-			(int)(cfl.x * tex->width) % tex->width,
-			(int)(cfl.y * tex->height) % tex->height)));
+		if ((cfl.x >= 0.0) && (cfl.x < c->x->width)
+		&& (cfl.y >= 0) && (cfl.y < h))
+			draw_px(c->x, &px, texture_px(tex, draw_make_px(
+				(int)(cfl.x * tex->width) % tex->width,
+				(int)(cfl.y * tex->height) % tex->height)));
 		px.y++;
 	}
 }
