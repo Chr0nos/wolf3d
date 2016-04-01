@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 23:05:12 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/01 15:49:18 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/01 15:55:04 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int			parser_check_validity(const char *line)
 			MAP_TELEPORT,
 			MAP_WALL_STD, MAP_BONES,
 			MAP_GENERATED,
-			' ', '0', '\n'
+			' ', '0'
 		};
 		unsigned int	p;
 
