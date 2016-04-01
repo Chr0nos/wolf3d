@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/01 01:40:21 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/01 15:49:21 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define MAP_INVISIBLE_WALL 'i'
 # define MAP_SECRET_WALL 's'
 # define MAP_GENERATED '*'
-# define MAP_WALL_STD '0'
+# define MAP_WALL_STD '1'
 # define MAP_ZAZ '2'
 # define MAP_QUBI 'q'
 # define MAP_GIRL 'g'

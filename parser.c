@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 23:05:12 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/01 01:44:25 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/01 15:49:18 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,33 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+static int			parser_check_validity(const char *line)
+{
+		const char		valids[] = {
+			MAP_SPAWN,
+			MAP_ZAZ,
+			MAP_QUBI,
+			MAP_INVISIBLE_WALL,
+			MAP_SECRET_WALL,
+			MAP_GIRL,
+			MAP_COMMENT,
+			MAP_TELEPORT,
+			MAP_WALL_STD, MAP_BONES,
+			MAP_GENERATED,
+			' ', '0', '\n'
+		};
+		unsigned int	p;
+
+		p = 0;
+		while (line[p])
+		{
+			if ((line[0] != MAP_COMMENT) && (!ft_strany(line[p], valids)))
+				return (0);
+			p++;
+		}
+		return (1);
+}
 
 static int			load_map(t_context *c, t_list *lst,
 	unsigned int lines_count)
@@ -45,8 +72,10 @@ static int			parse_spe(t_context *c, char *line)
 	return (0);
 }
 
-static unsigned int	parser_load(t_context *c, t_list **lst, char *line)
+static int			parser_load(t_context *c, t_list **lst, char *line)
 {
+	if (!parser_check_validity(line))
+		return (-1);
 	if (!parse_spe(c, line))
 	{
 		ft_lstadd(lst, ft_lstnewlink(line, ft_strlen(line)));
@@ -58,7 +87,7 @@ static unsigned int	parser_load(t_context *c, t_list **lst, char *line)
 int					parser(const char *mpath, t_context *c)
 {
 	int				fd;
-	int				ret;
+	int				ret[2];
 	char			*line;
 	t_list			*lst;
 	unsigned int	lc;
@@ -67,8 +96,9 @@ int					parser(const char *mpath, t_context *c)
 		return (-1);
 	lst = 0;
 	lc = 0;
-	while ((ret = ft_get_next_line(fd, &line) > 0))
-		lc += parser_load(c, &lst, line);
+	while (((ret[0] = ft_get_next_line(fd, &line) > 0)) &&
+	 ((ret[1] = parser_load(c, &lst, line)) >= 0))
+		lc += (unsigned int)ret[1];
 	close(fd);
 	fd = load_map(c, lst, lc);
 	if (fd > 0)

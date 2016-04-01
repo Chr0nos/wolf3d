@@ -6,12 +6,12 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/03/30 23:32:05 by snicolet         ###   ########.fr        #
+#    Updated: 2016/04/01 15:23:44 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=wolf3d
-FLAGS=-Wall -Wextra -Werror -Weverything -pipe -Ofast -g3
+FLAGS=-Wall -Wextra -Werror -Weverything -pipe -Ofast
 DRAW=./libs/draw
 MLX=./libs/minilibx_macos
 LIBFT=./libs/libft
