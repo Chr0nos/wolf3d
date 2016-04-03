@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 14:50:34 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 20:37:01 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ static void		init_dda(t_context *c, t_point px, t_ray *ray)
 
 void			init_display(t_context *c)
 {
-	const double	w = (double)c->x->width;
+	const double	w = (double)c->geometry.x;
 	double			camera_x;
 	t_point			px;
 	t_ray			ray;
 
 	ray.obstacle = 0;
 	px.x = 0;
-	while (px.x < c->x->width)
+	while (px.x < c->geometry.x)
 	{
 		camera_x = 2.0 * (double)px.x / w - 1.0;
 		c->player.raydir.x = c->player.dir.x + c->player.plane.x * camera_x;
@@ -125,7 +125,7 @@ void			init_display(t_context *c)
 			draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
 		if (ray.dist <= 0.0)
 			return ;
-		ray.h = abs((int)((double)c->x->height / ray.dist));
+		ray.h = abs((int)((double)c->geometry.y / ray.dist));
 		display_vertical(c, &ray, px.x);
 		px.x++;
 	}

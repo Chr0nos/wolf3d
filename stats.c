@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 13:27:22 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/25 11:47:23 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 20:37:32 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	display_stats(t_context *c)
 	ft_strcat(buffer, " count: ");
 	ft_itobuff(tmp, c->map.img_count++, 10, "0123456789");
 	ft_strcat(buffer, tmp);
-	mlx_string_put(c->x->mlxptr, c->x->winptr, 5, 5, COLOR_WHITE, buffer);
+	//mlx_string_put(c->x->mlxptr, c->x->winptr, 5, 5, COLOR_WHITE, buffer);
 }

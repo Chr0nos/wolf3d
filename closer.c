@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:25:49 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/28 16:57:49 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 17:48:40 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void			clean_map(t_context *c)
 
 int				closer(t_context *c)
 {
-	draw_clear(c->x);
-	textures_clean(c);
+	//draw_clear(c->x);
+	//textures_clean(c);
 	clean_map(c);
 	exit(0);
 }

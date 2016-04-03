@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 15:12:25 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 20:39:43 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int				textures_load(t_context *c)
 	int				e;
 	t_texture		*tex;
 
+(void)e;
+(void)texture_error;
 	if (!(c->map.tex = malloc(sizeof(t_texture) * TEXTURES_COUNT)))
 		return (-1);
 	p = 0;
@@ -40,10 +42,12 @@ int				textures_load(t_context *c)
 	{
 		ft_printf("loading texture: %s\n", txpath[p]);
 		tex = &c->map.tex[p];
+/*
 		if (!(tex->img = mlx_xpm_file_to_image(c->x->mlxptr, txpath[p],
 			&tex->width, &tex->height)))
 			return (texture_error(txpath[p]));
 		tex->data = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line, &e);
+*/
 		tex->id = p;
 		p++;
 	}
@@ -55,11 +59,11 @@ void			textures_clean(t_context *c)
 {
 	unsigned int	p;
 
-	if ((!c->map.tex) || (c->x->mlxptr))
+	if (!c->map.tex)
 		return ;
 	p = TEXTURES_COUNT;
-	while ((p--) && (c->map.tex[p].img))
-		mlx_destroy_image(c->x->mlxptr, c->map.tex[p].img);
+	//while ((p--) && (c->map.tex[p].img))
+	//	mlx_destroy_image(c->x->mlxptr, c->map.tex[p].img);
 	free(c->map.tex);
 	c->map.tex = 0;
 }

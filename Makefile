@@ -6,21 +6,22 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/04/01 15:23:44 by snicolet         ###   ########.fr        #
+#    Updated: 2016/04/03 23:03:04 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=wolf3d
-FLAGS=-Wall -Wextra -Werror -Weverything -pipe -Ofast
+FLAGS=-Wall -Wextra -Werror -pipe -Ofast
 DRAW=./libs/draw
-MLX=./libs/minilibx_macos
 LIBFT=./libs/libft
-INC=-I./headers -I $(DRAW) -I $(LIBFT) -I $(MLX)
+SDL=~/.brew/include/
+INC=-I./headers -I $(DRAW) -I $(LIBFT) -I $(SDL)
 CC=clang
-LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -L $(MLX) -lmlx -lm -framework AppKit -framework OpenGL
+SDLLINK=-L ~/.brew/lib/ -lSDL2
+LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -lm $(SDLLINK)
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o \
 	player_actions.o stats.o popper.o textures.o colors.o fix_y.o textures_base.o \
-	textures_floor.o
+	textures_floor.o sdl_init.o
 
 all: $(NAME)
 
@@ -34,7 +35,7 @@ $(LIBFT)/libft.a:
 	make -C $(LIBFT) FLAGS="$(FLAGS)"
 
 $(DRAW)/libdraw.a:
-	make -C $(DRAW) MLX=../../$(MLX) FLAGS="$(FLAGS)"
+	make -C $(DRAW) FLAGS="$(FLAGS)"
 
 clean:
 	$(RM) $(OBJ)
@@ -46,11 +47,11 @@ re: fclean all
 
 fcleanlibs:
 	make -C $(LIBFT) fclean
-	make -C $(DRAW) fclean MLX="../$(MLX)"
+	make -C $(DRAW) fclean
 
 relibs: fcleanlibs $(LIBFT)/libft.a $(DRAW)/libdraw.a $(OBJ)
 
 linux:
-	make FLAGS="$(FLAGS)" MLX="./libs/minilibx" LINKER="$(FLAGS) -L $(DRAW) -ldraw -L $(LIBFT) -lft -L ./libs/minilibx/ -lmlx -lm -lX11 -lXext"
+	make FLAGS="$(FLAGS)" LINKER="$(FLAGS) -L $(DRAW) -ldraw -L $(LIBFT) -lft -L ./libs/minilibx/ -lm"
 
 .PHONY: all re clean fclean

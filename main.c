@@ -6,14 +6,15 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 22:21:34 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 22:53:34 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "draw.h"
 #include "libft.h"
-
+#include <SDL2/SDL.h>
+/*
 static void		set_hooks(t_context *c)
 {
 	draw_sethook_ng(c->x, &closer, c, CLOSE);
@@ -21,7 +22,7 @@ static void		set_hooks(t_context *c)
 	draw_sethook_ng(c->x, &keyrlz, c, KEYUP);
 	draw_sethook_ng(c->x, &mouse_move, c, MOUSEMOVE);
 }
-
+*/
 void			set_defaults(t_context *c)
 {
 	c->map.img_count = 0;
@@ -38,18 +39,20 @@ void			set_defaults(t_context *c)
 static int		init_wolf(t_context *c)
 {
 	c->map.tex = NULL;
-	if (textures_load(c) < 0)
-		return (-1);
+	//if (textures_load(c) < 0)
+	//	return (-1);
 	c->keyboard = 0;
 	set_defaults(c);
 	display_map(c);
-	set_hooks(c);
+	//set_hooks(c);
 	return (1);
 }
 
 int				main(int ac, char **av)
 {
+	int			quit;
 	t_context	c;
+	SDL_Event	event;
 
 	if ((ac != 2) || (!ft_strlen(av[1])))
 		ft_printf("usage: %s <filepath>\n", av[0]);
@@ -58,13 +61,26 @@ int				main(int ac, char **av)
 		ft_putendl("error: unable to load the file for some reason.");
 		clean_map(&c);
 	}
-	else if (!(c.x = draw_init("Wolf 3d", SIZE_X, SIZE_Y)))
-		ft_putendl("error: unable to initialise mlx window");
-	else if (init_wolf(&c) > 0)
+	else if ((sdl_init(&c, SIZE_X, SIZE_Y)) && (init_wolf(&c)))
 	{
-		draw_loop_hook(c.x, &display, &c);
-		draw_loop(c.x);
-		ft_putendl("quitting");
+		quit = 0;
+		while (!quit)
+		{
+			while (SDL_PollEvent(&event))
+			{
+				if (sdl_event(&event, &c))
+					quit = 1;
+			}
+			c.d.screen = SDL_GetWindowSurface(c.d.win);
+			SDL_LockSurface(c.d.screen);
+			display(&c);
+			SDL_UnlockSurface(c.d.screen);
+			SDL_UpdateWindowSurface(c.d.win);	
+			//SDL_Delay(2);
+		}
+		ft_printf("quit: %d\n", quit);
+		closer(&c);
+		SDL_Quit();
 	}
 	else
 		closer(&c);

@@ -6,12 +6,13 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 23:17:26 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 22:51:27 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "libft.h"
+#include <SDL2/SDL.h>
 
 int				move_myass(t_context *c, const size_t kb)
 {
@@ -48,8 +49,8 @@ int				move_myass(t_context *c, const size_t kb)
 
 static int		key_move(int keycode, t_context *c, int mode)
 {
-	const int		key[] = { KEY_W, KEY_S, KEY_UP, KEY_DOWN, KEY_D, KEY_A,
-		KEY_LEFT, KEY_RIGHT, KEY_SHIFT };
+	const int		key[] = { SDLK_s, SDLK_w, SDLK_DOWN, SDLK_UP, SDLK_d,
+		SDLK_a, SDLK_LEFT, SDLK_RIGHT, SDLK_LSHIFT };
 	const size_t	kb[] = { KB_FORWARD, KB_BACK, KB_UP, KB_DOWN, KB_CRIGHT,
 		KB_CLEFT, KB_LEFT, KB_RIGHT, KB_SHIFT };
 	unsigned int	p;
@@ -63,7 +64,7 @@ static int		key_move(int keycode, t_context *c, int mode)
 				c->keyboard |= kb[p];
 			else
 				c->keyboard ^= kb[p];
-			return (1);
+			return (0);
 		}
 	}
 	return (0);
@@ -80,19 +81,19 @@ int				keyrlz(int keycode, t_context *c)
 
 int				keydown(int keycode, t_context *c)
 {
-	if (keycode == KEY_ESC)
+	if (keycode == SDLK_ESCAPE)
 		return (closer(c));
 	else if (key_move(keycode, c, EVENT_SET))
 		;
-	else if (keycode == KEY_R)
+	else if (keycode == SDLK_r)
 		set_defaults(c);
-	else if (keycode == KEY_N)
+	else if (keycode == SDLK_n)
 		c->flags ^= FLAG_HIDE_OUTERWALLS;
-	else if (keycode == KEY_I)
+	else if (keycode == SDLK_i)
 		c->flags ^= FLAG_SHOWINVISIBLE;
-	else if (keycode == KEY_T)
+	else if (keycode == SDLK_t)
 		c->flags ^= FLAG_TEXTURES;
-	else if (keycode == KEY_K)
+	else if (keycode == SDLK_k)
 		c->flags ^= FLAG_SHOWSECRETWALLS;
 	else
 	{
@@ -104,7 +105,18 @@ int				keydown(int keycode, t_context *c)
 
 int				mouse_move(int x, int y, t_context *c)
 {
-	if ((x < 0) || (y < 0) || (x >= c->x->width) || (y >= c->x->height))
+	if ((x < 0) || (y < 0) || (x >= c->geometry.x) || (y >= c->geometry.y))
 		return (0);
+	return (0);
+}
+
+int				sdl_event(SDL_Event *event, t_context *c)
+{
+	if (event->type == SDL_QUIT)
+		return (1);
+	else if (event->type == SDL_KEYDOWN)
+		return (keydown(event->key.keysym.sym, c));
+	else if (event->type == SDL_KEYUP)
+		return (keyrlz(event->key.keysym.sym, c));
 	return (0);
 }

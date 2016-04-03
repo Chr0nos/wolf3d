@@ -6,14 +6,14 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 01:46:21 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 22:59:57 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
-# define SIZE_X 1024
-# define SIZE_Y 768
+# define SIZE_X 1920
+# define SIZE_Y 1080
 # define COLORS_COUNT 5
 # include "draw.h"
 # include "keycodes.h"
@@ -52,5 +52,7 @@ void			texture_push(t_context *c, t_texture *tex, const t_point offset,
 	unsigned int alpha);
 void			colors_set(t_context *c);
 unsigned int	texture_id(t_context *c, const t_ray *ray);
+int				sdl_init(t_context *c, int x, int y);
+int				sdl_event(SDL_Event *event, t_context *c);
 
 #endif
