@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 22:51:27 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:17:08 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,6 @@ int				keydown(int keycode, t_context *c)
 		ft_printf("unknow key code: %d\n", keycode);
 		return (0);
 	}
-	return (0);
-}
-
-int				mouse_move(int x, int y, t_context *c)
-{
-	if ((x < 0) || (y < 0) || (x >= c->geometry.x) || (y >= c->geometry.y))
-		return (0);
 	return (0);
 }
 

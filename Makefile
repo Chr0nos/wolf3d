@@ -6,7 +6,7 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/04/03 23:03:04 by snicolet         ###   ########.fr        #
+#    Updated: 2016/04/03 23:08:59 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,6 @@ fcleanlibs:
 relibs: fcleanlibs $(LIBFT)/libft.a $(DRAW)/libdraw.a $(OBJ)
 
 linux:
-	make FLAGS="$(FLAGS)" LINKER="$(FLAGS) -L $(DRAW) -ldraw -L $(LIBFT) -lft -L ./libs/minilibx/ -lm"
+	make FLAGS="$(FLAGS)" LINKER="$(FLAGS) -L $(DRAW) -ldraw -L $(LIBFT) -lft -lm"
 
 .PHONY: all re clean fclean

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 23:05:12 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/01 15:55:04 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:16:21 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,19 @@
 
 static int			parser_check_validity(const char *line)
 {
-		const char		valids[] = {
-			MAP_SPAWN,
-			MAP_ZAZ,
-			MAP_QUBI,
-			MAP_INVISIBLE_WALL,
-			MAP_SECRET_WALL,
-			MAP_GIRL,
-			MAP_COMMENT,
-			MAP_TELEPORT,
-			MAP_WALL_STD, MAP_BONES,
-			MAP_GENERATED,
-			' ', '0'
-		};
-		unsigned int	p;
+	const char		valids[] = { MAP_SPAWN, MAP_ZAZ, MAP_QUBI,
+		MAP_INVISIBLE_WALL, MAP_SECRET_WALL, MAP_GIRL, MAP_COMMENT,
+		MAP_TELEPORT, MAP_WALL_STD, MAP_BONES, MAP_GENERATED, ' ', '0' };
+	unsigned int	p;
 
-		p = 0;
-		while (line[p])
-		{
-			if ((line[0] != MAP_COMMENT) && (!ft_strany(line[p], valids)))
-				return (0);
-			p++;
-		}
-		return (1);
+	p = 0;
+	while (line[p])
+	{
+		if ((line[0] != MAP_COMMENT) && (!ft_strany(line[p], valids)))
+			return (0);
+		p++;
+	}
+	return (1);
 }
 
 static int			load_map(t_context *c, t_list *lst,
@@ -97,7 +87,7 @@ int					parser(const char *mpath, t_context *c)
 	lst = 0;
 	lc = 0;
 	while (((ret[0] = ft_get_next_line(fd, &line) > 0)) &&
-	 ((ret[1] = parser_load(c, &lst, line)) >= 0))
+			((ret[1] = parser_load(c, &lst, line)) >= 0))
 		lc += (unsigned int)ret[1];
 	close(fd);
 	fd = load_map(c, lst, lc);

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 22:53:34 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:13:11 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 #include "draw.h"
 #include "libft.h"
 #include <SDL2/SDL.h>
-/*
-static void		set_hooks(t_context *c)
-{
-	draw_sethook_ng(c->x, &closer, c, CLOSE);
-	draw_sethook_ng(c->x, &keydown, c, KEYDOWN);
-	draw_sethook_ng(c->x, &keyrlz, c, KEYUP);
-	draw_sethook_ng(c->x, &mouse_move, c, MOUSEMOVE);
-}
-*/
+
 void			set_defaults(t_context *c)
 {
 	c->map.img_count = 0;
@@ -44,7 +36,6 @@ static int		init_wolf(t_context *c)
 	c->keyboard = 0;
 	set_defaults(c);
 	display_map(c);
-	//set_hooks(c);
 	return (1);
 }
 
@@ -75,10 +66,9 @@ int				main(int ac, char **av)
 			SDL_LockSurface(c.d.screen);
 			display(&c);
 			SDL_UnlockSurface(c.d.screen);
-			SDL_UpdateWindowSurface(c.d.win);	
+			SDL_UpdateWindowSurface(c.d.win);
 			//SDL_Delay(2);
 		}
-		ft_printf("quit: %d\n", quit);
 		closer(&c);
 		SDL_Quit();
 	}

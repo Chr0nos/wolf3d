@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 15:56:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 22:46:48 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:18:02 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,13 @@ int		sdl_init(t_context *c, int x, int y)
 	}
 	c->geometry = draw_make_px(x, y);
 	c->d.win = SDL_CreateWindow("Wold3d",
-                        SDL_WINDOWPOS_UNDEFINED,
-                        SDL_WINDOWPOS_UNDEFINED,
-                        x, y,
-                        SDL_WINDOW_RESIZABLE);
+			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, x, y,
+			SDL_WINDOW_RESIZABLE);
 	if (!c->d.win)
 	{
 		ft_putendl("error: failed to init sdl window");
 		return (-2);
 	}
-	// c->d.render = SDL_CreateRenderer(c->d.win, -1, 0);
-	// SDL_SetRenderDrawColor(c->d.render, 0, 0, 0, 255);
-	// SDL_RenderClear(c->d.render);
-	// SDL_SetRenderTarget(c->d.render, NULL);
 	ft_putendl("getting surface");
 	c->d.screen = SDL_GetWindowSurface(c->d.win);
 	if (!(c->d.screen))
