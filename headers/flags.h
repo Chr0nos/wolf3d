@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/01 15:49:21 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:29:19 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define FLAG_SHOWINVISIBLE 1u << 3
 # define FLAG_TEXTURES 1u << 4
 # define FLAG_SHOWSECRETWALLS 1u << 5
+# define FLAG_DEBUG_KEYS 1u << 6
 
 # define KB_FORWARD 1u
 # define KB_BACK 1u << 1

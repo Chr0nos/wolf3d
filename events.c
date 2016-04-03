@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 23:17:08 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:31:21 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 int				move_myass(t_context *c, const size_t kb)
 {
-	if (c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x] == MAP_TELEPORT)
+	if (c->map.b[(int)c->player.pos.y].data[(int)c->player.pos.x]\
+	== MAP_TELEPORT)
 		c->player.pos = c->player.rootpos;
 	if ((kb & (KB_FORWARD | KB_UP)) && (kb & (KB_BACK | KB_DOWN)))
 		;
@@ -97,7 +98,8 @@ int				keydown(int keycode, t_context *c)
 		c->flags ^= FLAG_SHOWSECRETWALLS;
 	else
 	{
-		ft_printf("unknow key code: %d\n", keycode);
+		if (c->flags & FLAG_DEBUG_KEYS)
+			ft_printf("unknow key code: %d\n", keycode);
 		return (0);
 	}
 	return (0);

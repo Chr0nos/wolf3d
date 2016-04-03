@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 23:13:11 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:30:23 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ static int		init_wolf(t_context *c)
 	return (1);
 }
 
+static int		sdl_loop(SDL_Event *event, t_context *c)
+{
+	while (SDL_PollEvent(event))
+	{
+		if (sdl_event(event, c))
+			return (1);
+	}
+	c->d.screen = SDL_GetWindowSurface(c->d.win);
+	SDL_LockSurface(c->d.screen);
+	display(c);
+	SDL_UnlockSurface(c->d.screen);
+	SDL_UpdateWindowSurface(c->d.win);
+	return (0);
+}
+
 int				main(int ac, char **av)
 {
 	int			quit;
@@ -55,20 +70,8 @@ int				main(int ac, char **av)
 	else if ((sdl_init(&c, SIZE_X, SIZE_Y)) && (init_wolf(&c)))
 	{
 		quit = 0;
-		while (!quit)
-		{
-			while (SDL_PollEvent(&event))
-			{
-				if (sdl_event(&event, &c))
-					quit = 1;
-			}
-			c.d.screen = SDL_GetWindowSurface(c.d.win);
-			SDL_LockSurface(c.d.screen);
-			display(&c);
-			SDL_UnlockSurface(c.d.screen);
-			SDL_UpdateWindowSurface(c.d.win);
-			//SDL_Delay(2);
-		}
+		while (!sdl_loop(&event, &c))
+			SDL_Delay(1);
 		closer(&c);
 		SDL_Quit();
 	}
