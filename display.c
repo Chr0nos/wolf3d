@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 22:13:44 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:21:12 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				display(t_context *c)
 {
 	move_myass(c, c->keyboard);
 	init_display(c);
-	display_stats(c);
+	//display_stats(c);
 	//mlx_put_image_to_window(c->x->mlxptr, c->x->winptr,
 	//	c->map.tex[1].img,
 	//	(c->x->width / 2) - c->map.tex[1].width / 2,

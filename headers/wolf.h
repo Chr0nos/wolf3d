@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 23:17:19 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/03 23:22:11 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define SIZE_Y 1080
 # define COLORS_COUNT 5
 # include "draw.h"
-# include "keycodes.h"
 # include "flags.h"
 # include "textures.h"
 # include "context.h"
