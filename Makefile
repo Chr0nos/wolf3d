@@ -18,7 +18,7 @@ SDL=~/.brew/include/
 INC=-I./headers -I $(DRAW) -I $(LIBFT) -I $(SDL)
 CC=clang
 SDLLINK=-L ~/.brew/lib/ -lSDL2
-LINKER=$(FLAGS) -L $(LIBFT) -lft -L $(DRAW) -ldraw -lm $(SDLLINK)
+LINKER=$(FLAGS) -L $(LIBFT) -L $(DRAW) -ldraw -lft -lm $(SDLLINK)
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o \
 	player_actions.o stats.o popper.o textures.o colors.o fix_y.o textures_base.o \
 	textures_floor.o sdl_init.o

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "wolf.h"
-#include "mlx.h"
 #include "libft.h"
 #include <stdlib.h>
 

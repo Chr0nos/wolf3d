@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "wolf.h"
-#include "mlx.h"
 #include "libft.h"
 
 void	display_stats(t_context *c)
