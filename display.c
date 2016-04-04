@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 23:21:12 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 02:36:09 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 
 static void		display_swf(t_context *c, t_swf *z, t_ray *ray, unsigned int cw)
 {
-	draw_line(&c->d, &z->sky, 0x005decff);
+	draw_line(&c->d, z->sky, 0x005decff);
 	if (!(c->flags & FLAG_TEXTURES))
 	{
-		draw_line(&c->d, &z->sol, COLOR_BROWN);
-		draw_line(&c->d, &z->wall, cw);
+		draw_line(&c->d, z->sol, COLOR_BROWN);
+		draw_line(&c->d, z->wall, cw);
 	}
 	else
 	{

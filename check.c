@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:36:52 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/31 23:33:50 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/01 22:05:03 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		check_obstacle(t_context *c, int x, int y, t_mode mode)
 {
 	char	p;
 
-	if ((y < 0) || (c->map.lines <= (unsigned int)y))
+	if ((y <= 0) || (c->map.lines <= (unsigned int)y))
 		return (MAP_GENERATED);
-	else if ((x < 0) || (c->map.b[y].size <= x))
+	else if ((x <= 0) || (c->map.b[y].size <= x))
 		return (MAP_GENERATED);
 	p = c->map.b[y].data[x];
 	if ((p == ' ') || (p == MAP_SPAWN) || (p == '0'))
