@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 23:31:21 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 21:11:19 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ int				keydown(int keycode, t_context *c)
 		c->flags ^= FLAG_TEXTURES;
 	else if (keycode == SDLK_k)
 		c->flags ^= FLAG_SHOWSECRETWALLS;
+	else if (keycode == SDLK_f)
+	{
+		SDL_SetWindowFullscreen(c->d.win, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		d->geometry = draw_px(c->d.win->w, c->d.win->h);
+	}
 	else
 	{
 		if (c->flags & FLAG_DEBUG_KEYS)

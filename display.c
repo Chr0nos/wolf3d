@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 02:52:34 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 21:01:57 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static int		texture_get_x(t_context *c, t_ray *ray, const t_texture *tex)
 		wallx = c->player.pos.y + (((int)ray->pos.x - c->player.pos.x + \
 		(1.0 - ray->step.x) / 2.0) / ray->dir.x) * ray->dir.y;
 	wallx -= floor(wallx);
-	tpxx = (int)(wallx * (double)tex->width);
+	tpxx = (int)(wallx * (double)tex->surface->w);
 	if ((ray->side == 0) && (ray->dir.x > 0))
-		tpxx = tex->width - tpxx - 1;
+		tpxx = tex->surface->w - tpxx - 1;
 	if ((ray->side == 1) && (ray->dir.y < 0))
-		tpxx = tex->width - tpxx - 1;
+		tpxx = tex->surface->w - tpxx - 1;
 	ray->wallx = wallx;
 	return (tpxx);
 }
@@ -64,10 +64,10 @@ static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 	while (px.y < line->end.y)
 	{
 		tpx.y = (int)(((double)(px.y * 2) - h + ray->h) *
-			(((double)tex->height / 2.0) / ray->h));
+			(((double)tex->surface->h / 2.0) / ray->h));
 		if (tpx.y >= 0)
 		{
-			color = texture_px(tex, tpx);
+			color = draw_getpxs(tex->surface, tpx);
 			if ((ray->side == 1) && (tex->id >= 2))
 				color = (color >> 1) & 8355711;
 			draw_pxc(&c->d, px, color);

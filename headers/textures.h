@@ -6,23 +6,18 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:02:17 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 17:33:50 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 03:18:38 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEXTURES_H
 # define TEXTURES_H
+# include <SDL2/SDL.h>
 
 typedef struct	s_texture
 {
-	int				width;
-	int				height;
-	int				bpp;
-	int				size_line;
+	SDL_Surface		*surface;
 	unsigned int	id;
-	unsigned int	padding;
-	char			*img;
-	char			*data;
 }				t_texture;
 
 #endif

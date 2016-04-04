@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 02:50:34 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 20:08:27 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int				move_myass(t_context *c, const size_t kb);
 unsigned int	color_fog(unsigned int color, double fog);
 int				fix_y(int y, int maxy);
 int				textures_load(t_context *c);
-unsigned int	texture_px(const t_texture *tex, t_point px);
 void			textures_clean(t_context *c);
 void			texture_push(t_context *c, t_texture *tex, const t_point offset,
 	unsigned int alpha);

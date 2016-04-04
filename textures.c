@@ -6,19 +6,12 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 22:14:18 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 03:22:52 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "draw.h"
-
-unsigned int	texture_px(const t_texture *tex, t_point px)
-{
-	return (*(unsigned int *)((unsigned long)tex->data +
-		(unsigned int)(tex->size_line * px.y) +
-		(unsigned int)(px.x * 4)));
-}
 
 void			texture_push(t_context *c, t_texture *tex, const t_point offset,
 	unsigned int alpha)
@@ -26,15 +19,15 @@ void			texture_push(t_context *c, t_texture *tex, const t_point offset,
 	t_point		px;
 	t_point		real;
 
-	px.x = tex->width;
+	px.x = tex->surface->w;
 	while (px.x--)
 	{
 		real.x = offset.x + px.x;
-		px.y = tex->height;
+		px.y = tex->surface->h;
 		while (px.y--)
 		{
 			real.y = offset.y + px.y;
-			draw_pxc(&c->d, real, ((texture_px(tex, px) & 0x00ffffff) | alpha));
+			draw_pxc(&c->d, real, ((draw_getpxs(tex->surface, px) & 0x00ffffff) | alpha));
 		}
 	}
 }
