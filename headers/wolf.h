@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/05 00:00:53 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/05 00:07:14 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void			colors_set(t_context *c);
 unsigned int	texture_id(t_context *c, const t_ray *ray);
 int				sdl_event(SDL_Event *event, t_context *c);
 void			event_togglefs(t_context *c);
+unsigned int	color_convert(unsigned int color);
 
 #endif

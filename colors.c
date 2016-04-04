@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 20:13:07 by snicolet          #+#    #+#             */
-/*   Updated: 2016/03/30 21:45:40 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/05 00:54:33 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ void				colors_set(t_context *c)
 	color_loader(c->map.colors[3],
 		(unsigned int[4]){ 0x00233e4a, 0x00233e4a, 0x00101d2f, 0x00101d2f });
 	ft_memcpy(c->map.colors[4], c->map.colors[0], sizeof(int) * 4);
+}
+
+unsigned int		color_convert(unsigned int color)
+{
+	return ((color & 0xffffff00) >> 8 |
+		(color & 0x000000ff) << 24);
+	//return ((color & 0xfffff) << 8 |
+	//	(color & 0xff000000) >> 24);
+	//return (~color);
+	//return ((color >> 8) | ((color & 0xff) << 24));
 }

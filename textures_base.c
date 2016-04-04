@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 20:08:23 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/05 00:56:50 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int		texture_error(const char *path)
 int				textures_load(t_context *c)
 {
 	const char		*txpath[] = { "./jpg/box.jpg",
-		"./textures/gun.xpm", "./textures/zaz.xpm", "./textures/walljap.xpm",
+		"./textures/gun.xpm", "./textures/zaz.xpm", "./textures/wall.jpg",
 	"./textures/walljapneko.xpm", "./textures/bones.xpm",
 	"./jpg/qubi.jpg", "./textures/girl.xpm", "./textures/sol.xpm"};
 	unsigned int	p;
