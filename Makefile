@@ -6,7 +6,7 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/04/03 23:08:59 by snicolet         ###   ########.fr        #
+#    Updated: 2016/04/04 02:53:52 by snicolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SDLLINK=-L ~/.brew/lib/ -lSDL2
 LINKER=$(FLAGS) -L $(LIBFT) -L $(DRAW) -ldraw -lft -lm $(SDLLINK)
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o \
 	player_actions.o stats.o popper.o textures.o colors.o fix_y.o textures_base.o \
-	textures_floor.o sdl_init.o
+	textures_floor.o
 
 all: $(NAME)
 

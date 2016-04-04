@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:30:15 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/03 22:12:12 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 02:50:45 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct		s_map
 typedef struct		s_context
 {
 	t_draw			d;
-	t_point			geometry;
 	t_map			map;
 	t_player		player;
 	size_t			keyboard;

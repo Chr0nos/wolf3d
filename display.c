@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 02:36:09 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/04 02:52:34 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		texture_get_x(t_context *c, t_ray *ray, const t_texture *tex)
 
 static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 {
-	const double	h = (double)c->geometry.y;
+	const double	h = (double)c->d.geometry.y;
 	t_point			px;
 	t_point			tpx;
 	t_texture		*tex;
@@ -97,27 +97,27 @@ static void		display_swf(t_context *c, t_swf *z, t_ray *ray, unsigned int cw)
 
 void			display_vertical(t_context *c, t_ray *ray, const int x)
 {
-	const double	h = (double)c->geometry.y;
+	const double	h = (double)c->d.geometry.y;
 	t_swf			z;
 	const int		idx = ray->obstacle - '0';
 	int				y[2];
 	unsigned int	colorwall;
 
-	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->geometry.y);
-	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->geometry.y);
+	y[0] = fix_y((int)(-ray->h / 2.0 + h / 2.0), c->d.geometry.y);
+	y[1] = fix_y((int)(ray->h / 2.0 + h / 2.0), c->d.geometry.y);
 	if ((idx < 0) || (idx >= COLORS_COUNT))
 		colorwall = c->map.colors[0][ray->orientation];
 	else
 		colorwall = c->map.colors[ray->obstacle - '0'][ray->orientation];
 	if ((ray->obstacle == MAP_GENERATED) && (c->flags & FLAG_HIDE_OUTERWALLS))
 	{
-		z.wall = draw_make_line(x, c->geometry.y / 2,
-			x, c->geometry.y / 2);
+		z.wall = draw_make_line(x, c->d.geometry.y / 2,
+			x, c->d.geometry.y / 2);
 		colorwall = COLOR_BROWN;
 	}
 	else
 		z.wall = draw_make_line(x, y[0], x, y[1]);
 	z.sky = draw_make_line(x, 0, x, z.wall.start.y);
-	z.sol = draw_make_line(x, z.wall.end.y, x, c->geometry.y);
+	z.sol = draw_make_line(x, z.wall.end.y, x, c->d.geometry.y);
 	display_swf(c, &z, ray, colorwall);
 }
