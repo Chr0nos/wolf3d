@@ -46,11 +46,15 @@ static int		sdl_loop(SDL_Event *event, t_context *c)
 		if (sdl_event(event, c))
 			return (1);
 	}
-	c->d.screen = SDL_GetWindowSurface(c->d.win);
-	SDL_LockSurface(c->d.screen);
+	if (!(c->d.screen = SDL_GetWindowSurface(c->d.win)))
+	{
+		ft_printf("sdl error: %s\n", SDL_GetError());
+		return (1);
+	}
 	display(c);
-	SDL_UnlockSurface(c->d.screen);
+	SDL_LockSurface(c->d.screen);
 	SDL_UpdateWindowSurface(c->d.win);
+	SDL_UnlockSurface(c->d.screen);
 	return (0);
 }
 

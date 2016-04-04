@@ -29,11 +29,6 @@ int		sdl_init(t_context *c, int x, int y)
 		ft_putendl("error: failed to init sdl window");
 		return (-2);
 	}
-	ft_putendl("getting surface");
-	c->d.screen = SDL_GetWindowSurface(c->d.win);
-	if (!(c->d.screen))
-		ft_printf("SDL_Init failed: %s\n", SDL_GetError());
-	else
-		ft_printf("screen: %p\n", c->d.screen);
+	c->d.screen = NULL;
 	return (1);
 }
