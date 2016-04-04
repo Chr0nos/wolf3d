@@ -83,7 +83,7 @@ int				keyrlz(int keycode, t_context *c)
 int				keydown(int keycode, t_context *c)
 {
 	if (keycode == SDLK_ESCAPE)
-		return (closer(c));
+		return (1);
 	else if (key_move(keycode, c, EVENT_SET))
 		;
 	else if (keycode == SDLK_r)

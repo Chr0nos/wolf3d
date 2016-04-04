@@ -44,7 +44,10 @@ static int		sdl_loop(SDL_Event *event, t_context *c)
 	while (SDL_PollEvent(event))
 	{
 		if (sdl_event(event, c))
+		{
+			ft_putendl("exit requested...");
 			return (1);
+		}
 	}
 	if (!(c->d.screen = SDL_GetWindowSurface(c->d.win)))
 	{
@@ -71,13 +74,13 @@ int				main(int ac, char **av)
 		ft_putendl("error: unable to load the file for some reason.");
 		clean_map(&c);
 	}
-	else if ((sdl_init(&c, SIZE_X, SIZE_Y)) && (init_wolf(&c)))
+	else if ((sdl_init(&c, SIZE_X, SIZE_Y) > 0) && (init_wolf(&c)))
 	{
 		quit = 0;
 		while (!sdl_loop(&event, &c))
 			SDL_Delay(1);
 		closer(&c);
-		SDL_Quit();
+		ft_putendl("quitting");
 	}
 	else
 		closer(&c);
