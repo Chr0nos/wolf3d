@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/05 00:56:50 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/08 00:51:10 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				textures_load(t_context *c)
 		ft_printf("loading texture: %s\n", txpath[p]);
 		tex = &c->map.tex[p];
 		if (!(tex->surface = IMG_Load(txpath[p])))
-			return (texture_error(txpath[p]));
+			return (texture_error(txpath[p]) + texture_nullifier(c, p));
 		//SDL_LockSurface(tex->surface);
 		//SDL_UnlockSurface(tex->surface);
 		tex->id = p;
@@ -48,6 +48,21 @@ int				textures_load(t_context *c)
 	}
 	ft_putendl("textures done.");
 	return (1);
+}
+
+/*
+** this function is here to set all non initilized textures to null and give
+** them a valid id, in the future this function will aslo make a fake texture.
+*/
+int			texture_nullifier(t_context *c, int p)
+{
+	while (p < TEXTURES_COUNT)
+	{
+		c->map.tex[p].surface = NULL;
+		c->map.tex[p].id = p;
+		p++;
+	}
+	return (0);
 }
 
 void			textures_clean(t_context *c)

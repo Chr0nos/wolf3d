@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 21:02:47 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/06 11:03:41 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static int		sdl_loop(SDL_Event *event, t_context *c)
 
 int				main(int ac, char **av)
 {
-	int			quit;
 	t_context	c;
 	SDL_Event	event;
 
@@ -78,7 +77,6 @@ int				main(int ac, char **av)
 	else if ((draw_init(&c.d, draw_make_px(SIZE_X, SIZE_Y), "Wolf3d") > 0) &&
 		(init_wolf(&c)))
 	{
-		quit = 0;
 		while (!sdl_loop(&event, &c))
 			SDL_Delay(1);
 		closer(&c);

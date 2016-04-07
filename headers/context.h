@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:30:15 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 02:50:45 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/06 16:13:32 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <string.h>
 # include "draw.h"
 # include "textures.h"
-# include "wsdl.h"
 
 typedef char		t_mode;
 
