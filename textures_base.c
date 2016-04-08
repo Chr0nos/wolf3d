@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/08 00:51:10 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/08 02:12:15 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,27 @@ int				textures_load(t_context *c)
 		ft_printf("loading texture: %s\n", txpath[p]);
 		tex = &c->map.tex[p];
 		if (!(tex->surface = IMG_Load(txpath[p])))
-			return (texture_error(txpath[p]) + texture_nullifier(c, p));
-		//SDL_LockSurface(tex->surface);
-		//SDL_UnlockSurface(tex->surface);
-		tex->id = p;
-		p++;
+		{
+			texture_error(txpath[p]);
+			if (texture_nullifier(tex, p) < 0)
+				return (-2);
+		}
+		tex->id = p++;
 	}
 	ft_putendl("textures done.");
 	return (1);
 }
 
 /*
-** this function is here to set all non initilized textures to null and give
-** them a valid id, in the future this function will aslo make a fake texture.
+** this function is here to set all non initilized textures to a single pixel one
+** and give them a valid id
 */
-int			texture_nullifier(t_context *c, int p)
+int			texture_nullifier(t_texture *tex, int id)
 {
-	while (p < TEXTURES_COUNT)
-	{
-		c->map.tex[p].surface = NULL;
-		c->map.tex[p].id = p;
-		p++;
-	}
+	tex->surface = SDL_CreateRGBSurface(0, 1, 1, 32, 0x00ff0000,
+		0x0000ff00, 0x000000ff, 0xff000000);
+	draw_reset_surface(tex->surface, COLOR_CYAN);
+	tex->id = id;
 	return (0);
 }
 
