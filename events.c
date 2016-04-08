@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/05 00:01:16 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/08 22:17:08 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ int				sdl_event(SDL_Event *event, t_context *c)
 {
 	if (event->type == SDL_QUIT)
 		return (1);
+	else if ((event->type == SDL_WINDOWEVENT) &&
+		(event->window.event == SDL_WINDOWEVENT_RESIZED))
+		c->d.geometry = draw_make_px(event->window.data1, event->window.data2);
 	else if (event->type == SDL_KEYDOWN)
 		return (keydown(event->key.keysym.sym, c));
 	else if (event->type == SDL_KEYUP)
