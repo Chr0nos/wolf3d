@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/06 11:03:41 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/09 12:19:20 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ static int		init_wolf(t_context *c)
 	c->keyboard = 0;
 	set_defaults(c);
 	display_map(c);
+	if (!(c->d.screen = SDL_GetWindowSurface(c->d.win)))
+	{
+		ft_printf("sdl error: %s\n", SDL_GetError());
+		return (-1);
+	}
 	return (1);
 }
 
@@ -49,11 +54,6 @@ static int		sdl_loop(SDL_Event *event, t_context *c)
 			ft_putendl("exit requested...");
 			return (1);
 		}
-	}
-	if (!(c->d.screen = SDL_GetWindowSurface(c->d.win)))
-	{
-		ft_printf("sdl error: %s\n", SDL_GetError());
-		return (1);
 	}
 	SDL_UnlockSurface(c->d.screen);
 	display(c);
