@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 02:53:01 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/16 19:25:09 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,14 @@ static int		get_orientation(const t_ray *ray)
 
 static void		init_dda(t_context *c, t_point px, t_ray *ray)
 {
+	t_posxy rd;
+
+	rd.x = ray->dir.x * ray->dir.x;
+	rd.y = ray->dir.y * ray->dir.y;
 	ray->pos = c->player.pos;
 	ray->dir = c->player.raydir;
-	ray->deltadis.x = sqrt(1 + pow(ray->dir.y, 2) / pow(ray->dir.x, 2));
-	ray->deltadis.y = sqrt(1 + pow(ray->dir.x, 2) / pow(ray->dir.y, 2));
+	ray->deltadis.x = sqrt(1.0 + rd.y / rd.x);
+	ray->deltadis.y = sqrt(1.0 + rd.x / rd.y);
 	init_deltas_stepdist(ray, px);
 	px = init_ray(c, ray, px);
 	if (ray->side == 0)
