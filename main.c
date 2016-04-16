@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/09 12:19:20 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/16 01:58:39 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				main(int ac, char **av)
 		clean_map(&c);
 	}
 	else if ((draw_init(&c.d, draw_make_px(SIZE_X, SIZE_Y), "Wolf3d") > 0) &&
-		(init_wolf(&c)))
+		(init_wolf(&c) > 0))
 	{
 		while (!sdl_loop(&event, &c))
 			SDL_Delay(1);
