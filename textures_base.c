@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/08 02:12:15 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/16 02:04:54 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static int		texture_error(const char *path)
 
 int				textures_load(t_context *c)
 {
-	const char		*txpath[] = { "./jpg/box.jpg",
-		"./textures/gun.xpm", "./textures/zaz.xpm", "./textures/wall.jpg",
-	"./textures/walljapneko.xpm", "./textures/bones.xpm",
-	"./jpg/qubi.jpg", "./textures/girl.xpm", "./textures/sol.xpm"};
+	const char		*txpath[] = { "./jpg/box.jpg", "./textures/gun.xpm",
+	"./textures/zaz.xpm", "./textures/wall.jpg", "./jpg/neko2.png",
+	"./jpg/bones.png", "./jpg/qubi.jpg", "./jpg/girl.png",
+	"./textures/sol.xpm"};
 	unsigned int	p;
 	t_texture		*tex;
 
@@ -45,6 +45,9 @@ int				textures_load(t_context *c)
 			if (texture_nullifier(tex, p) < 0)
 				return (-2);
 		}
+		//tex->tex = SDL_CreateTextureFromSurface(c->d.render, tex->surface);
+		tex->tex = SDL_CreateTexture(c->d.render, SDL_PIXELFORMAT_ARGB8888,
+				SDL_TEXTUREACCESS_STREAMING, tex->surface->w, tex->surface->h);
 		tex->id = p++;
 	}
 	ft_putendl("textures done.");
@@ -52,13 +55,16 @@ int				textures_load(t_context *c)
 }
 
 /*
-** this function is here to set all non initilized textures to a single pixel one
+** this function is here to set all non initilized textures
+** to a single pixel one
 ** and give them a valid id
 */
 int			texture_nullifier(t_texture *tex, int id)
 {
 	tex->surface = SDL_CreateRGBSurface(0, 1, 1, 32, 0x00ff0000,
 		0x0000ff00, 0x000000ff, 0xff000000);
+	if (!tex->surface)
+		return (-1);
 	draw_reset_surface(tex->surface, COLOR_CYAN);
 	tex->id = id;
 	return (0);
