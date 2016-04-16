@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 02:04:54 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/16 16:43:08 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int				textures_load(t_context *c)
 		//tex->tex = SDL_CreateTextureFromSurface(c->d.render, tex->surface);
 		tex->tex = SDL_CreateTexture(c->d.render, SDL_PIXELFORMAT_ARGB8888,
 				SDL_TEXTUREACCESS_STREAMING, tex->surface->w, tex->surface->h);
+		SDL_UnlockTexture(tex->tex);
 		tex->id = p++;
 	}
 	ft_putendl("textures done.");
@@ -78,7 +79,10 @@ void			textures_clean(t_context *c)
 		return ;
 	p = TEXTURES_COUNT;
 	while ((p--) && (c->map.tex[p].surface))
+	{
 		SDL_FreeSurface(c->map.tex[p].surface);
+		SDL_DestroyTexture(c->map.tex[p].tex);
+	}
 	free(c->map.tex);
 	c->map.tex = 0;
 }
