@@ -30,7 +30,7 @@ void			clean_map(t_context *c)
 int				closer(t_context *c)
 {
 	//draw_clear(c->x);
-	//textures_clean(c);
+	textures_clean(c);
 	clean_map(c);
 	ft_putendl("cleaning SDL");
 	if (c->d.win)
