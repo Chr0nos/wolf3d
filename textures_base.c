@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 16:43:08 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/16 17:49:53 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,12 @@ int				textures_load(t_context *c)
 			if (texture_nullifier(tex, p) < 0)
 				return (-2);
 		}
-		//tex->tex = SDL_CreateTextureFromSurface(c->d.render, tex->surface);
 		tex->tex = SDL_CreateTexture(c->d.render, SDL_PIXELFORMAT_ARGB8888,
 				SDL_TEXTUREACCESS_STREAMING, tex->surface->w, tex->surface->h);
+		if (SDL_LockTexture(tex->tex, NULL, &tex->pixels, &tex->pitch) == 0)
+		{
+			ft_memcpy(tex->pixels, tex->surface->pixels, tex->pitch * tex->surface->h);
+		}
 		SDL_UnlockTexture(tex->tex);
 		tex->id = p++;
 	}
