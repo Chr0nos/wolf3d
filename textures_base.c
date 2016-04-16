@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 17:49:53 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/16 18:27:07 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,17 @@ int				textures_load(t_context *c)
 		}
 		tex->tex = SDL_CreateTexture(c->d.render, SDL_PIXELFORMAT_ARGB8888,
 				SDL_TEXTUREACCESS_STREAMING, tex->surface->w, tex->surface->h);
+		if (!tex->tex)
+			return (texture_error(txpath[p]));
 		if (SDL_LockTexture(tex->tex, NULL, &tex->pixels, &tex->pitch) == 0)
 		{
-			ft_memcpy(tex->pixels, tex->surface->pixels, tex->pitch * tex->surface->h);
+			ft_printf("Dumping texture pitch: %d w: %d at -> %p\n", tex->pitch, tex->surface->h, tex->pixels);
+			ft_memcpy(tex->pixels, tex->surface->pixels,
+				tex->surface->pitch * tex->surface->h);
+			//SDL_UnlockTexture(tex->tex);
 		}
-		SDL_UnlockTexture(tex->tex);
+		else
+			ft_printf("sdl error: %s\n", SDL_GetError());
 		tex->id = p++;
 	}
 	ft_putendl("textures done.");
