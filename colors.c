@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 20:13:07 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/05 09:21:29 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/16 17:03:36 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ void				colors_set(t_context *c)
 
 unsigned int		color_convert(unsigned int color)
 {
-	return (color);
-	//return ((color & 0xffffff00) >> 8 |
-	//	(color & 0x000000ff) << 24);
-	//return ((color & 0xfffff) << 8 |
-	//	(color & 0xff000000) >> 24);
-	//return (~color);
-	//return ((color >> 8) | ((color & 0xff) << 24));
+	//return (color);
+	return (((color & 0xff0000) >> 16) |
+		((color & 0x000000ff) << 16) |
+		(color & 0xff00ff00));
 }
