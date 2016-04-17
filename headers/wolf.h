@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:00:23 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 18:44:42 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/17 10:56:45 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ unsigned int	texture_px(const t_texture *tex, t_point px);
 void			textures_clean(t_context *c);
 void			texture_push(t_context *c, t_texture *tex,
    const t_point offset, unsigned int alpha);
+int				texture_loadsurface(t_context *c, const char **txpath, int p);
 
 #endif

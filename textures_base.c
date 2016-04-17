@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 18:27:07 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/17 11:33:00 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,39 @@ int				textures_load(t_context *c)
 			if (texture_nullifier(tex, p) < 0)
 				return (-2);
 		}
-		tex->tex = SDL_CreateTexture(c->d.render, SDL_PIXELFORMAT_ARGB8888,
-				SDL_TEXTUREACCESS_STREAMING, tex->surface->w, tex->surface->h);
-		if (!tex->tex)
-			return (texture_error(txpath[p]));
-		if (SDL_LockTexture(tex->tex, NULL, &tex->pixels, &tex->pitch) == 0)
-		{
-			ft_printf("Dumping texture pitch: %d w: %d at -> %p\n", tex->pitch, tex->surface->h, tex->pixels);
-			ft_memcpy(tex->pixels, tex->surface->pixels,
-				tex->surface->pitch * tex->surface->h);
-			//SDL_UnlockTexture(tex->tex);
-		}
-		else
-			ft_printf("sdl error: %s\n", SDL_GetError());
+		texture_loadsurface(c, txpath, p);
 		tex->id = p++;
 	}
 	ft_putendl("textures done.");
 	return (1);
+}
+
+int		texture_loadsurface(t_context *c, const char **txpath, int p)
+{
+	t_texture		*tex;
+	size_t			size;
+	size_t			pos;
+
+	tex = &c->map.tex[p];
+	tex->tex = SDL_CreateTexture(c->d.render, SDL_PIXELFORMAT_ARGB8888,
+			SDL_TEXTUREACCESS_STREAMING, tex->surface->w, tex->surface->h);
+	if (!tex->tex)
+		return (texture_error(txpath[p]));
+	if (SDL_LockTexture(tex->tex, NULL, (void*)&tex->pixels, &tex->pitch) == 0)
+	{
+		size = tex->surface->pitch * tex->surface->h / 4;
+		pos = 0;
+		while (pos < size)
+		{
+			tex->pixels[pos] = \
+				color_convert(((unsigned int*)tex->surface->pixels)[pos]);
+			pos++;
+		}
+		//ft_memcpy(tex->pixels, tex->surface->pixels, size);
+	}
+	else
+		ft_printf("sdl error (lock): %s\n", SDL_GetError());
+	return (0);
 }
 
 /*

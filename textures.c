@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:50:43 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 19:21:36 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/17 10:48:58 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void			texture_push(t_context *c, t_texture *tex, const t_point offset,
 unsigned int	texture_px(const t_texture *tex, t_point px)
 {
 	//return (color_convert(draw_getpxs(tex->surface, px)));
-	return (*(unsigned int *)((unsigned long)tex->pixels + ((tex->pitch / 4 * px.y) + px.x)));
+	//return (*(unsigned int *)((unsigned long)tex->pixels + ((tex->pitch / 4 * px.y) + px.x)));
+	return (((unsigned int*)(tex->pixels))[tex->pitch / 4 * px.y + px.x]);
 }
 
 unsigned int	texture_id(t_context *c, const t_ray *ray)

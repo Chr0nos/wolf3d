@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:02:17 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 18:44:28 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/17 11:07:53 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct		s_texture
 {
 	SDL_Surface		*surface;
 	SDL_Texture		*tex;
-	void			*pixels;
+	unsigned int	*pixels;
 	int				pitch;
 	unsigned int	id;
 }					t_texture;
