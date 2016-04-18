@@ -21,6 +21,7 @@ typedef struct		s_texture
 	unsigned int	*pixels;
 	int				pitch;
 	unsigned int	id;
+	unsigned int	padding;
 }					t_texture;
 
 #endif

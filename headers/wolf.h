@@ -55,5 +55,7 @@ void			textures_clean(t_context *c);
 void			texture_push(t_context *c, t_texture *tex,
    const t_point offset, unsigned int alpha);
 int				texture_loadsurface(t_context *c, const char **txpath, int p);
+void			texture_convertformat(t_texture *tex);
+
 
 #endif

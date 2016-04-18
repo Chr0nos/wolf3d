@@ -28,7 +28,7 @@ int				textures_load(t_context *c)
 	const char		*txpath[] = { "./jpg/box.jpg", "./textures/gun.xpm",
 	"./textures/zaz.xpm", "./textures/wall.jpg", "./jpg/neko2.png",
 	"./jpg/bones.png", "./jpg/qubi.jpg", "./jpg/girl.png",
-	"./textures/sol.xpm"};
+	"./jpg/sol.jpg"};
 	unsigned int	p;
 	t_texture		*tex;
 
@@ -46,6 +46,7 @@ int				textures_load(t_context *c)
 				return (-2);
 		}
 		texture_loadsurface(c, txpath, p);
+		ft_printf("bpp: %d\n", tex->surface->format->BytesPerPixel);
 		tex->id = p++;
 	}
 	ft_putendl("textures done.");
@@ -56,7 +57,6 @@ int		texture_loadsurface(t_context *c, const char **txpath, int p)
 {
 	t_texture		*tex;
 	size_t			size;
-	size_t			pos;
 
 	tex = &c->map.tex[p];
 	tex->tex = SDL_CreateTexture(c->d.render, SDL_PIXELFORMAT_ARGB8888,
@@ -65,18 +65,11 @@ int		texture_loadsurface(t_context *c, const char **txpath, int p)
 		return (texture_error(txpath[p]));
 	if (SDL_LockTexture(tex->tex, NULL, (void*)&tex->pixels, &tex->pitch) == 0)
 	{
-		ft_bzero(tex->pixels, tex->pitch * tex->surface->h);
-		if (tex->surface->format->BytesPerPixel == 4)
-		{
-			size = tex->surface->pitch * tex->surface->h / 4;
-			pos = 0;
-			while (pos < size)
-			{
-				tex->pixels[pos] = \
-					color_convert(((unsigned int*)tex->surface->pixels)[pos]);
-				pos++;
-			}
-		}
+		size = tex->pitch * tex->surface->h;
+		ft_bzero(tex->pixels, size);
+		draw_pixelsconvert(tex->pixels, tex->surface->pixels,
+				tex->surface->format->BytesPerPixel, size / 4);
+		texture_convertformat(tex);
 	}
 	else
 		ft_printf("sdl error (lock): %s\n", SDL_GetError());

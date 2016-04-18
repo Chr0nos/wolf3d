@@ -58,3 +58,12 @@ unsigned int	texture_id(t_context *c, const t_ray *ray)
 		return (TEX_GIRL);
 	return (3);
 }
+
+void			texture_convertformat(t_texture *tex)
+{
+	size_t	size;
+
+	size = tex->surface->w * tex->surface->h;
+	while (size--)
+		tex->pixels[size] = color_convert(tex->pixels[size]);
+}
