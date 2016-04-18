@@ -65,15 +65,18 @@ int		texture_loadsurface(t_context *c, const char **txpath, int p)
 		return (texture_error(txpath[p]));
 	if (SDL_LockTexture(tex->tex, NULL, (void*)&tex->pixels, &tex->pitch) == 0)
 	{
-		size = tex->surface->pitch * tex->surface->h / 4;
-		pos = 0;
-		while (pos < size)
+		ft_bzero(tex->pixels, tex->pitch * tex->surface->h);
+		if (tex->surface->format->BytesPerPixel == 4)
 		{
-			tex->pixels[pos] = \
-				color_convert(((unsigned int*)tex->surface->pixels)[pos]);
-			pos++;
+			size = tex->surface->pitch * tex->surface->h / 4;
+			pos = 0;
+			while (pos < size)
+			{
+				tex->pixels[pos] = \
+					color_convert(((unsigned int*)tex->surface->pixels)[pos]);
+				pos++;
+			}
 		}
-		//ft_memcpy(tex->pixels, tex->surface->pixels, size);
 	}
 	else
 		ft_printf("sdl error (lock): %s\n", SDL_GetError());
