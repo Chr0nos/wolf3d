@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 19:31:06 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/20 11:35:41 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,12 @@ static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 	{
 		tpx.y = (int)(((double)(px.y * 2) - h + ray->h) *
 			(((double)tex->surface->h / 2.0) / ray->h));
-		if (tpx.y >= 0)
-		{
-			color = texture_px(tex, tpx);
-			if ((ray->side == 1) && (tex->id >= 2))
-				color = (color >> 1) & 8355711;
-		}
-		else color = COLOR_RED;
-			draw_pxc(&c->d, px, color);
+		if (tpx.y < 0)
+			tpx.y = 0;
+		color = texture_px(tex, tpx);
+		if ((ray->side == 1) && (tex->id >= 2))
+			color = (color >> 1) & 8355711;
+		draw_pxc(&c->d, px, color);
 		px.y++;
 	}
 }
