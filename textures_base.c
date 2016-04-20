@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/17 11:33:00 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/20 19:55:06 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int				textures_load(t_context *c)
 				return (-2);
 		}
 		texture_loadsurface(c, txpath, p);
-		ft_printf("bpp: %d\n", tex->surface->format->BytesPerPixel);
 		tex->id = p++;
 	}
 	ft_putendl("textures done.");
@@ -66,7 +65,6 @@ int		texture_loadsurface(t_context *c, const char **txpath, int p)
 	if (SDL_LockTexture(tex->tex, NULL, (void*)&tex->pixels, &tex->pitch) == 0)
 	{
 		size = tex->pitch * tex->surface->h;
-		ft_bzero(tex->pixels, size);
 		draw_pixelsconvert(tex->pixels, tex->surface->pixels,
 				tex->surface->format->BytesPerPixel, size / 4);
 		texture_convertformat(tex);
@@ -81,6 +79,7 @@ int		texture_loadsurface(t_context *c, const char **txpath, int p)
 ** to a single pixel one
 ** and give them a valid id
 */
+
 int			texture_nullifier(t_texture *tex, int id)
 {
 	tex->surface = SDL_CreateRGBSurface(0, 1, 1, 32, 0x00ff0000,
@@ -99,10 +98,13 @@ void			textures_clean(t_context *c)
 	if (!c->map.tex)
 		return ;
 	p = TEXTURES_COUNT;
-	while ((p--) && (c->map.tex[p].surface))
+	while (p--)
 	{
-		SDL_FreeSurface(c->map.tex[p].surface);
-		SDL_DestroyTexture(c->map.tex[p].tex);
+		if (c->map.tex[p].surface)
+		{
+			SDL_FreeSurface(c->map.tex[p].surface);
+			SDL_DestroyTexture(c->map.tex[p].tex);
+		}
 	}
 	free(c->map.tex);
 	c->map.tex = 0;
