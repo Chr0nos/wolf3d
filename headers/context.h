@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:30:15 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/06 16:13:32 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/22 18:18:40 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct		s_map
 	int				img_count;
 	unsigned int	colors[8][4];
 	int				padding;
+	char			path[256];
 }					t_map;
 
 typedef struct		s_context
