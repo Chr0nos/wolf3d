@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 22:33:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/09 12:16:51 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/24 19:23:11 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int				keydown(int keycode, t_context *c)
 	{
 		if (c->flags & FLAG_DEBUG_KEYS)
 			ft_printf("unknow key code: %d\n", keycode);
-		return (0);
 	}
 	return (0);
 }

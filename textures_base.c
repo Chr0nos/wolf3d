@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/24 14:53:09 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/24 16:35:24 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void			textures_clean(t_context *c)
 		{
 			SDL_FreeSurface(c->map.tex[p].surface);
 			SDL_DestroyTexture(c->map.tex[p].tex);
+			c->map.tex[p].surface = NULL;
 		}
 	}
 	free(c->map.tex);
