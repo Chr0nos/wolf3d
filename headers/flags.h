@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:21:55 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/04 23:50:50 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/24 21:35:17 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 # define TEX_BONES 5
 # define TEX_QUBI 6
 # define TEX_GIRL 7
-# define TEX_SOL 8
+# define TEX_WALL2 8
 
 # define EVENT_SET 0
 # define EVENT_TOGGLE 1

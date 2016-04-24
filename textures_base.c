@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:44:45 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/24 16:35:24 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/04/24 21:31:50 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				textures_load(t_context *c)
 	const char		*txpath[] = { "./jpg/box.jpg", "./textures/gun.xpm",
 	"./textures/zaz.xpm", "./textures/wall.jpg", "./jpg/neko2.png",
 	"./jpg/bones.png", "./jpg/qubi.jpg", "./jpg/girl.png",
-	"./jpg/sol.jpg"};
+	"./textures/wall2.jpg"};
 	unsigned int	p;
 
 	if (!(c->map.tex = malloc(sizeof(t_texture) * TEXTURES_COUNT)))
