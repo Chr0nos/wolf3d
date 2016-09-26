@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 21:59:25 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/23 15:05:16 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/09/26 19:12:29 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ void			set_defaults(t_context *c)
 static int		init_wolf(t_context *c)
 {
 	c->map.tex = NULL;
-	textures_load(c);
-	//if (textures_load(c) < 0)
-	//	return (-1);
 	c->keyboard = 0;
 	set_defaults(c);
 	display_map(c);
@@ -42,6 +39,8 @@ static int		init_wolf(t_context *c)
 		ft_printf("sdl error: %s\n", SDL_GetError());
 		return (-1);
 	}
+	c->d.render = SDL_CreateSoftwareRenderer(c->d.screen);
+	textures_load(c);
 	return (1);
 }
 
@@ -74,9 +73,10 @@ int				main(int ac, char **av)
 		ft_putendl("error: unable to load the file for some reason.");
 		clean_map(&c);
 	}
-	else if ((draw_init(&c.d, draw_make_px(SIZE_X, SIZE_Y), "Wolf3d") > 0) &&
+	else if ((!draw_init(&c.d, (t_v2i){SIZE_X, SIZE_Y}, "Wolf3d")) &&
 		(init_wolf(&c) > 0))
 	{
+		ft_putendl("init ok");
 		while (!sdl_loop(&event, &c))
 			SDL_Delay(1);
 		closer(&c);

@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 13:27:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/16 19:25:09 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/09/26 17:34:29 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** each segment
 */
 
-static void		init_deltas_stepdist(t_ray *ray, t_point px)
+static void		init_deltas_stepdist(t_ray *ray, t_v2i px)
 {
 	if (ray->dir.x < 0)
 	{
@@ -49,7 +49,7 @@ static void		init_deltas_stepdist(t_ray *ray, t_point px)
 ** return the t_point where a wall is encountred
 */
 
-static t_point	init_ray(t_context *c, t_ray *ray, t_point px)
+static t_v2i	init_ray(t_context *c, t_ray *ray, t_v2i px)
 {
 	int			hit;
 
@@ -83,7 +83,7 @@ static int		get_orientation(const t_ray *ray)
 	return (PO_ERROR);
 }
 
-static void		init_dda(t_context *c, t_point px, t_ray *ray)
+static void		init_dda(t_context *c, t_v2i px, t_ray *ray)
 {
 	t_posxy rd;
 
@@ -126,7 +126,7 @@ void			init_display(t_context *c)
 		c->player.raydir.x = c->player.dir.x + c->player.plane.x * camera_x;
 		c->player.raydir.y = c->player.dir.y + c->player.plane.y * camera_x;
 		init_dda(c,
-			draw_make_px((int)c->player.pos.x, (int)c->player.pos.y), &ray);
+			(t_v2i){(int)c->player.pos.x, (int)c->player.pos.y}, &ray);
 		if (ray.dist <= 0.0)
 			return ;
 		ray.h = abs((int)((double)c->d.geometry.y / ray.dist));

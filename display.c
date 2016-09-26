@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 13:40:42 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/21 15:18:05 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/09/26 17:29:24 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static int		texture_get_x(t_context *c, t_ray *ray, const t_texture *tex)
 static void		display_vertical_tex(t_context *c, t_ray *ray, t_line *line)
 {
 	const double	h = (double)c->d.geometry.y;
-	t_point			px;
-	t_point			tpx;
+	t_v2i			px;
+	t_v2i			tpx;
 	t_texture		*tex;
 	unsigned int	color;
 

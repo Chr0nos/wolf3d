@@ -6,12 +6,12 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#    Updated: 2016/04/05 00:01:29 by snicolet         ###   ########.fr        #
+#*   Updated: 2016/09/26 17:55:27 by snicolet         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
 NAME=wolf3d
-FLAGS=-Wall -Wextra -Werror -pipe -Ofast
+FLAGS=-Wall -Wextra -Werror -pipe -Ofast -g3
 DRAW=./libs/draw
 LIBFT=./libs/libft
 SDL=~/.brew/include/

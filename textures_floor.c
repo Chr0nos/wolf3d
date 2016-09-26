@@ -6,7 +6,7 @@
 /*   By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 21:07:37 by snicolet          #+#    #+#             */
-/*   Updated: 2016/04/24 21:21:26 by snicolet         ###   ########.fr       */
+/*   Updated: 2016/09/26 17:39:17 by snicolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		dtf_init(const t_ray *ray, t_posxy *fl)
 	}
 }
 
-static double	display_getcoef(t_point px, const double h, const t_ray *ray)
+static double	display_getcoef(t_v2i px, const double h, const t_ray *ray)
 {
 	double			coefw;
 	double			current_dist;
@@ -56,7 +56,7 @@ void			display_tex_floor(t_context *c, const t_ray *ray,
 	const double	h = (double)c->d.geometry.y;
 	t_posxy			fl;
 	t_posxy			cfl;
-	t_point			px;
+	t_v2i			px;
 	double			coefw;
 
 	dtf_init(ray, &fl);
