@@ -6,7 +6,7 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#*   Updated: 2018/03/10 18:24:14 by snicolet         ###   ########.fr       *#
+#*   Updated: 2018/03/11 16:57:44 by snicolet         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ FLAGS=-Wall -Wextra -Werror -pipe -Ofast -g3
 DRAW=./libs/draw
 LIBFT=./libs/libft
 SDL=~/.brew/include/
-INC=-I./headers -I $(DRAW)/headers/ -I $(LIBFT)/include -I $(SDL)
+INC=-I./headers -I $(DRAW)/headers/ -I $(LIBFT)/include -I $(SDL) -I /usr/local/include/
 CC=clang
-SDLLINK=-L ~/.brew/lib/ -lSDL2 -lSDL2_image
+SDLLINK=-L ~/.brew/lib/ -L /usr/local/lib -lSDL2 -lSDL2_image
 LINKER=$(FLAGS) -L $(LIBFT) -L $(DRAW) -ldraw -lft -lm $(SDLLINK)
 OBJ=main.o closer.o events.o parser.o display_map.o display.o init.o check.o \
 	player_actions.o stats.o popper.o textures.o colors.o fix_y.o textures_base.o \
