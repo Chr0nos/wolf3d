@@ -6,7 +6,7 @@
 #    By: snicolet <snicolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/19 22:06:06 by snicolet          #+#    #+#              #
-#*   Updated: 2016/09/26 17:55:27 by snicolet         ###   ########.fr       *#
+#*   Updated: 2018/03/10 18:24:14 by snicolet         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAGS=-Wall -Wextra -Werror -pipe -Ofast -g3
 DRAW=./libs/draw
 LIBFT=./libs/libft
 SDL=~/.brew/include/
-INC=-I./headers -I $(DRAW)/headers/ -I $(LIBFT) -I $(SDL)
+INC=-I./headers -I $(DRAW)/headers/ -I $(LIBFT)/include -I $(SDL)
 CC=clang
 SDLLINK=-L ~/.brew/lib/ -lSDL2 -lSDL2_image
 LINKER=$(FLAGS) -L $(LIBFT) -L $(DRAW) -ldraw -lft -lm $(SDLLINK)
